@@ -32,4 +32,3 @@ _dlls\		Folder containing KENS compression/decompression DLLs. Written by Magus.
 Disassembly by Hivebrain.
 Thanks: drx, Korama, Lightning, Magus, Nemesis, Stealth
 ----------------------------------------------------------------------------------------
-Remember - always make backups of your ASM files!
