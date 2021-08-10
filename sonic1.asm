@@ -2026,7 +2026,7 @@ PalCycle_Load:				; XREF: Demo; Level_MainLoop; End_MainLoop
 PalCycle:	dc.w PalCycle_GHZ-PalCycle
 		dc.w PalCycle_LZ-PalCycle
 		dc.w PalCycle_MZ-PalCycle
-		dc.w PalCycle_SLZ-PalCycle
+		dc.w PalCycle_MZ-PalCycle
 		dc.w PalCycle_SYZ-PalCycle
 		dc.w PalCycle_SBZ-PalCycle
 		dc.w PalCycle_GHZ-PalCycle
@@ -15607,16 +15607,21 @@ byte_CA5A:	dc.b 6			; MARBLE
 		dc.b $F8, 5, 0,	$26, $10
 		dc.b $F8, 5, 0,	$10, $20
 		dc.b 0
-byte_CA7A:	dc.b 9			; STAR	LIGHT
-		dc.b $F8, 5, 0,	$3E, $B4
-		dc.b $F8, 5, 0,	$42, $C4
-		dc.b $F8, 5, 0,	0, $D4
-		dc.b $F8, 5, 0,	$3A, $E4
-		dc.b $F8, 5, 0,	$26, 4
-		dc.b $F8, 1, 0,	$20, $14
-		dc.b $F8, 5, 0,	$18, $1C
-		dc.b $F8, 5, 0,	$1C, $2C
-		dc.b $F8, 5, 0,	$42, $3C
+byte_CA7A:
+		dc.b $D	;  STAR LIGHT | ROCKY MONTAIN
+		dc.b $F8, 5, 0, $3A, $80	; R
+		dc.b $F8, 5, 0, $32, $90	; O
+		dc.b $F8, 5, 0, 8, $A0		; C
+		dc.b $F8, 5, 0, $22, $B0	; K
+		dc.b $F8, 5, 0, $4A, $C0	; Y
+		dc.b $F8, 0, 0, $56, $D0	; Space
+		dc.b $F8, 5, 0, $2A, $E0	; M
+		dc.b $F8, 5, 0, $32, $F0	; O
+		dc.b $F8, 5, 0, $2E, $0	; N
+		dc.b $F8, 5, 0, $42, $10	; T
+		dc.b $F8, 5, 0, 0, $20		; A
+		dc.b $F8, 1, 0, $20, $30	; I
+		dc.b $F8, 5, 0, $2E, $38	; N
 byte_CAA8:	dc.b $A			; SPRING YARD
 		dc.b $F8, 5, 0,	$3E, $AC
 		dc.b $F8, 5, 0,	$36, $BC
