@@ -15911,8 +15911,6 @@ Obj36_Upright:				; XREF: Obj36_Solid
 		bpl.s	Obj36_Display
 
 Obj36_Hurt:				; XREF: Obj36_SideWays; Obj36_Upright
-		tst.b	($FFFFFE2D).w	; is Sonic invincible?
-		bne.s	Obj36_Display	; if yes, branch
 		move.l	a0,-(sp)
 		movea.l	a0,a2
 		lea	($FFFFD000).w,a0
@@ -36726,7 +36724,7 @@ locret_1C6B6:
 
 
 HudUpdate:
-		tst.w	($FFFFFFFA).w	; is debug mode	on?
+		tst.w    ($FFFFFE08).w    ; is debug mode active?
 		bne.w	HudDebug	; if yes, branch
 		tst.b	($FFFFFE1F).w	; does the score need updating?
 		beq.s	Hud_ChkRings	; if not, branch
@@ -37322,6 +37320,9 @@ Debug_Index:	dc.w Debug_Main-Debug_Index
 ; ===========================================================================
 
 Debug_Main:				; XREF: Debug_Index
+        clr.w   ($FFFFD000+$14).w ; Clear Inertia
+        clr.w   ($FFFFD000+$12).w ; Clear X/Y Speed
+        clr.w   ($FFFFD000+$10).w ; Clear X/Y Speed
 		addq.b	#2,($FFFFFE08).w
 		move.w	($FFFFF72C).w,($FFFFFEF0).w ; buffer level x-boundary
 		move.w	($FFFFF726).w,($FFFFFEF2).w ; buffer level y-boundary
@@ -37467,6 +37468,7 @@ Debug_MakeItem:
 		beq.s	Debug_Exit	; if not, branch
 		jsr	SingleObjLoad
 		bne.s	Debug_Exit
+        clr.b    ($FFFFFC02).w    ; clear 1st entry in object state table
 		move.w	8(a0),8(a1)
 		move.w	$C(a0),$C(a1)
 		move.b	4(a0),0(a1)	; create object
@@ -37485,6 +37487,9 @@ Debug_Exit:
 		beq.s	Debug_DoNothing	; if not, branch
 		moveq	#0,d0
 		move.w	d0,($FFFFFE08).w ; deactivate debug mode
+        bsr.w    Hud_Base
+        move.b    #1,($FFFFFE1D).w
+        move.b    #1,($FFFFFE1F).w
 		move.l	#Map_Sonic,($FFFFD004).w
 		move.w	#$780,($FFFFD002).w
 		move.b	d0,($FFFFD01C).w
@@ -38897,22 +38902,25 @@ Sound_ExIndex:
 ; Play "Say-gaa" PCM sound
 ; ---------------------------------------------------------------------------
 
-Sound_E1:				; XREF: Sound_ExIndex
-		move.b	#$88,($A01FFF).l
-		move.w	#0,($A11100).l	; start	the Z80
-		move.w	#$11,d1
-
-loc_71FC0:
-		move.w	#-1,d0
-
-loc_71FC4:
-		nop	
-		dbf	d0,loc_71FC4
-
-		dbf	d1,loc_71FC0
-
-		addq.w	#4,sp
-		rts	
+Sound_E1:				  
+		lea	(SegaPCM).l,a2			; Load the SEGA PCM sample into a2. It's important that we use a2 since a0 and a1 are going to be used up ahead when reading the joypad ports 
+		move.l	#(SegaPCM_End-SegaPCM),d3			; Load the size of the SEGA PCM sample into d3 
+		move.b	#$2A,($A04000).l		; $A04000 = $2A -> Write to DAC channel	  
+PlayPCM_Loop:	  
+		move.b	(a2)+,($A04001).l		; Write the PCM data (contained in a2) to $A04001 (YM2612 register D0) 
+		move.w	#$13,d0				; Write the pitch ($14 in this case) to d0 
+		dbf	d0,*				; Decrement d0; jump to itself if not 0. (for pitch control, avoids playing the sample too fast)  
+		sub.l	#1,d3				; Subtract 1 from the PCM sample size 
+		beq.s	return_PlayPCM			; If d3 = 0, we finished playing the PCM sample, so stop playing, leave this loop, and unfreeze the 68K 
+		lea	($FFFFF604).w,a0		; address where JoyPad states are written 
+		lea	($A10003).l,a1			; address where JoyPad states are read from 
+		jsr	(Joypad_Read).w			; Read only the first joypad port. It's important that we do NOT do the two ports, we don't have the cycles for that 
+		btst	#7,($FFFFF604).w		; Check for Start button 
+		bne.s	return_PlayPCM			; If start is pressed, stop playing, leave this loop, and unfreeze the 68K 
+		bra.s	PlayPCM_Loop			; Otherwise, continue playing PCM sample 
+return_PlayPCM: 
+		addq.w	#4,sp 
+		rts
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
 ; Play music track $81-$9F
@@ -40723,7 +40731,7 @@ SoundCF:	incbin	sound\soundCF.bin
 SoundD0:	incbin	sound\soundD0.bin
 		even
 SegaPCM:	incbin	sound\segapcm.bin
-		even
+SegaPCM_end:	even
 
 ; end of 'ROM'
 EndOfRom:
