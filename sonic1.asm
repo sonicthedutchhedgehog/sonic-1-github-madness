@@ -9,7 +9,7 @@
 ; Processor:	    68000
 ; Target Assembler: 680x0 Assembler in MRI compatible mode
 ; This file should be compiled with "as	-M"
-; the hell disasm
+; the hell disasm s
 
 ; ===========================================================================
 align macro
