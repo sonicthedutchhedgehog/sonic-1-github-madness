@@ -3159,7 +3159,6 @@ Title_ClrObjRam:
 
 Title_ClrPallet:
 		move.l	d0,(a1)+
-		dbf	d1,Title_ClrPallet ; fill pallet with 0	(black)
 
 		moveq	#3,d0		; load Sonic's pallet
 		bsr.w	PalLoad1
