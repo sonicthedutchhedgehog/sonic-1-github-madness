@@ -23496,7 +23496,7 @@ Obj01_Main:				; XREF: Obj01_Index
 		move.b	#4,1(a0)
 		move.w	#$F00,($FFFFF760).w ; Sonic's top speed
 		move.w	#$F,($FFFFF762).w ; Sonic's acceleration
-		move.w	#$80,($FFFFF764).w ; Sonic's deceleration
+		move.w	#$00,($FFFFF764).w ; Sonic's deceleration
 
 Obj01_Control:				; XREF: Obj01_Index
 		tst.w	($FFFFFFFA).w	; is debug cheat enabled?
