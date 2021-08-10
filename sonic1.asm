@@ -23494,8 +23494,8 @@ Obj01_Main:				; XREF: Obj01_Index
 		move.b	#2,$18(a0)
 		move.b	#$18,$19(a0)
 		move.b	#4,1(a0)
-		move.w	#$600,($FFFFF760).w ; Sonic's top speed
-		move.w	#$C,($FFFFF762).w ; Sonic's acceleration
+		move.w	#$F00,($FFFFF760).w ; Sonic's top speed
+		move.w	#$F,($FFFFF762).w ; Sonic's acceleration
 		move.w	#$80,($FFFFF764).w ; Sonic's deceleration
 
 Obj01_Control:				; XREF: Obj01_Index
