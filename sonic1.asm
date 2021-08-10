@@ -3159,6 +3159,8 @@ Title_ClrPallet:
 
 		moveq	#3,d0		; load Sonic's pallet
 		bsr.w	PalLoad1
+        moveq	#3,d0		; load Sonic's pallet
+		bsr.w	PalLoad2
 		jsr	ObjectsLoad
 		jsr	BuildSprites
 		bsr.w	Pal_FadeTo
