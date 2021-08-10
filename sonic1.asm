@@ -3141,9 +3141,6 @@ Title_ClrObjRam:
 		move.l	#$40000000,($C00004).l
 		lea	(Nem_JapNames).l,a0 ; load Japanese credits
 		bsr.w	NemDec
-		move.l	#$54C00000,($C00004).l
-		lea	(Nem_CreditText).l,a0 ;	load alphabet
-		bsr.w	NemDec
 		lea	($FF0000).l,a1
 		lea	(Eni_JapNames).l,a0 ; load mappings for	Japanese credits
 		move.w	#0,d0
@@ -3162,7 +3159,6 @@ Title_ClrPallet:
 
 		moveq	#3,d0		; load Sonic's pallet
 		bsr.w	PalLoad1
-		move.b	#$8A,($FFFFD080).w ; load "SONIC TEAM PRESENTS"	object
 		jsr	ObjectsLoad
 		jsr	BuildSprites
 		bsr.w	Pal_FadeTo
