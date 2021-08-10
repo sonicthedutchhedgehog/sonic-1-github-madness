@@ -12645,7 +12645,19 @@ Obj2E_RingSound:
 Obj2E_ChkS:
 		cmpi.b	#7,d0		; does monitor contain 'S'
 		bne	Obj2E_ChkGoggles		; if not, branch to Goggle code
-		nop
+		clr.b	$25(a1)
+		move.b	#2,$24(a1)
+		lea	($FFFFD000).w,a2
+		move.w	$12(a0),$12(a2)
+		neg.w	$12(a2)
+		bset	#1,$22(a2)
+		bclr	#3,$22(a2)
+		clr.b	$3C(a2)
+		move.b	#$10,$1C(a2)	; change Sonic's animation to "spring" ($10)
+		move.b	#2,$24(a2)
+		move.w	#$CC,d0
+		jsr	(PlaySound_Special).l ;	play spring sound
+        rts
 
 Obj2E_ChkGoggles:	
 		cmpi.b	#8,d0		; does monitor contain Goggles?
