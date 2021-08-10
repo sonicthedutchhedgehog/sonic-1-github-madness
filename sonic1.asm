@@ -379,8 +379,8 @@ asc_547:	dc.b 'CHK INSTRUCTION    '
 asc_55A:	dc.b 'TRAPV INSTRUCTION  '
 asc_56D:	dc.b 'PRIVILEGE VIOLATION'
 asc_580:	dc.b 'TRACE              '
-asc_593:	dc.b 'LINE 1010 EMULATOR '
-asc_5A6:	dc.b 'LINE 1111 EMULATOR '
+asc_593:	dc.b 'THIS EMULATOR IS SH'
+asc_5A6:	dc.b 'IT THIS EMULATOR IS'
 		even
 
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
