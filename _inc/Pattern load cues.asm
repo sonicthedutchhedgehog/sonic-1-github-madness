@@ -262,8 +262,8 @@ PLC_SBZ:	dc.w $B
 		dc.w $5D00
 		dc.l Nem_Girder		; girder
 		dc.w $5E00
-		dc.l Nem_BallHog	; ball hog enemy
-		dc.w $6040
+		dc.l Nem_Yadrin		; yadrin enemy
+		dc.w $8F60
 		dc.l Nem_SbzWheel1	; spot on large	wheel
 		dc.w $6880
 		dc.l Nem_SbzWheel2	; wheel	that grabs Sonic
@@ -281,7 +281,7 @@ PLC_SBZ:	dc.w $B
 PLC_SBZ2:	dc.w $C
 		dc.l Nem_Cater		; caterkiller enemy
 		dc.w $5600
-		dc.l Nem_Bomb		; bomb enemy
+		dc.l Nem_Crabmeat	; crabmeat enemy
 		dc.w $8000
 		dc.l Nem_Orbinaut	; orbinaut enemy
 		dc.w $8520

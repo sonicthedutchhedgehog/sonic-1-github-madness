@@ -371,14 +371,14 @@ ErrorText:	dc.w asc_4E8-ErrorText,	asc_4FB-ErrorText ; XREF: ShowErrorMsg
 		dc.w asc_580-ErrorText,	asc_593-ErrorText
 		dc.w asc_5A6-ErrorText
 asc_4E8:	dc.b 'ERROR EXCEPTION    '
-asc_4FB:	dc.b 'BUS ERROR          '
+asc_4FB:	dc.b 'VROOM ERROR        '
 asc_50E:	dc.b 'ADDRESS ERROR      '
-asc_521:	dc.b 'ILLEGAL INSTRUCTION'
+asc_521:	dc.b 'WTF LMFAO          '
 asc_534:	dc.b '@ERO DIVIDE        '
 asc_547:	dc.b 'CHK INSTRUCTION    '
 asc_55A:	dc.b 'TRAPV INSTRUCTION  '
 asc_56D:	dc.b 'PRIVILEGE VIOLATION'
-asc_580:	dc.b 'TRACE              '
+asc_580:	dc.b 'TRACERS ARE BAD    '
 asc_593:	dc.b 'THIS EMULATOR IS SH'
 asc_5A6:	dc.b 'IT THIS EMULATOR IS'
 		even
@@ -12554,13 +12554,18 @@ Obj2E_Move:				; XREF: Obj2E_Index
 		rts	
 ; ===========================================================================
 
-Obj2E_ChkEggman:			; XREF: Obj2E_Move
-		addq.b	#2,$24(a0)
-		move.w	#29,$1E(a0)
-		move.b	$1C(a0),d0
-		cmpi.b	#1,d0		; does monitor contain Eggman?
-		bne.s	Obj2E_ChkSonic
-		rts			; Eggman monitor does nothing
+Obj2E_ChkEggman:    ; XREF: Obj2E_Move
+        addq.b    #2,$24(a0)
+        move.w    #29,$1E(a0)
+        move.b    $1C(a0),d0
+        cmpi.b    #1,d0; does monitor contain Eggman?
+        bne.s    Obj2E_ChkSonic ; if not, go and check for the next monitor type (1-up icon)
+        move.l    a0,a1 ; move a0 to a1, because Touch_ChkHurt wants the damaging object to be in a1
+        move.l    a0,-(sp) ; push a0 on the stack, and decrement stack pointer
+        lea    ($FFFFD000).w,a0 ; put Sonic's ram address in a0, because Touch_ChkHurt wants the damaged object to be in a0
+        jsr    Touch_ChkHurt ; run the Touch_ChkHurt routine
+        move.l    (sp)+,a0 ; pop the previous value of a0 from the stack, and increment stack pointer
+        rts ; The Eggman monitor now does something!
 ; ===========================================================================
 
 Obj2E_ChkSonic:
@@ -12639,7 +12644,12 @@ Obj2E_RingSound:
 
 Obj2E_ChkS:
 		cmpi.b	#7,d0		; does monitor contain 'S'
-		bne.s	Obj2E_ChkEnd
+		bne	Obj2E_ChkGoggles		; if not, branch to Goggle code
+		nop
+
+Obj2E_ChkGoggles:	
+		cmpi.b	#8,d0		; does monitor contain Goggles?
+		bne	Obj2E_ChkEnd		; if not, branch to ChkEnd
 		nop	
 
 Obj2E_ChkEnd:
@@ -23688,6 +23698,7 @@ loc_12E0E:
 ; ---------------------------------------------------------------------------
 
 Obj01_MdNormal:				; XREF: Obj01_Modes
+		bsr.w	Sonic_SpinDash
 		bsr.w	Sonic_Jump
 		bsr.w	Sonic_SlopeResist
 		bsr.w	Sonic_Move
@@ -24284,13 +24295,19 @@ loc_13336:
 ; ===========================================================================
 
 Boundary_Bottom:
-		cmpi.w	#$501,($FFFFFE10).w ; is level SBZ2 ?
-		bne.w	KillSonic	; if not, kill Sonic
+		move.w	($FFFFF726).w,d0
+		move.w	($FFFFF72E).w,d1
+		cmp.w	d0,d1			; screen still scrolling down?
+		blt.s	Boundary_Bottom_locret	; if so, don't kill Sonic
+		cmpi.w	#$501,($FFFFFE10).w	; is level SBZ2 ?
+		bne.w	KillSonic		; if not, kill Sonic
 		cmpi.w	#$2000,($FFFFD008).w
 		bcs.w	KillSonic
-		clr.b	($FFFFFE30).w	; clear	lamppost counter
-		move.w	#1,($FFFFFE02).w ; restart the level
-		move.w	#$103,($FFFFFE10).w ; set level	to SBZ3	(LZ4)
+		clr.b	($FFFFFE30).w		; clear lamppost counter
+		move.w	#1,($FFFFFE02).w	; restart the level
+		move.w	#$103,($FFFFFE10).w	; set level to SBZ3 (LZ4)
+
+Boundary_Bottom_locret:
 		rts	
 ; ===========================================================================
 
@@ -24442,7 +24459,118 @@ loc_134C4:
 locret_134D2:
 		rts	
 ; End of function Sonic_JumpHeight
+; ---------------------------------------------------------------------------
+; Subroutine to make Sonic perform a spindash
+; ---------------------------------------------------------------------------
 
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
+
+
+Sonic_SpinDash:
+		tst.b	$39(a0)
+		bne.s	loc_1AC8E
+		cmpi.b	#8,$1C(a0)
+		bne.s	locret_1AC8C
+		move.b	($FFFFF603).w,d0
+		andi.b	#$70,d0
+		beq.w	locret_1AC8C
+		move.b	#2,$1C(a0)
+		move.w	#$BE,d0
+		jsr	(PlaySound_Special).l
+		addq.l	#4,sp
+		move.b	#1,$39(a0)
+		move.w	#0,$3A(a0)
+		cmpi.b	#$C,$28(a0)
+		bcs.s	loc_1AC84
+		move.b	#2,($FFFFD11C).w
+
+loc_1AC84:
+		bsr.w	Sonic_LevelBound
+		bsr.w	Sonic_AnglePos
+
+locret_1AC8C:
+		rts	
+; ---------------------------------------------------------------------------
+
+loc_1AC8E:
+		move.b	($FFFFF602).w,d0
+		btst	#1,d0
+		bne.w	loc_1AD30
+		move.b	#$E,$16(a0)
+		move.b	#7,$17(a0)
+		move.b	#2,$1C(a0)
+		addq.w	#5,$C(a0)
+		move.b	#0,$39(a0)
+		moveq	#0,d0
+		move.b	$3A(a0),d0
+		add.w	d0,d0
+		move.w	Dash_Speeds(pc,d0.w),$14(a0)
+		move.w	$14(a0),d0
+		subi.w	#$800,d0
+		add.w	d0,d0
+		andi.w	#$1F00,d0
+		neg.w	d0
+		addi.w	#$2000,d0
+		move.w	d0,($FFFFEED0).w
+		btst	#0,$22(a0)
+		beq.s	loc_1ACF4
+		neg.w	$14(a0)
+
+loc_1ACF4:
+		bset	#2,$22(a0)
+		move.b	#0,($FFFFD11C).w
+		move.w	#$BC,d0
+		jsr	(PlaySound_Special).l
+		bra.s	loc_1AD78
+; ===========================================================================
+Dash_Speeds:	dc.w  $800		; 0
+		dc.w  $880		; 1
+		dc.w  $900		; 2
+		dc.w  $980		; 3
+		dc.w  $A00		; 4
+		dc.w  $A80		; 5
+		dc.w  $B00		; 6
+		dc.w  $B80		; 7
+		dc.w  $C00		; 8
+; ===========================================================================
+
+loc_1AD30:				; If still charging the dash...
+		tst.w	$3A(a0)
+		beq.s	loc_1AD48
+		move.w	$3A(a0),d0
+		lsr.w	#5,d0
+		sub.w	d0,$3A(a0)
+		bcc.s	loc_1AD48
+		move.w	#0,$3A(a0)
+
+loc_1AD48:
+		move.b	($FFFFF603).w,d0
+		andi.b	#$70,d0	; 'p'
+		beq.w	loc_1AD78
+		move.w	#$900,$1C(a0)
+		move.w	#$BE,d0	; 'à'
+		jsr	(PlaySound_Special).l
+		addi.w	#$200,$3A(a0)
+		cmpi.w	#$800,$3A(a0)
+		bcs.s	loc_1AD78
+		move.w	#$800,$3A(a0)
+
+loc_1AD78:
+		addq.l	#4,sp
+		cmpi.w	#$60,($FFFFEED8).w
+		beq.s	loc_1AD8C
+		bcc.s	loc_1AD88
+		addq.w	#4,($FFFFEED8).w
+
+loc_1AD88:
+		subq.w	#2,($FFFFEED8).w
+
+loc_1AD8C:
+		bsr.w	Sonic_LevelBound
+		bsr.w	Sonic_AnglePos
+		move.w #$60,($FFFFF73E).w
+		rts
+; End of subroutine Sonic_SpinDash
 ; ---------------------------------------------------------------------------
 ; Subroutine to	slow Sonic walking up a	slope
 ; ---------------------------------------------------------------------------
@@ -34671,6 +34799,7 @@ Hurt_Reverse:
 		neg.w	$10(a0)		; if Sonic is right of the object, reverse
 
 Hurt_ChkSpikes:
+		move.b	#0,$39(a0)	; clear Spin Dash flag
 		move.w	#0,$14(a0)
 		move.b	#$1A,$1C(a0)
 		move.w	#$78,$30(a0)
