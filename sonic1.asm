@@ -47,7 +47,7 @@ SRAMSupport:	dc.l $20202020		; change to $5241E020 to create	SRAM
 		dc.l $20202020		; SRAM start
 		dc.l $20202020		; SRAM end
 Notes:		dc.b '                                                    '
-Region:		dc.b 'JUE             ' ; Region
+Region:		dc.b 'E               ' ; Region
 
 ; ===========================================================================
 
