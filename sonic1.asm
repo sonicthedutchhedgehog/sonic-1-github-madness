@@ -15911,8 +15911,6 @@ Obj36_Upright:				; XREF: Obj36_Solid
 		bpl.s	Obj36_Display
 
 Obj36_Hurt:				; XREF: Obj36_SideWays; Obj36_Upright
-		tst.b	($FFFFFE2D).w	; is Sonic invincible?
-		bne.s	Obj36_Display	; if yes, branch
 		move.l	a0,-(sp)
 		movea.l	a0,a2
 		lea	($FFFFD000).w,a0
@@ -36726,7 +36724,7 @@ locret_1C6B6:
 
 
 HudUpdate:
-		tst.w	($FFFFFFFA).w	; is debug mode	on?
+		tst.w    ($FFFFFE08).w    ; is debug mode active?
 		bne.w	HudDebug	; if yes, branch
 		tst.b	($FFFFFE1F).w	; does the score need updating?
 		beq.s	Hud_ChkRings	; if not, branch
@@ -37322,6 +37320,9 @@ Debug_Index:	dc.w Debug_Main-Debug_Index
 ; ===========================================================================
 
 Debug_Main:				; XREF: Debug_Index
+        clr.w   ($FFFFD000+$14).w ; Clear Inertia
+        clr.w   ($FFFFD000+$12).w ; Clear X/Y Speed
+        clr.w   ($FFFFD000+$10).w ; Clear X/Y Speed
 		addq.b	#2,($FFFFFE08).w
 		move.w	($FFFFF72C).w,($FFFFFEF0).w ; buffer level x-boundary
 		move.w	($FFFFF726).w,($FFFFFEF2).w ; buffer level y-boundary
@@ -37467,6 +37468,7 @@ Debug_MakeItem:
 		beq.s	Debug_Exit	; if not, branch
 		jsr	SingleObjLoad
 		bne.s	Debug_Exit
+        clr.b    ($FFFFFC02).w    ; clear 1st entry in object state table
 		move.w	8(a0),8(a1)
 		move.w	$C(a0),$C(a1)
 		move.b	4(a0),0(a1)	; create object
@@ -37485,6 +37487,9 @@ Debug_Exit:
 		beq.s	Debug_DoNothing	; if not, branch
 		moveq	#0,d0
 		move.w	d0,($FFFFFE08).w ; deactivate debug mode
+        bsr.w    Hud_Base
+        move.b    #1,($FFFFFE1D).w
+        move.b    #1,($FFFFFE1F).w
 		move.l	#Map_Sonic,($FFFFD004).w
 		move.w	#$780,($FFFFD002).w
 		move.b	d0,($FFFFD01C).w
