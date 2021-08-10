@@ -15579,12 +15579,11 @@ Map_obj34:	dc.w byte_C9FE-Map_obj34
 		dc.w byte_CB3C-Map_obj34
 		dc.w byte_CB47-Map_obj34
 		dc.w byte_CB8A-Map_obj34
-byte_C9FE:	dc.b 9 			; GREEN HILL
-		dc.b $F8, 5, 0,	$18, $B4
-		dc.b $F8, 5, 0,	$3A, $C4
-		dc.b $F8, 5, 0,	$10, $D4
-		dc.b $F8, 5, 0,	$10, $E4
-		dc.b $F8, 5, 0,	$2E, $F4
+byte_C9FE:	dc.b 8   		; TURD HILL
+		dc.b $F8, 5, 0,	$42, $C4
+		dc.b $F8, 5, 0,	$46, $D4
+		dc.b $F8, 5, 0,	$3A, $E4
+		dc.b $F8, 5, 0,	$0C, $F4
 		dc.b $F8, 5, 0,	$1C, $14
 		dc.b $F8, 1, 0,	$20, $24
 		dc.b $F8, 5, 0,	$26, $2C
