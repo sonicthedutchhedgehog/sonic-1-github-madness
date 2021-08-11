@@ -3392,12 +3392,12 @@ Title_CheckForB:
 		bne.s	StartCheck		; if not, branch
 
 Title_SecondCharacter:
-		cmpi.b  #$00, ($FFFFFFF9).w ; are we snorc
-		bne.s	SonicSwitcheroo 	; if not, become snorc
+		tst.b  	($FFFFFFF9).w ; are we snorc
+		bne.b	Title_Switcheroo 	; if not, become snorc
 		move.b	#$00, ($FFFFFFF9).w	; switch character from sonic to snorc and back (to do)
 		move.b	#$A3,d0			; put value of ring sound into d0
 		bsr.w	PlaySound_Special	; jump to the subroutine that plays the sound currently in d0 ($B5, at the moment)
-SonicSwitcheroo:		
+Title_Switcheroo:	
 		move.b	#$04, ($FFFFFFF9).w	; switch character from sonic to snorc and back (to do)
 		move.b	#$B5,d0			; put value of ring sound into d0
 		bsr.w	PlaySound_Special	; jump to the subroutine that plays the sound currently in d0 ($B5, at the moment)
@@ -37862,7 +37862,12 @@ Debug_Exit:
         bsr.w    Hud_Base
         move.b    #1,($FFFFFE1D).w
         move.b    #1,($FFFFFE1F).w
-		move.l	#Map_Sonic,($FFFFD004).w
+		moveq   #0,d0           ; quickly clear d0
+        move.b  Current_Character.w,d0  ; get character ID
+ 
+        move.l  #Player_MapLoc,a1   ; get players mapping location array
+        add.l   d0,a1           ; get correct mapping for player
+        move.l  (a1),4(a0)      ; put it to Sonic's mappings
 		move.w	#$780,($FFFFD002).w
 		move.b	d0,($FFFFD01C).w
 		move.w	d0,$A(a0)
