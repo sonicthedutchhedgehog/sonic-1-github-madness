@@ -3293,7 +3293,7 @@ Title_LoadText:
 		move.w	#$178,($FFFFF614).w ; run title	screen for $178	frames
 		lea	($FFFFD080).w,a1
 		moveq	#0,d0
-		move.w	#7,d1
+		move.w	#$F,d1	; ($40 / 4) - 1
 
 Title_ClrObjRam2:
 		move.l	d0,(a1)+
