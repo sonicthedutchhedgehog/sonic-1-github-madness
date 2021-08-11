@@ -23695,9 +23695,20 @@ Obj01_Main:				; XREF: Obj01_Index
 		move.b	#2,$18(a0)
 		move.b	#$18,$19(a0)
 		move.b	#4,1(a0)
+		
+		cmpi.b  #$04, ($FFFFFFF9).w ; are we snorc
+		beq.b	Snorc_Vars 	; if so, become snorc
+		
+Sos_Vars:
 		move.w	#$F00,($FFFFF760).w ; Sonic's top speed
-		move.w	#$F,($FFFFF762).w ; Sonic's acceleration
+		move.w	#$C,($FFFFF762).w ; Sonic's acceleration
 		move.w	#$80,($FFFFF764).w ; Sonic's deceleration
+		jmp Obj01_Control		; Jump to control routine so we dont overwrite our variables with Snorc's
+		
+Snorc_Vars:
+		move.w	#$600,($FFFFF760).w ; Snorc's top speed
+		move.w	#$C,($FFFFF762).w ; Snorc's Acceleration
+		move.w	#$80,($FFFFF764).w ; Snorc's Decelleration
 
 Obj01_Control:				; XREF: Obj01_Index
 		tst.w	($FFFFFFFA).w	; is debug cheat enabled?
@@ -23800,8 +23811,19 @@ Obj01_ChkShoes:
 		subq.w	#1,$34(a0)	; subtract 1 from time
 		bne.s	Obj01_ExitChk
 		move.w	#$600,($FFFFF760).w ; restore Sonic's speed
+		cmpi.b  #$04, ($FFFFFFF9).w ; are we snorc
+		beq.b	Snorc_After_Speed 	; if so, become snorc
+		
+Sos_After_Speed:
 		move.w	#$C,($FFFFF762).w ; restore Sonic's acceleration
 		move.w	#$80,($FFFFF764).w ; restore Sonic's deceleration
+		jmp	Obj01_ShoesOver
+
+Snorc_After_Speed:
+		move.w	#$C,($FFFFF762).w ; restore Sonic's acceleration
+		move.w	#$80,($FFFFF764).w ; restore Sonic's deceleration
+
+Obj01_ShoesOver:
 		move.b	#0,($FFFFFE2E).w ; cancel speed	shoes
 		move.w	#$E3,d0
 		jmp	(PlaySound).l	; run music at normal speed
@@ -23877,9 +23899,18 @@ Obj01_OutWater:
 		bclr	#6,$22(a0)
 		beq.s	locret_12D80
 		bsr.w	ResumeMusic
+		cmpi.b  #$04, ($FFFFFFF9).w ; are we snorc
+		bne.b	Obj01_OutWaterSos 	; if not, become snorc
+Obj01_OutWaterSnorc
 		move.w	#$600,($FFFFF760).w ; restore Sonic's speed
 		move.w	#$C,($FFFFF762).w ; restore Sonic's acceleration
 		move.w	#$80,($FFFFF764).w ; restore Sonic's deceleration
+		jmp Obj01_OutWaterEnd
+Obj01_OutWaterSos
+		move.w	#$F00,($FFFFF760).w ; restore Sonic's top speed
+		move.w	#$C,($FFFFF762).w ; restore Sonic's acceleration
+		move.w	#$80,($FFFFF764).w ; restore Sonic's deceleration
+Obj01_OutWaterEnd:
 		asl	$12(a0)
 		beq.w	locret_12D80
 		move.b	#8,($FFFFD300).w ; load	splash object

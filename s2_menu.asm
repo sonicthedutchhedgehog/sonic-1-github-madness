@@ -635,7 +635,7 @@ Menu_Text_Positions:
 Menu_Level_Select_Text: 
                 dc.b    $0E, _T, _U, _R, _D, __, __, _H, _I, _L, _L, __, __, __, __, __
                 dc.b    $0E, _B, _L, _U, _E, __, __, _H, _I, _L, _L, __, __, __, __, __
-                dc.b    $0E, _S, _P, _R, _I, _N, _G, __, _Y, _A, _R, _D, __, __, __, __
+                dc.b    $0E, _S, _U, _S, __, _Y, _A, _R, _D, __, _L, _O, _L, __, _X, _D
                 dc.b    $0E, _B, _L, _U, _E, __, __, _O, _C, _E, _A, _N, __, __, __, __
                 dc.b    $0E, _R, _O, _C, _K, _Y, __, _M, _O, _U, _N, _T, _I, _A, _N, __
                 dc.b    $0E, _S, _C, _R, _A, _P, __, _B, _R, _A, _I, _N, __, __, __, __
