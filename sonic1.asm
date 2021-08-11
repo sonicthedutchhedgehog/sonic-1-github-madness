@@ -23674,8 +23674,8 @@ Obj01_InWater:
 		bsr.w	ResumeMusic
 		move.b	#$A,($FFFFD340).w ; load bubbles object	from Sonic's mouth
 		move.b	#$81,($FFFFD368).w
-		move.w	#$300,($FFFFF760).w ; change Sonic's top speed
-		move.w	#6,($FFFFF762).w ; change Sonic's acceleration
+		move.w	#$10,($FFFFF760).w ; change Sonic's top speed
+		move.w	#10,($FFFFF762).w ; change Sonic's acceleration
 		move.w	#$40,($FFFFF764).w ; change Sonic's deceleration
 		asr	$10(a0)
 		asr	$12(a0)
