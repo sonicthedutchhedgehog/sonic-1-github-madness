@@ -15820,19 +15820,19 @@ Map_obj7E:	dc.w byte_CCAC-Map_obj7E
 		dc.w byte_CD6B-Map_obj7E
 		dc.w byte_CDA8-Map_obj7E
 byte_CCAC:	dc.b $D			; "CHAOS EMERALDS"
-		dc.b $F8, 5, 0,	8, $90
-		dc.b $F8, 5, 0,	$1C, $A0
-		dc.b $F8, 5, 0,	0, $B0
-		dc.b $F8, 5, 0,	$32, $C0
-		dc.b $F8, 5, 0,	$3E, $D0
-		dc.b $F8, 5, 0,	$10, $F0
-		dc.b $F8, 5, 0,	$2A, 0
-		dc.b $F8, 5, 0,	$10, $10
-		dc.b $F8, 5, 0,	$3A, $20
-		dc.b $F8, 5, 0,	0, $30
-		dc.b $F8, 5, 0,	$26, $40
-		dc.b $F8, 5, 0,	$C, $50
-		dc.b $F8, 5, 0,	$3E, $60
+		dc.b $F8, 5, 0,	36, $90
+		dc.b $F8, 5, 0,	20, $A0
+		dc.b $F8, 5, 0,	$3E, $B0
+		dc.b $F8, 5, 0,	$3E, $C0
+		dc.b $F8, 5, 0,	56, $D0
+		dc.b $F8, 5, 0,	$3A, $F0
+		dc.b $F8, 5, 0,	32, 0
+		dc.b $F8, 5, 0,	08, $10
+		dc.b $F8, 5, 0,	22, $20
+		dc.b $F8, 5, 0,	$3E, $30
+		dc.b $F8, 5, 0,	56, $40
+		dc.b $F8, 5, 0,	56, $50
+		dc.b $F8, 5, 0,	56, $60
 byte_CCEE:	dc.b 6			; "SCORE"
 		dc.b $F8, $D, 1, $4A, $B0
 		dc.b $F8, 1, 1,	$62, $D0
