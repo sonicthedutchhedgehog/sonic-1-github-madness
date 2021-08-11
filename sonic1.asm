@@ -18303,7 +18303,7 @@ Obj0D_Touch:				; XREF: Obj0D_Index
 		move.w	($FFFFD008).w,d0
 		sub.w	8(a0),d0
 		bcs.s	locret_EBBA
-		cmpi.w	#$0,d0		; is Sonic within $20 pixels of	the signpost?
+		cmpi.w	#$1,d0		; is Sonic within $20 pixels of	the signpost?
 		bcc.s	locret_EBBA	; if not, branch
 		move.w	#$CF,d0
 		jsr	(PlaySound).l	; play signpost	sound
