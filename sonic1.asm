@@ -24470,11 +24470,7 @@ loc_1341C:
 		move.b	#$E,$16(a0)
 		move.b	#7,$17(a0)
 <<<<<<< HEAD
-<<<<<<< HEAD
 		move.b	#$2,$1C(a2)	; change Sonic's animation to "spring" ($10)
-=======
-		move.b	#2,$1C(a0)	; use "jumping"	animation
->>>>>>> parent of 846aa48 (we do a little trolling)
 =======
 		move.b	#2,$1C(a0)	; use "jumping"	animation
 >>>>>>> parent of 846aa48 (we do a little trolling)
