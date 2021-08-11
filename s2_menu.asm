@@ -168,8 +168,8 @@ Menu_Loop_Load_Wings:
                 clr.b   ($FFFFF711).w
                 clr.w   ($FFFFF7F0).w
 ;------------------------------------------------------------------------------- 
-                move.w  #$0000, ($FFFFF7B8).w  ; Inicializa os quadros das animações do menu
-                move.w  #$0000, ($FFFFF7B9).w  ; Inicializa o contador das animações do menu 
+                ;move.w  #$0000, ($FFFFF7B8).w  ; Inicializa os quadros das animações do menu
+                ;move.w  #$0000, ($FFFFF7B9).w  ; Inicializa o contador das animações do menu 
                 jsr     Dynamic_Menu           ; Chama a rotina de animação
 ;-------------------------------------------------------------------------------
 
