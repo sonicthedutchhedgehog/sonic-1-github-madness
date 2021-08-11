@@ -3392,7 +3392,13 @@ Title_CheckForB:
 		bne.s	StartCheck		; if not, branch
 
 Title_SecondCharacter:
-		move.b	#$04, ($FFFFFFF9).w	; set the multiple character flag to $01 (indicating Metal Sonic)
+		cmpi.b  #$00, ($FFFFFFF9).w ; are we snorc
+		bne.s	SonicSwitcheroo 	; if not, become snorc
+		move.b	#$00, ($FFFFFFF9).w	; switch character from sonic to snorc and back (to do)
+		move.b	#$A3,d0			; put value of ring sound into d0
+		bsr.w	PlaySound_Special	; jump to the subroutine that plays the sound currently in d0 ($B5, at the moment)
+SonicSwitcheroo:		
+		move.b	#$04, ($FFFFFFF9).w	; switch character from sonic to snorc and back (to do)
 		move.b	#$B5,d0			; put value of ring sound into d0
 		bsr.w	PlaySound_Special	; jump to the subroutine that plays the sound currently in d0 ($B5, at the moment)
 
