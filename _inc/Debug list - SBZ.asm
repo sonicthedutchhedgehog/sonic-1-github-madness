@@ -56,8 +56,8 @@
 	dc.b 0,	0, $42,	$F0
 	dc.l Map_obj71+$71000000
 	dc.b $11, 0, $86, $80
-	dc.l Map_obj1E+$1E000000
-	dc.b 4,	0, $23,	2
+	dc.l Map_obj1F+$1F000000
+	dc.b 0,	0, 4, 0
 	dc.l Map_obj79+$79000000
 	dc.b 1,	0, 7, $A0
 	even
