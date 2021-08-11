@@ -24469,7 +24469,7 @@ loc_1341C:
 		bne.s	loc_13490
 		move.b	#$E,$16(a0)
 		move.b	#7,$17(a0)
-		move.b	#$2,$1C(a2)	; change Sonic's animation to "spring" ($10)
+		move.b	#$2,$1C(a0)	; change Sonic's animation to "spring" ($10)
 		bset	#2,$22(a0)
 		addq.w	#5,$C(a0)
 
