@@ -5,7 +5,7 @@
 	dc.l Map_obj25+$25000000
 	dc.b 0,	0, $27,	$B2
 	dc.l Map_obj26+$26000000
-	dc.b 0,	0, 6, $80
+	dc.b 1,	0, 6, $80
 	dc.l Map_obj22+$22000000
 	dc.b 0,	0, 4, $44
 	dc.l Map_obj36+$36000000
