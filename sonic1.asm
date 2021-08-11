@@ -2778,86 +2778,123 @@ Pal_Sega2:	incbin	pallet\sega2.bin
 
 
 PalLoad1:
-		lea	(PalPointers).l,a1
-		lsl.w	#3,d0
-		adda.w	d0,a1
-		movea.l	(a1)+,a2
-		movea.w	(a1)+,a3
-		adda.w	#$80,a3
-		move.w	(a1)+,d7
+		move.b ($FFFFFE11),d1
+		lea (PalPointers).l,a1
+		cmp.b #0,d1
+		beq.w PalLoad1_Continue
+		lea (PalPointers2).l,a1
+		cmp.b #1,d1
+		beq.w PalLoad1_Continue
+		lea (PalPointers3).l,a1
+
+PalLoad1_Continue:
+		lsl.w #3,d0
+		adda.w d0,a1
+		movea.l (a1)+,a2
+		movea.w (a1)+,a3
+		adda.w #$80,a3
+		move.w (a1)+,d7
 
 loc_2110:
-		move.l	(a2)+,(a3)+
-		dbf	d7,loc_2110
-		rts	
-; End of function PalLoad1
+		move.l (a2)+,(a3)+
+		dbf d7,loc_2110
+		rts
+ ; End of function PalLoad1
 
 
-; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
-
+; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
 
 PalLoad2:
-		lea	(PalPointers).l,a1
-		lsl.w	#3,d0
-		adda.w	d0,a1
-		movea.l	(a1)+,a2
-		movea.w	(a1)+,a3
-		move.w	(a1)+,d7
+		move.b ($FFFFFE11),d1
+		lea (PalPointers).l,a1
+		cmp.b #0,d1
+		beq.w PalLoad2_Continue
+		lea (PalPointers2).l,a1
+		cmp.b #1,d1
+		beq.w PalLoad2_Continue
+		lea (PalPointers3).l,a1
+
+
+PalLoad2_Continue:
+		lsl.w #3,d0
+		adda.w d0,a1
+		movea.l (a1)+,a2
+		movea.w (a1)+,a3
+		move.w (a1)+,d7
 
 loc_2128:
-		move.l	(a2)+,(a3)+
-		dbf	d7,loc_2128
-		rts	
+		move.l (a2)+,(a3)+
+		dbf d7,loc_2128
+		rts
 ; End of function PalLoad2
+
 
 ; ---------------------------------------------------------------------------
 ; Underwater pallet loading subroutine
 ; ---------------------------------------------------------------------------
 
-; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
-
+; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
 
 PalLoad3_Water:
-		lea	(PalPointers).l,a1
-		lsl.w	#3,d0
-		adda.w	d0,a1
-		movea.l	(a1)+,a2
-		movea.w	(a1)+,a3
-		suba.w	#$80,a3
-		move.w	(a1)+,d7
+		move.b ($FFFFFE11),d1
+		lea (PalPointers).l,a1
+		cmp.b #0,d1
+		beq.w PalLoad3_Continue
+		lea (PalPointers2).l,a1
+		cmp.b #1,d1
+		beq.w PalLoad3_Continue
+		lea (PalPointers3).l,a1
+
+PalLoad3_Continue:
+		lsl.w #3,d0
+		adda.w d0,a1
+		movea.l (a1)+,a2
+		movea.w (a1)+,a3
+		suba.w #$80,a3
+		move.w (a1)+,d7
 
 loc_2144:
-		move.l	(a2)+,(a3)+
-		dbf	d7,loc_2144
-		rts	
+		move.l (a2)+,(a3)+
+		dbf d7,loc_2144
+		rts
 ; End of function PalLoad3_Water
 
 
-; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
 
 
 PalLoad4_Water:
-		lea	(PalPointers).l,a1
-		lsl.w	#3,d0
-		adda.w	d0,a1
-		movea.l	(a1)+,a2
-		movea.w	(a1)+,a3
-		suba.w	#$100,a3
-		move.w	(a1)+,d7
+		move.b ($FFFFFE11),d1
+		lea (PalPointers).l,a1
+		cmp.b #0,d1
+		beq.w PalLoad4_Continue
+		lea (PalPointers2).l,a1
+		cmp.b #1,d1
+		beq.w PalLoad4_Continue
+		lea (PalPointers3).l,a1
 
+PalLoad4_Continue:
+		lsl.w #3,d0
+		adda.w d0,a1
+		movea.l (a1)+,a2
+		movea.w (a1)+,a3
+		suba.w #$100,a3
+		move.w (a1)+,d7
 loc_2160:
-		move.l	(a2)+,(a3)+
-		dbf	d7,loc_2160
-		rts	
-; End of function PalLoad4_Water
-
+		move.l (a2)+,(a3)+
+		dbf d7,loc_2160
+		rts
+ ; End of function PalLoad4_Water
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
 ; Pallet pointers
 ; ---------------------------------------------------------------------------
 PalPointers:
 	include "_inc\Pallet pointers.asm"
-
+PalPointers2:
+		include "_inc\Pallet pointers2.asm"
+PalPointers3:
+		include "_inc\Pallet pointers3.asm"
 ; ---------------------------------------------------------------------------
 ; Pallet data
 ; ---------------------------------------------------------------------------
@@ -2866,17 +2903,31 @@ Pal_Title:	incbin	pallet\title.bin
 Pal_LevelSel:	incbin	pallet\levelsel.bin
 Pal_Sonic:	incbin	pallet\sonic.bin
 Pal_GHZ:	incbin	pallet\ghz.bin
+Pal_GHZ2:	incbin	pallet\ghz.bin
+Pal_GHZ3:	incbin	pallet\ghz.bin
 Pal_LZ:		incbin	pallet\lz.bin
+Pal_LZ2:	incbin	pallet\lz.bin
+Pal_LZ3:	incbin	pallet\lz.bin
 Pal_LZWater:	incbin	pallet\lz_uw.bin	; LZ underwater pallets
+Pal_LZWater2:	incbin	pallet\lz_uw.bin	; LZ underwater pallets
+Pal_LZWater3:	incbin	pallet\lz_uw.bin	; LZ underwater pallets
 Pal_MZ:		incbin	pallet\mz.bin
+Pal_MZ2:	incbin	pallet\mz.bin
+Pal_MZ3:	incbin	pallet\mz.bin
 Pal_SLZ:	incbin	pallet\slz.bin
+Pal_SLZ2:	incbin	pallet\slz2.bin
+Pal_SLZ3:	incbin	pallet\slz2.bin
 Pal_SYZ:	incbin	pallet\syz.bin
+Pal_SYZ2:	incbin	pallet\syz.bin
+Pal_SYZ3:	incbin	pallet\syz.bin
 Pal_SBZ1:	incbin	pallet\sbz_act1.bin	; SBZ act 1 pallets
 Pal_SBZ2:	incbin	pallet\sbz_act2.bin	; SBZ act 2 & Final Zone pallets
 Pal_Special:	incbin	pallet\special.bin	; special stage pallets
 Pal_SBZ3:	incbin	pallet\sbz_act3.bin	; SBZ act 3 pallets
 Pal_SBZ3Water:	incbin	pallet\sbz_a3uw.bin	; SBZ act 3 (underwater) pallets
 Pal_LZSonWater:	incbin	pallet\son_lzuw.bin	; Sonic (underwater in LZ) pallet
+Pal_LZSonWater2:incbin	pallet\son_lzuw.bin	; Sonic (underwater in LZ) pallet
+Pal_LZSonWater3:incbin	pallet\son_lzuw.bin	; Sonic (underwater in LZ) pallet
 Pal_SBZ3SonWat:	incbin	pallet\son_sbzu.bin	; Sonic (underwater in SBZ act 3) pallet
 Pal_SpeResult:	incbin	pallet\ssresult.bin	; special stage results screen pallets
 Pal_SpeContinue:incbin	pallet\sscontin.bin	; special stage results screen continue pallet
@@ -18252,12 +18303,11 @@ Obj0D_Touch:				; XREF: Obj0D_Index
 		move.w	($FFFFD008).w,d0
 		sub.w	8(a0),d0
 		bcs.s	locret_EBBA
-		cmpi.w	#$20,d0		; is Sonic within $20 pixels of	the signpost?
+		cmpi.w	#$0,d0		; is Sonic within $20 pixels of	the signpost?
 		bcc.s	locret_EBBA	; if not, branch
 		move.w	#$CF,d0
 		jsr	(PlaySound).l	; play signpost	sound
-		clr.b	($FFFFFE1E).w	; stop time counter
-		move.w	($FFFFF72A).w,($FFFFF728).w ; lock screen position
+
 		addq.b	#2,$24(a0)
 
 locret_EBBA:
@@ -28904,7 +28954,7 @@ loc_166E0:
 loc_1670E:
 		addq.b	#2,$24(a0)
 		move.b	#$81,($FFFFF7C8).w ; lock controls
-		move.b	#2,$1C(a1)	; use Sonic's rolling animation
+		move.b	#10,$1C(a1)	; use Sonic's rolling animation
 		move.w	#$800,$14(a1)
 		move.w	#0,$10(a1)
 		move.w	#0,$12(a1)
