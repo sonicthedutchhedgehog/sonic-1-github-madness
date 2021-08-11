@@ -34812,11 +34812,11 @@ Hurt_Shield:
 		add.w	d1,8(a1)
 		lsr.w	#8,d0
 		lsr.b	#3,d0
-		add.w	d0,$C(a1)
+		add.w	d0,$C(a1) ;end of explo code
 		btst	#6,$22(a0)
 		beq.s	Hurt_Reverse
-		move.w	#-$200,$12(a0)
-		move.w	#-$100,$10(a0)
+		move.w	#-$900,$12(a0)
+		move.w	#-$900,$10(a0)
 
 Hurt_Reverse:
 		move.w	8(a0),d0
