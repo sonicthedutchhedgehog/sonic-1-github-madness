@@ -3958,7 +3958,7 @@ Level_LoadObj:
 		moveq	#0,d0
 		tst.b	($FFFFFE30).w	; are you starting from	a lamppost?
 		bne.s	loc_39E8	; if yes, branch
-		move.w	d0,($FFFFFE20).w ; clear rings
+
 		move.l	d0,($FFFFFE22).w ; clear time
 		move.b	d0,($FFFFFE1B).w ; clear lives counter
 
@@ -35080,6 +35080,7 @@ Hurt_NoRings:
 KillSonic:
 		tst.w	($FFFFFE08).w	; is debug mode	active?
 		bne.s	Kill_NoDeath	; if yes, branch
+		move.w	#0,($FFFFFE20).w ; clear rings
 		move.b	#0,($FFFFFE2D).w ; remove invincibility
 		move.b	#6,$24(a0)
 		bsr.w	Sonic_ResetOnFloor
