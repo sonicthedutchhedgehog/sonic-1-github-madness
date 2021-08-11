@@ -29,7 +29,7 @@
 Slow_Motion_Flag      equ $FFFFFFE1
 Debug_Mode_Flag       equ $FFFFFFE2
 
-Level_Select_Menu_snd   = $0081
+Level_Select_Menu_snd   = $0094
 Emerald_Snd             = $0093
 Ring_Snd                = $00B5
 Volume_Down             = $00E0

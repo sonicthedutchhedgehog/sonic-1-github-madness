@@ -38758,7 +38758,7 @@ MusicIndex:	dc.l Music81, Music82
 		dc.l Music8D, Music8E
 		dc.l Music8F, Music90
 		dc.l Music91, Music92
-		dc.l Music93
+		dc.l Music93, Music94
 ; ---------------------------------------------------------------------------
 ; Type of sound	being played ($90 = music; $70 = normal	sound effect)
 ; ---------------------------------------------------------------------------
@@ -41047,6 +41047,8 @@ Music91:	incbin	sound\music91.bin
 Music92:	incbin	sound\music92.bin
 		even
 Music93:	incbin	sound\music93.bin
+		even
+Music94:	incbin	sound\music94.bin
 		even
 ; ---------------------------------------------------------------------------
 ; Sound	effect pointers
