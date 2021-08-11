@@ -47,7 +47,7 @@ RamEndLoc:	dc.l $FFFFFF		; RAM end
 SRAMSupport:	dc.l $20202020		; change to $5241E020 to create	SRAM
 		dc.l $20202020		; SRAM start
 		dc.l $20202020		; SRAM end
-Notes:		dc.b '                                                    '
+Notes:		dc.b 'ARE SLIME GIRLS MAGICAL?                            '
 Region:		dc.b 'JUE             ' ; Region
 
 ; ===========================================================================
