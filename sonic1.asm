@@ -34798,8 +34798,8 @@ Hurt_Shield:
 		move.b	#4,$24(a0)
 		bsr.w	Sonic_ResetOnFloor
 		bset	#1,$22(a0)
-		move.w	#-$400,$12(a0)	; make Sonic bounce away from the object
-		move.w	#-$200,$10(a0)
+		move.w	#-$900,$12(a0)	; make Sonic bounce away from the object
+		move.w	#-$900,$10(a0)
 		btst	#6,$22(a0)
 		beq.s	Hurt_Reverse
 		move.w	#-$200,$12(a0)
@@ -34854,6 +34854,7 @@ KillSonic:
 		move.w	$C(a0),$38(a0)
 		move.b	#$18,$1C(a0)
 		bset	#7,2(a0)
+		move.w	#990,$10(a0)	; WEEEEEEEEEEEEEEEE
 		move.w	#$A3,d0		; play normal death sound
 		cmpi.b	#$36,(a2)	; check	if you were killed by spikes
 		bne.s	Kill_Sound
