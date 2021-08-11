@@ -168,8 +168,6 @@ Menu_Loop_Load_Wings:
                 clr.b   ($FFFFF711).w
                 clr.w   ($FFFFF7F0).w
 ;------------------------------------------------------------------------------- 
-                ;move.w  #$0000, ($FFFFF7B8).w  ; Inicializa os quadros das animações do menu
-                ;move.w  #$0000, ($FFFFF7B9).w  ; Inicializa o contador das animações do menu 
                 jsr     Dynamic_Menu           ; Chama a rotina de animação
 ;-------------------------------------------------------------------------------
 
@@ -476,8 +474,10 @@ Menu_Code_Not_0xFF:
                 rts               
 Code_Debug_Mode: 
                 dc.b    $02, $00, $01, $08, $FF ; Among Us release year
+                even
 Code_All_Emeralds: 
                 dc.b    $06, $09, $04, $02, $00, $FF ; Haha funni numbers
+                even
 ;-------------------------------------------------------------------------------                 
 Offset_0x027040:
                 bsr     Offset_0x026F7A
