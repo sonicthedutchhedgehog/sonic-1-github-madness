@@ -41,7 +41,7 @@ SnorcAni_Wait:	dc.b $17, 1, 1,	1, 1, 1, 1, 1, 1, 1, 1,	1, 1, 3, 2, 2, 2, 3, 4, $
 SnorcAni_Balance:	dc.b $1F, $3A, $3B, $FF
 SnorcAni_LookUp:	dc.b $3F, 5, $FF, 0
 SnorcAni_Duck:	dc.b $3F, $39, $FF, 0
-SnorcAni_Warp1:	dc.b $3F, $33, $FF, 0
+SnorcAni_Warp1:	dc.b $3F, $33, $34, $35, $34, $FF, 0
 SnorcAni_Warp2:	dc.b $3F, $34, $FF, 0
 SnorcAni_Warp3:	dc.b $3F, $35, $FF, 0
 SnorcAni_Warp4:	dc.b $3F, $36, $FF, 0
