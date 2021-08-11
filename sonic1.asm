@@ -34,8 +34,8 @@ Vectors:	dc.l $FFFE00, EntryPoint, BusError, AddressError
 		dc.l ErrorTrap,	ErrorTrap, ErrorTrap, ErrorTrap
 		dc.l ErrorTrap,	ErrorTrap, ErrorTrap, ErrorTrap
 Console:	dc.b 'SEGA MEGA DRIVE ' ; Hardware system ID
-Date:		dc.b '(C)SEGA 1991.APR' ; Release date
-Title_Local:	dc.b 'WHEN AMY SEES THIS SHELL MELT                   ' ; Domestic name
+Date:		dc.b '(C)     1999.JUN' ; Release date
+Title_Local:	dc.b 'Cargaill's Magic cards                          ' ; Domestic name
 Title_Int:	dc.b 'MY DAD SELLS MAGIC CARDS AT CARGAILL.1HWY.COM   ' ; International name
 Serial:		dc.b 'GM 00001009-00'   ; Serial/version number
 Checksum:	dc.w 0
