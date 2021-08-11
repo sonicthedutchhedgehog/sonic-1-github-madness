@@ -6999,28 +6999,20 @@ loc_653C:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Deform_SBZ:				; XREF: Deform_Index
-		move.w	($FFFFF73A).w,d4
-		ext.l	d4
-		asl.l	#6,d4
-		move.w	($FFFFF73C).w,d5
-		ext.l	d5
-		asl.l	#4,d5
-		asl.l	#1,d5
-		bsr.w	ScrollBlock1
-		move.w	($FFFFF70C).w,($FFFFF618).w
-		lea	($FFFFCC00).w,a1
-		move.w	#$DF,d1
-		move.w	($FFFFF700).w,d0
-		neg.w	d0
-		swap	d0
-		move.w	($FFFFF708).w,d0
-		neg.w	d0
+Deform_sbz:
+                lea     ($FFFFCC00).w,a1
+                move.w  #$DF,d1
+                move.w  ($FFFFF700).w,d0
+                neg.w   d0
+                swap    d0
+                move.w  ($FFFFF708).w,d0
+                move.w  #0,d0
+                neg.w   d0
 
-loc_6576:
-		move.l	d0,(a1)+
-		dbf	d1,loc_6576
-		rts	
+loc_3F1C:
+                move.l  d0,(a1)+
+                dbf     d1,loc_3F1C
+                rts	
 ; End of function Deform_SBZ
 
 ; ---------------------------------------------------------------------------
