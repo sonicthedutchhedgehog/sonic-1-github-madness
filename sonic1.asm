@@ -15947,20 +15947,20 @@ Map_obj7E:	dc.w byte_CCAC-Map_obj7E
 		dc.w byte_CD5B-Map_obj7E
 		dc.w byte_CD6B-Map_obj7E
 		dc.w byte_CDA8-Map_obj7E
-byte_CCAC:	dc.b $D			; "CHAOS EMERALDS"
-		dc.b $F8, 5, 0,	8, $90
-		dc.b $F8, 5, 0,	$1C, $A0
-		dc.b $F8, 5, 0,	0, $B0
-		dc.b $F8, 5, 0,	$32, $C0
-		dc.b $F8, 5, 0,	$3E, $D0
-		dc.b $F8, 5, 0,	$10, $F0
-		dc.b $F8, 5, 0,	$2A, 0
-		dc.b $F8, 5, 0,	$10, $10
-		dc.b $F8, 5, 0,	$3A, $20
-		dc.b $F8, 5, 0,	0, $30
-		dc.b $F8, 5, 0,	$26, $40
-		dc.b $F8, 5, 0,	$C, $50
-		dc.b $F8, 5, 0,	$3E, $60
+byte_CCAC:	dc.b $D			; "PISS ROCKS" (broken, funny)
+		dc.b $F8, 5, 0,	36, $90
+		dc.b $F8, 5, 0,	20, $A0
+		dc.b $F8, 5, 0,	$3E, $B0
+		dc.b $F8, 5, 0,	$3E, $C0
+		dc.b $F8, 5, 0,	56, $D0
+		dc.b $F8, 5, 0,	$3A, $F0
+		dc.b $F8, 5, 0,	32, 0
+		dc.b $F8, 5, 0,	08, $10
+		dc.b $F8, 5, 0,	22, $20
+		dc.b $F8, 5, 0,	$3E, $30
+		dc.b $F8, 5, 0,	56, $40
+		dc.b $F8, 5, 0,	56, $50
+		dc.b $F8, 5, 0,	56, $60
 byte_CCEE:	dc.b 6			; "SCORE"
 		dc.b $F8, $D, 1, $4A, $B0
 		dc.b $F8, 1, 1,	$62, $D0
@@ -15990,19 +15990,19 @@ byte_CD5B:	dc.b 3
 		dc.b $F8, $D, $FF, $D1,	$B0
 		dc.b $F8, $D, $FF, $D9,	$D0
 		dc.b $F8, 1, $FF, $E1, $F0
-byte_CD6B:	dc.b $C			; "SPECIAL STAGE"
-		dc.b $F8, 5, 0,	$3E, $9C
-		dc.b $F8, 5, 0,	$36, $AC
-		dc.b $F8, 5, 0,	$10, $BC
-		dc.b $F8, 5, 0,	8, $CC
-		dc.b $F8, 1, 0,	$20, $DC
-		dc.b $F8, 5, 0,	0, $E4
-		dc.b $F8, 5, 0,	$26, $F4
-		dc.b $F8, 5, 0,	$3E, $14
-		dc.b $F8, 5, 0,	$42, $24
-		dc.b $F8, 5, 0,	0, $34
-		dc.b $F8, 5, 0,	$18, $44
-		dc.b $F8, 5, 0,	$10, $54
+byte_CD6B:	dc.b $C			; "YOU SUCK LOL"
+		dc.b $F8, 5, 0,	$4A, $9C
+		dc.b $F8, 5, 0,	$32, $AC
+		dc.b $F8, 5, 0,	$46, $BC
+		dc.b $F8, 5, 0,	$56, $CC
+		dc.b $F8, 1, 0,	$3E, $DC
+		dc.b $F8, 5, 0,	$46, $E4
+		dc.b $F8, 5, 0,	$08, $F4
+		dc.b $F8, 5, 0,	$22, $14
+		dc.b $F8, 5, 0,	$56, $24
+		dc.b $F8, 5, 0,	$26, $34
+		dc.b $F8, 5, 0,	$32, $44
+		dc.b $F8, 5, 0,	$26, $54
 byte_CDA8:	dc.b $F			; "SONIC GOT THEM ALL"
 		dc.b $F8, 5, 0,	$3E, $88
 		dc.b $F8, 5, 0,	$32, $98
@@ -23851,9 +23851,19 @@ Obj01_InWater:
 		bsr.w	ResumeMusic
 		move.b	#$A,($FFFFD340).w ; load bubbles object	from Sonic's mouth
 		move.b	#$81,($FFFFD368).w
+		cmpi.b  #$04, ($FFFFFFF9).w ; are we snorc
+		bne.b	Obj01_InWaterSos 	; if not, become snorc
+Obj01_InWaterSnorc
+		move.w	#$300,($FFFFF760).w ; change Sonic's top speed
+		move.w	#6,($FFFFF762).w ; change Sonic's acceleration
+		move.w	#$40,($FFFFF764).w ; change Sonic's deceleration
+		jmp Obj01_InWaterEnd
+Obj01_InWaterSos
 		move.w	#$10,($FFFFF760).w ; change Sonic's top speed
 		move.w	#10,($FFFFF762).w ; change Sonic's acceleration
 		move.w	#$40,($FFFFF764).w ; change Sonic's deceleration
+		
+Obj01_InWaterEnd
 		asr	$10(a0)
 		asr	$12(a0)
 		asr	$12(a0)
