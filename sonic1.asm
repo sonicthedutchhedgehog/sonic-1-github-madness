@@ -18252,12 +18252,11 @@ Obj0D_Touch:				; XREF: Obj0D_Index
 		move.w	($FFFFD008).w,d0
 		sub.w	8(a0),d0
 		bcs.s	locret_EBBA
-		cmpi.w	#$20,d0		; is Sonic within $20 pixels of	the signpost?
+		cmpi.w	#$0,d0		; is Sonic within $20 pixels of	the signpost?
 		bcc.s	locret_EBBA	; if not, branch
 		move.w	#$CF,d0
 		jsr	(PlaySound).l	; play signpost	sound
-		clr.b	($FFFFFE1E).w	; stop time counter
-		move.w	($FFFFF72A).w,($FFFFF728).w ; lock screen position
+
 		addq.b	#2,$24(a0)
 
 locret_EBBA:
@@ -28904,7 +28903,7 @@ loc_166E0:
 loc_1670E:
 		addq.b	#2,$24(a0)
 		move.b	#$81,($FFFFF7C8).w ; lock controls
-		move.b	#2,$1C(a1)	; use Sonic's rolling animation
+		move.b	#10,$1C(a1)	; use Sonic's rolling animation
 		move.w	#$800,$14(a1)
 		move.w	#0,$10(a1)
 		move.w	#0,$12(a1)
