@@ -475,9 +475,9 @@ Menu_Reset_All_Emerald_Code_Counter:
 Menu_Code_Not_0xFF: 
                 rts               
 Code_Debug_Mode: 
-                dc.b    $01, $03, $05, $07, $FF
+                dc.b    $02, $00, $01, $08, $FF ; Among Us release year
 Code_All_Emeralds: 
-                dc.b    $02, $04, $06, $08, $FF
+                dc.b    $06, $09, $04, $02, $00, $FF ; Haha funni numbers
 ;-------------------------------------------------------------------------------                 
 Offset_0x027040:
                 bsr     Offset_0x026F7A
