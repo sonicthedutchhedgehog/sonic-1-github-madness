@@ -33920,7 +33920,7 @@ Obj84_Main:				; XREF: Obj84_Index
 		move.b	#$20,$19(a0)
 		move.b	#$60,$16(a0)
 		move.b	#3,$18(a0)
-		addq.b	#2,$24(a0)
+		addq.b	#2,$24(a0);3
 
 loc_1A4CE:				; XREF: Obj84_Index
 		cmpi.b	#2,$28(a0)
