@@ -3195,6 +3195,7 @@ TitleScreen:				; XREF: GameModeArray
 		move.w	#$8720,(a6)
 		clr.b	($FFFFF64E).w
 		bsr.w	ClearScreen
+                jsr SHC2021
 		lea	($FFFFD000).w,a1
 		moveq	#0,d0
 		move.w	#$7FF,d1
@@ -41169,6 +41170,8 @@ SoundD0:	incbin	sound\soundD0.bin
 SegaPCM:	incbin	sound\segapcm.bin
 SegaPCM_end:	even
 	include	"s2_menu.asm"	; Sonic 2 level select
+    SHC2021:    incbin "SHC21_lite_Sonic12.bin"
+                even
 ; end of 'ROM'
 EndOfRom:
 
