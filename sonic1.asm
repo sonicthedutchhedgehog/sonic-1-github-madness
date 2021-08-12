@@ -1079,21 +1079,26 @@ loc_134A:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-SoundDriverLoad:			; XREF: GameClrRAM; TitleScreen
-		nop	
-		move.w	#$100,($A11100).l ; stop the Z80
-		move.w	#$100,($A11200).l ; reset the Z80
-		lea	(Kos_Z80).l,a0	; load sound driver
-		lea	($A00000).l,a1
-		bsr.w	KosDec		; decompress
-		move.w	#0,($A11200).l
-		nop	
-		nop	
-		nop	
-		nop	
-		move.w	#$100,($A11200).l ; reset the Z80
-		move.w	#0,($A11100).l	; start	the Z80
-		rts	
+SoundDriverLoad:            ; XREF: GameClrRAM; TitleScreen
+        nop
+        move.w    #$100,d0
+        move.w    d0,($A11100).l
+        move.w    d0,($A11200).l
+        lea    (MegaPCM).l,a0
+        lea    ($A00000).l,a1
+        move.w    #(MegaPCM_End-MegaPCM)-1,d1
+ 
+    @Load:    move.b    (a0)+,(a1)+
+        dbf    d1,@Load
+        moveq    #0,d1
+        move.w    d1,($A11200).l
+        nop
+        nop
+        nop
+        nop
+        move.w    d0,($A11200).l
+        move.w    d1,($A11100).l
+        rts
 ; End of function SoundDriverLoad
 
 ; ---------------------------------------------------------------------------
@@ -38782,18 +38787,6 @@ loc_71B5A:
 		btst	#0,($A11100).l
 		bne.s	loc_71B5A
 
-		btst	#7,($A01FFD).l
-		beq.s	loc_71B82
-		move.w	#0,($A11100).l	; start	the Z80
-		nop	
-		nop	
-		nop	
-		nop	
-		nop	
-		bra.s	sub_71B4C
-; ===========================================================================
-
-loc_71B82:
 		lea	($FFF000).l,a6
 		clr.b	$E(a6)
 		tst.b	3(a6)		; is music paused?
@@ -38887,6 +38880,10 @@ loc_71C38:
 		jsr	sub_72850(pc)
 
 loc_71C44:
+        move.b    ($A04000).l,d2
+        btst    #7,d2
+        bne.s    loc_71C44
+        move.b    #$2A,($A04000).l
 		move.w	#0,($A11100).l	; start	the Z80
 		rts	
 ; End of function sub_71B4C
@@ -38932,8 +38929,6 @@ loc_71C88:
 		move.b	$10(a5),d0
 		cmpi.b	#$80,d0
 		beq.s	locret_71CAA
-		btst	#3,d0
-		bne.s	loc_71CAC
 		move.b	d0,($A01FFF).l
 
 locret_71CAA:
@@ -39199,6 +39194,7 @@ loc_71E7C:
 		dbf	d3,loc_71E7C
 
 		jsr	sub_729B6(pc)
+		move.b    #$7F,($A01FFF).l; pause DAC
 		bra.w	loc_71C44
 ; ===========================================================================
 
@@ -39234,17 +39230,20 @@ loc_71EC4:
 		jsr	sub_72722(pc)
 
 loc_71EDC:
-		adda.w	d3,a5
-		dbf	d4,loc_71EC4
-
-		lea	$340(a6),a5
-		btst	#7,(a5)
-		beq.s	loc_71EFE
-		btst	#2,(a5)
-		bne.s	loc_71EFE
-		move.b	#-$4C,d0
-		move.b	$A(a5),d1
-		jsr	sub_72722(pc)
+        adda.w    d3,a5
+        dbf    d4,loc_71EC4
+ 
+        lea    $340(a6),a5
+        btst    #7,(a5)
+        beq.s    @UnpauseDAC
+        btst    #2,(a5)
+        bne.s    @UnpauseDAC
+        move.b    #-$4C,d0
+        move.b    $A(a5),d1
+        jsr    sub_72722(pc)
+ 
+@UnpauseDAC:
+        move.b    #0,($A01FFF).l    ; unpause DAC
 
 loc_71EFE:
 		bra.w	loc_71C44
@@ -40011,6 +40010,7 @@ loc_725B6:
 
 		move.b	#$80,9(a6)	; set music to $80 (silence)
 		jsr	sub_7256A(pc)
+		move.b    #$80,($A01FFF).l ; stop DAC playback
 		bra.w	sub_729B6
 
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
@@ -41007,8 +41007,7 @@ loc_72E64:				; XREF: loc_72A64
 		move.b	#$F,d1
 		bra.w	sub_7272E
 ; ===========================================================================
-Kos_Z80:	incbin  z80.bin
-		even
+		include    'MegaPCM.asm'
 Music81:	incbin	sound\music81.bin
 		even
 Music82:	incbin	sound\music82.bin
