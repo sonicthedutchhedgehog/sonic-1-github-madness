@@ -23807,8 +23807,8 @@ Obj01_ChkShoes:
 		beq.b	Snorc_After_Speed 	; if so, become snorc
 		
 Sos_After_Speed:
-		move.w	#$C,($FFFFF762).w ; restore Sonic's acceleration
-		move.w	#$80,($FFFFF764).w ; restore Sonic's deceleration
+		move.w	#$FF,($FFFFF762).w ; Sonic's acceleration
+		move.w	#$0,($FFFFF764).w ; Sonic's deceleration
 		jmp	Obj01_ShoesOver
 
 Snorc_After_Speed:
@@ -23894,9 +23894,9 @@ Obj01_OutWater:
 		cmpi.b  #$04, ($FFFFFFF9).w ; are we snorc
 		bne.b	Obj01_OutWaterSos 	; if not, become snorc
 Obj01_OutWaterSnorc
-		move.w	#$600,($FFFFF760).w ; restore Sonic's speed
-		move.w	#$C,($FFFFF762).w ; restore Sonic's acceleration
-		move.w	#$80,($FFFFF764).w ; restore Sonic's deceleration
+		move.w	#$FFF,($FFFFF760).w ; Sonic's top speed
+		move.w	#$FF,($FFFFF762).w ; Sonic's acceleration
+		move.w	#$0,($FFFFF764).w ; Sonic's deceleration
 		jmp Obj01_OutWaterEnd
 Obj01_OutWaterSos
 		move.w	#$F00,($FFFFF760).w ; restore Sonic's top speed
