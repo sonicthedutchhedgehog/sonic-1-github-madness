@@ -23686,9 +23686,9 @@ Obj01_Main:				; XREF: Obj01_Index
 		beq.b	Snorc_Vars 	; if so, become snorc
 		
 Sos_Vars:
-		move.w	#$F00,($FFFFF760).w ; Sonic's top speed
-		move.w	#$C,($FFFFF762).w ; Sonic's acceleration
-		move.w	#$80,($FFFFF764).w ; Sonic's deceleration
+		move.w	#$FFF,($FFFFF760).w ; Sonic's top speed
+		move.w	#$FF,($FFFFF762).w ; Sonic's acceleration
+		move.w	#$0,($FFFFF764).w ; Sonic's deceleration
 		jmp Obj01_Control		; Jump to control routine so we dont overwrite our variables with Snorc's
 		
 Snorc_Vars:
@@ -23847,7 +23847,7 @@ Sonic_Water:				; XREF: loc_12C7E
 		beq.s	Obj01_InWater	; if yes, branch
 
 locret_12D80:
-		rts	
+	rts
 ; ===========================================================================
 
 Obj01_InWater:
