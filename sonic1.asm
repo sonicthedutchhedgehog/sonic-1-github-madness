@@ -14,6 +14,7 @@
 ; ===========================================================================
 Current_Character   equ $FFFFFFF9    ; whatever the character you are using is
 
+
 align macro
 	cnop 0,\1
 	endm
@@ -3856,6 +3857,7 @@ Level_ClrVars3:
 		move.w	($FFFFF624).w,(a6)
 		clr.w ($FFFFC800).w
 		move.l #$FFFFC800,($FFFFC8FC).w
+		clr.w	($FFFFF601).w
 		cmpi.b	#1,($FFFFFE10).w ; is level LZ?
 		bne.s	Level_LoadPal	; if not, branch
 		move.w	#$8014,(a6)
@@ -4613,7 +4615,7 @@ loc_4056:
 		move.b	(a1),d0
 		lea	($FFFFF604).w,a0
 		move.b	d0,d1
-		move.b	(a0),d2
+		move.b	-2(a0),d2
 		eor.b	d2,d0
 		move.b	d1,(a0)+
 		and.b	d1,d0
@@ -13050,7 +13052,8 @@ Anim_Run:
 		moveq	#0,d1
 		move.b	$1B(a0),d1	; load current frame number
 		move.b	1(a1,d1.w),d0	; read sprite number from script
-		bmi.s	Anim_End_FF	; if animation is complete, branch
+		cmp.b	#$FA,d0					; MJ: is it a flag from FA to FF?
+		bhs	Anim_End_FF				; MJ: if so, branch to flag routines
 
 Anim_Next:
 		move.b	d0,d1
@@ -16699,8 +16702,9 @@ loc_D700:
 		btst	#5,d4
 		bne.s	loc_D71C
 		move.b	$1A(a0),d1
-		add.b	d1,d1
+		add.w	d1,d1					; MJ: changed from byte to word (we want more than 7F sprites)
 		adda.w	(a1,d1.w),a1
+		moveq	#$00,d1					; MJ: clear d1 (because of our byte to word change)
 		move.b	(a1)+,d1
 		subq.b	#1,d1
 		bmi.s	loc_D720
@@ -18415,7 +18419,7 @@ Obj0D:					; XREF: Obj_Index
 Obj0D_Index:	dc.w Obj0D_Main-Obj0D_Index
 		dc.w Obj0D_Touch-Obj0D_Index
 		dc.w Obj0D_Spin-Obj0D_Index
-		dc.w Obj0D_SonicRun-Obj0D_Index
+		dc.w GotThroughAct-Obj0D_Index
 		dc.w locret_ED1A-Obj0D_Index
 ; ===========================================================================
 
@@ -18433,6 +18437,7 @@ Obj0D_Touch:				; XREF: Obj0D_Index
 		bcs.s	locret_EBBA
 		cmpi.w	#$1,d0		; is Sonic within $20 pixels of	the signpost?
 		bcc.s	locret_EBBA	; if not, branch
+		move.b  #1,($FFFFF7AA).w ; Lock the screen
 		move.w	#$CF,d0
 		jsr	(PlaySound).l	; play signpost	sound
 
@@ -18491,26 +18496,6 @@ Obj0D_SparkPos:	dc.b -$18,-$10		; x-position, y-position
 		dc.b  $18, $10
 ; ===========================================================================
 
-Obj0D_SonicRun:				; XREF: Obj0D_Index
-		tst.w	($FFFFFE08).w	; is debug mode	on?
-		bne.w	locret_ECEE	; if yes, branch
-		btst	#1,($FFFFD022).w
-		bne.s	loc_EC70
-		move.b	#1,($FFFFF7CC).w ; lock	controls
-		move.w	#$800,($FFFFF602).w ; make Sonic run to	the right
-
-loc_EC70:
-		tst.b	($FFFFD000).w
-		beq.s	loc_EC86
-		move.w	($FFFFD008).w,d0
-		move.w	($FFFFF72A).w,d1
-		addi.w	#$128,d1
-		cmp.w	d1,d0
-		bcs.s	locret_ECEE
-
-loc_EC86:
-		addq.b	#2,$24(a0)
-
 ; ---------------------------------------------------------------------------
 ; Subroutine to	set up bonuses at the end of an	act
 ; ---------------------------------------------------------------------------
@@ -18539,6 +18524,7 @@ GotThroughAct:				; XREF: Obj3E_EndAct
 		cmp.w	d1,d0		; is time 5 minutes or higher?
 		bcs.s	loc_ECD0	; if not, branch
 		move.w	d1,d0		; use minimum time bonus (0)
+		 move.b  #1,($FFFFF601).w ; Set victory animation flag
 
 loc_ECD0:
 		add.w	d0,d0
@@ -24645,7 +24631,15 @@ loc_1341C:
 		bne.s	loc_13490
 		move.b	#$E,$16(a0)
 		move.b	#7,$17(a0)
-		move.b	#$2,$1C(a0)	; change Sonic's animation to "spring" ($10)
+		
+Result_Check:
+        tst.b   ($FFFFF601).w ; Has the victory animation flag been set?
+        beq.s   NormalJump ; If not, branch
+        move.b  #$13,$1C(a0) ; Play the victory animation
+        bra.s   cont ; Continue
+NormalJump:
+        move.b  #2,$1C(a0)    ; use "jumping"    animation
+cont:
 		bset	#2,$22(a0)
 		addq.w	#5,$C(a0)
 
@@ -25415,7 +25409,8 @@ SAnim_Do2:
 		moveq	#0,d1
 		move.b	$1B(a0),d1	; load current frame number
 		move.b	1(a1,d1.w),d0	; read sprite number from script
-		bmi.s	SAnim_End_FF	; if animation is complete, branch
+		cmp.b	#$FD,d0					; MJ: is it a flag from FD to FF?
+		bhs	SAnim_End_FF				; MJ: if so, branch to flag routines
 
 SAnim_Next:
 		move.b	d0,$1A(a0)	; load sprite number
@@ -25575,6 +25570,7 @@ SonicAniData:
 	include "_anim\Sonic.asm"
 SnorcAniData:
 	include "_anim\Snorc.asm"
+
 
 ; ---------------------------------------------------------------------------
 ; Sonic	pattern	loading	subroutine

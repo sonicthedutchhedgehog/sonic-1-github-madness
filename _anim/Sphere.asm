@@ -1,12 +1,11 @@
 ; ---------------------------------------------------------------------------
-; Animation script - Sphere
+; Animation script - Sonic
 ; ---------------------------------------------------------------------------
 		dc.w SphereAni_Walk-SphereAniData
 		dc.w SphereAni_Run-SphereAniData
 		dc.w SphereAni_Roll-SphereAniData
 		dc.w SphereAni_Roll2-SphereAniData
 		dc.w SphereAni_Push-SphereAniData
-		dc.w SphereAni_Wait-SphereAniData
 		dc.w SphereAni_Wait-SphereAniData
 		dc.w SphereAni_Balance-SphereAniData
 		dc.w SphereAni_LookUp-SphereAniData
@@ -42,7 +41,7 @@ SphereAni_Wait:	dc.b $17, 1, 1,	1, 1, 1, 1, 1, 1, 1, 1,	1, 1, 3, 2, 2, 2, 3, 4, 
 SphereAni_Balance:	dc.b $1F, $3A, $3B, $FF
 SphereAni_LookUp:	dc.b $3F, 5, $FF, 0
 SphereAni_Duck:	dc.b $3F, $39, $FF, 0
-SphereAni_Warp1:	dc.b $3F, $33, $FF, 0
+SphereAni_Warp1:	dc.b $3C, $33, $34, $35, $34, $FF, $FF
 SphereAni_Warp2:	dc.b $3F, $34, $FF, 0
 SphereAni_Warp3:	dc.b $3F, $35, $FF, 0
 SphereAni_Warp4:	dc.b $3F, $36, $FF, 0
