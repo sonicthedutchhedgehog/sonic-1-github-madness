@@ -55,8 +55,8 @@ MegaPCM:
 ; DAC Samples Table
 ; ---------------------------------------------------------------
 
-	DAC_Entry	$08, Kick, dpcm			; $81	- Kick
-	DAC_Entry	$08, Snare, dpcm		; $82	- Snare
+	DAC_Entry	$07, Kick, dpcm			; $81	- Kick
+	DAC_Entry	$0A, Snare, dpcm		; $82	- Snare
 	DAC_Entry	$1B, Timpani, dpcm		; $83	- Timpani
 	DAC_Entry	$12, whoosh, pcm		; $84	- Amogus Whoosh SFX
 	DAC_Entry	$12, crack, pcm			; $85	- Amogus Crack SFX
