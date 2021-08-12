@@ -38316,6 +38316,8 @@ Nem_Hud:	incbin	artnem\hud.bin		; HUD (rings, time, score)
 		even
 Nem_Lives:	incbin	artnem\lifeicon.bin	; life counter icon
 		even
+Nem_SnorcLives:	incbin	artnem\snrclife.bin	; life counter icon
+		even
 Nem_Ring:	incbin	artnem\rings.bin	; rings
 		even
 Nem_Monitors:	incbin	artnem\monitors.bin	; monitors
