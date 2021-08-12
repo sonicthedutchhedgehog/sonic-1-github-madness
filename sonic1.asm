@@ -41069,7 +41069,7 @@ SoundIndex:	dc.l SoundA0, SoundA1, SoundA2
 		dc.l SoundCA, SoundCB, SoundCC
 		dc.l SoundCD, SoundCE, SoundCF
 SoundD0Index:	dc.l SoundD0
-SoundA0:	incbin	sound\CD_Jumpy.bin
+SoundA0:	incbin	sound\soundA0.bin
 		even
 SoundA1:	incbin	sound\soundA1.bin
 		even
