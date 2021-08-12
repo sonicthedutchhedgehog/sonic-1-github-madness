@@ -58,8 +58,8 @@ MegaPCM:
 	DAC_Entry	$08, Kick, dpcm			; $81	- Kick
 	DAC_Entry	$08, Snare, dpcm		; $82	- Snare
 	DAC_Entry	$1B, Timpani, dpcm		; $83	- Timpani
-	DAC_Entry	$08, whoosh, pcm+pri	; $84	- Amogus Whoosh SFX
-	DAC_Entry	$08, crack, pcm+pri		; $85	- Amogus Crack SFX
+	DAC_Entry	$12, whoosh, pcm		; $84	- Amogus Whoosh SFX
+	DAC_Entry	$12, crack, pcm			; $85	- Amogus Crack SFX
 	dc.l	0,0					; $86	- <Free>
 	dc.l	0,0					; $87	- <Free>
 	DAC_Entry	$12, Timpani, dpcm		; $88	- Hi-Timpani
