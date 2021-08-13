@@ -3397,25 +3397,17 @@ loc_3230:
 Title_CheckForB:
 		cmpi.b	#$10, ($FFFFF605).w	; has B been pressed?
 		bne.s	StartCheck		; if not, branch
-		
-CharSounds: dc.l $A3, $B5, $BF
-
 Title_SecondCharacter:
 		cmpi.b  #$08, ($FFFFFFF9).w ; are we sphere
 		beq.b	Title_BackTo0		; if so, switch to sos
 		addi.b	#$04, ($FFFFFFF9).w	; switch character
-		
-		jmp 	Title_Sound		; jump to StartCheck so i dont get back into Title_Switcheroo FUCK.
+		jmp 	Title_SFX	; jump to StartCheck so i dont get back into Title_Switcheroo FUCK.
 Title_BackTo0:
 		move.b #$00, ($FFFFFFF9).w ;back to 0
-
-Title_Sound:
-		moveq   #0,d1           ; quickly clear d1
-        move.b  Current_Character.w,d1  ; get character ID
- 
-        move.l  #CharSounds,d0  ;choose sound
+Title_SFX:
+		move.b	#$CD,d0			; put value of death sound into d0
 		bsr.w	PlaySound_Special	; jump to the subroutine that plays the sound currently in d0 ($A3, at the moment)
-		
+
 StartCheck:
 		andi.b	#$80,($FFFFF605).w ; check if Start is pressed
 		beq.w	loc_317C	; if not, branch
