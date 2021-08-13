@@ -5534,10 +5534,10 @@ loc_4DF2:
 
 Cont_GotoLevel:				; XREF: Cont_MainLoop
 		move.b	#$C,($FFFFF600).w ; set	screen mode to $0C (level)
-		move.b	#1,($FFFFFE12).w ; set lives to	3
+		move.b	#3,($FFFFFE12).w ; set lives to	3
 		moveq	#0,d0
 		move.w	d0,($FFFFFE20).w ; clear rings
-
+		move.l	d0,($FFFFFE22).w ; clear time
 		move.l	d0,($FFFFFE26).w ; clear score
 		move.b	d0,($FFFFFE30).w ; clear lamppost count
 		subq.b	#1,($FFFFFE18).w ; subtract 1 from continues
@@ -8356,7 +8356,7 @@ loc_6EB0:
 loc_6ED0:
 		move.w	#$8C,d0
 		bsr.w	PlaySound	; play boss music
-
+		move.b	#1,($FFFFF7AA).w ; lock	screen
 		addq.b	#2,($FFFFF742).w
 		moveq	#$11,d0
 		bra.w	LoadPLC		; load boss patterns
@@ -8415,7 +8415,7 @@ loc_6F28:
 loc_6F4A:
 		move.w	#$8C,d0
 		bsr.w	PlaySound	; play boss music
-
+		move.b	#1,($FFFFF7AA).w ; lock	screen
 		addq.b	#2,($FFFFF742).w
 		moveq	#$11,d0
 		bra.w	LoadPLC		; load boss patterns
@@ -8576,7 +8576,7 @@ Resize_MZ3boss:
 loc_70D0:
 		move.w	#$8C,d0
 		bsr.w	PlaySound	; play boss music
-
+		move.b	#1,($FFFFF7AA).w ; lock	screen
 		addq.b	#2,($FFFFF742).w
 		moveq	#$11,d0
 		bra.w	LoadPLC		; load boss patterns
@@ -8641,7 +8641,7 @@ Resize_SLZ3boss:
 loc_7144:
 		move.w	#$8C,d0
 		bsr.w	PlaySound	; play boss music
-
+		move.b	#1,($FFFFF7AA).w ; lock	screen
 		addq.b	#2,($FFFFF742).w
 		moveq	#$11,d0
 		bra.w	LoadPLC		; load boss patterns
@@ -8724,7 +8724,7 @@ Resize_SYZ3boss:
 loc_71EC:
 		move.w	#$8C,d0
 		bsr.w	PlaySound	; play boss music
-
+		move.b	#1,($FFFFF7AA).w ; lock	screen
 		moveq	#$11,d0
 		bra.w	LoadPLC		; load boss patterns
 ; ===========================================================================
@@ -8815,7 +8815,7 @@ Resize_SBZ2boss2:
 		addq.b	#2,($FFFFF742).w
 
 loc_72B0:
-
+		move.b	#1,($FFFFF7AA).w ; lock	screen
 
 loc_72B6:
 		bra.s	loc_72C2
@@ -8861,7 +8861,7 @@ Resize_FZboss:
 		bne.s	loc_7312
 		move.b	#$85,(a1)	; load FZ boss object
 		addq.b	#2,($FFFFF742).w
-
+		move.b	#1,($FFFFF7AA).w ; lock	screen
 
 loc_7312:
 		bra.s	loc_72C2
@@ -15789,29 +15789,26 @@ byte_C9FE:	dc.b 8   		; TURD HILL
 		dc.b $F8, 1, 0,	$20, $24
 		dc.b $F8, 5, 0,	$26, $2C
 		dc.b $F8, 5, 0,	$26, $3C
-byte_CA2C:	dc.b $A	;  LABYRINTH | BLUE OCEAN
-		dc.b $F8, 5, 0, 4, $80		; B
-		dc.b $F8, 5, 0, $26, $90	; L
-		dc.b $F8, 5, 0, $46, $A0	; U
-		dc.b $F8, 5, 0, $10, $B0	; E
-		dc.b $F8, 0, 0, $56, $C0	; Space
-		dc.b $F8, 5, 0, $32, $D0	; O
-		dc.b $F8, 5, 0, 8, $E0		; C
-		dc.b $F8, 5, 0, $10, $F0	; E
-		dc.b $F8, 5, 0, 0, $0		; A
-		dc.b $F8, 5, 0, $2E, $10	; N
-byte_CA5A:	dc.b 9	;  MARBLE | BLUE HILL
-		dc.b $F8, 5, 0, 4, $80		; B
-		dc.b $F8, 5, 0, $26, $90	; L
-		dc.b $F8, 5, 0, $46, $A0	; U
-		dc.b $F8, 5, 0, $10, $B0	; E
-		dc.b $F8, 0, 0, $56, $C0	; Space
-		dc.b $F8, 5, 0, $1C, $D0	; H
-		dc.b $F8, 1, 0, $20, $E0	; I
-		dc.b $F8, 5, 0, $26, $E8	; L
-		dc.b $F8, 5, 0, $26, $F8	; L
+byte_CA2C:	dc.b 9			; LABYRINTH
+		dc.b $F8, 5, 0,	$26, $BC
+		dc.b $F8, 5, 0,	0, $CC
+		dc.b $F8, 5, 0,	4, $DC
+		dc.b $F8, 5, 0,	$4A, $EC
+		dc.b $F8, 5, 0,	$3A, $FC
+		dc.b $F8, 1, 0,	$20, $C
+		dc.b $F8, 5, 0,	$2E, $14
+		dc.b $F8, 5, 0,	$42, $24
+		dc.b $F8, 5, 0,	$1C, $34
+byte_CA5A:	dc.b 6			; MARBLE
+		dc.b $F8, 5, 0,	$2A, $CF
+		dc.b $F8, 5, 0,	0, $E0
+		dc.b $F8, 5, 0,	$3A, $F0
+		dc.b $F8, 5, 0,	4, 0
+		dc.b $F8, 5, 0,	$26, $10
+		dc.b $F8, 5, 0,	$10, $20
 		dc.b 0
-byte_CA7A:	dc.b $E	;  STAR LIGHT | ROCKY MOUNTAIN
+byte_CA7A:
+		dc.b $D	;  STAR LIGHT | ROCKY MONTAIN
 		dc.b $F8, 5, 0, $3A, $80	; R
 		dc.b $F8, 5, 0, $32, $90	; O
 		dc.b $F8, 5, 0, 8, $A0		; C
@@ -15820,21 +15817,22 @@ byte_CA7A:	dc.b $E	;  STAR LIGHT | ROCKY MOUNTAIN
 		dc.b $F8, 0, 0, $56, $D0	; Space
 		dc.b $F8, 5, 0, $2A, $E0	; M
 		dc.b $F8, 5, 0, $32, $F0	; O
-		dc.b $F8, 5, 0, $46, $0	; U
-		dc.b $F8, 5, 0, $2E, $10	; N
-		dc.b $F8, 5, 0, $42, $20	; T
-		dc.b $F8, 5, 0, 0, $30		; A
-		dc.b $F8, 1, 0, $20, $40	; I
-		dc.b $F8, 5, 0, $2E, $48	; N
-byte_CAA8:	dc.b 8	;  SPRING YARD | SUS YARD
-		dc.b $F8, 5, 0, $3E, $80	; S
-		dc.b $F8, 5, 0, $46, $90	; U
-		dc.b $F8, 5, 0, $3E, $A0	; S
-		dc.b $F8, 0, 0, $56, $B0	; Space
-		dc.b $F8, 5, 0, $4A, $C0	; Y
-		dc.b $F8, 5, 0, 0, $D0		; A
-		dc.b $F8, 5, 0, $3A, $E0	; R
-		dc.b $F8, 5, 0, $0C, $F0	; D
+		dc.b $F8, 5, 0, $2E, $0	; N
+		dc.b $F8, 5, 0, $42, $10	; T
+		dc.b $F8, 5, 0, 0, $20		; A
+		dc.b $F8, 1, 0, $20, $30	; I
+		dc.b $F8, 5, 0, $2E, $38	; N
+byte_CAA8:	dc.b $A			; SPRING YARD
+		dc.b $F8, 5, 0,	$3E, $AC
+		dc.b $F8, 5, 0,	$36, $BC
+		dc.b $F8, 5, 0,	$3A, $CC
+		dc.b $F8, 1, 0,	$20, $DC
+		dc.b $F8, 5, 0,	$2E, $E4
+		dc.b $F8, 5, 0,	$18, $F4
+		dc.b $F8, 5, 0,	$4A, $14
+		dc.b $F8, 5, 0,	0, $24
+		dc.b $F8, 5, 0,	$3A, $34
+		dc.b $F8, 5, 0,	$C, $44
 		dc.b 0
 byte_CADC:	dc.b $A			; SCRAP BRAIN
 		dc.b $F8, 5, 0,	$3E, $AC
@@ -15878,11 +15876,12 @@ byte_CB47:	dc.b $D			; Oval
 		dc.b 4,	$C, 0, $7C, $EC
 		dc.b $C, 8, 0, $7C, $EC
 		dc.b 0
-byte_CB8A:	dc.b 4	;  FINAL | LAST
-		dc.b $F8, 5, 0, $26, $80	; L
-		dc.b $F8, 5, 0, 0, $90		; A
-		dc.b $F8, 5, 0, $3E, $A0	; S
-		dc.b $F8, 5, 0, $42, $B0	; T
+byte_CB8A:	dc.b 5			; FINAL
+		dc.b $F8, 5, 0,	$14, $DC
+		dc.b $F8, 1, 0,	$20, $EC
+		dc.b $F8, 5, 0,	$2E, $F4
+		dc.b $F8, 5, 0,	0, 4
+		dc.b $F8, 5, 0,	$26, $14
 		even
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - "GAME OVER"	and "TIME OVER"
@@ -15902,22 +15901,22 @@ Map_obj3A:	dc.w byte_CBEA-Map_obj3A
 		dc.w byte_CB26-Map_obj3A
 		dc.w byte_CB31-Map_obj3A
 		dc.w byte_CB3C-Map_obj3A
-byte_CBEA:	dc.b $A	;  SONIC HAS | YOU TOOK A
-		dc.b $F8, 5, 0, $4A, $B0	; Y
-		dc.b $F8, 5, 0, $32, $C0	; O
-		dc.b $F8, 5, 0, $46, $D0	; U
-		dc.b $F8, 0, 0, $56, $E0	; Space
-		dc.b $F8, 5, 0, $42, $F0	; T
-		dc.b $F8, 5, 0, $32, $0	; O
-		dc.b $F8, 5, 0, $32, $10	; O
-		dc.b $F8, 5, 0, $22, $20	; K
-		dc.b $F8, 0, 0, $56, $30	; Space
-		dc.b $F8, 5, 0, 0, $40		; A
-byte_CC13:	dc.b 4	;  PASSED | DUMP
-		dc.b $F8, 5, 0, $0C, $E4	; D
-		dc.b $F8, 5, 0, $46, $F4	; U
-		dc.b $F8, 5, 0, $2A, $4	; M
-		dc.b $F8, 5, 0, $36, $14	; P
+byte_CBEA:	dc.b 8			; SONIC HAS
+		dc.b $F8, 5, 0,	$3E, $B8
+		dc.b $F8, 5, 0,	$32, $C8
+		dc.b $F8, 5, 0,	$2E, $D8
+		dc.b $F8, 1, 0,	$20, $E8
+		dc.b $F8, 5, 0,	8, $F0
+		dc.b $F8, 5, 0,	$1C, $10
+		dc.b $F8, 5, 0,	0, $20
+		dc.b $F8, 5, 0,	$3E, $30
+byte_CC13:	dc.b 6			; PASSED
+		dc.b $F8, 5, 0,	$36, $D0
+		dc.b $F8, 5, 0,	0, $E0
+		dc.b $F8, 5, 0,	$3E, $F0
+		dc.b $F8, 5, 0,	$3E, 0
+		dc.b $F8, 5, 0,	$10, $10
+		dc.b $F8, 5, 0,	$C, $20
 byte_CC32:	dc.b 6			; SCORE
 		dc.b $F8, $D, 1, $4A, $B0
 		dc.b $F8, 1, 1,	$62, $D0
@@ -22195,7 +22194,7 @@ Obj5E_Spring:
 		bset	#1,$22(a2)
 		bclr	#3,$22(a2)
 		clr.b	$3C(a2)
-		move.b	#$2,$1C(a2)	; change Sonic's animation to "spring" ($10)
+		move.b	#$10,$1C(a2)	; change Sonic's animation to "spring" ($10)
 		move.b	#2,$24(a2)
 		move.w	#$CC,d0
 		jsr	(PlaySound_Special).l ;	play spring sound
@@ -35122,6 +35121,8 @@ Hurt_NoRings:
 
 
 KillSonic:
+		tst.w	($FFFFFE08).w	; is debug mode	active?
+		bne.s	Kill_NoDeath	; if yes, branch
 		move.w	#0,($FFFFFE20).w ; clear rings
 		move.b	#0,($FFFFFE2D).w ; remove invincibility
 		move.b	#6,$24(a0)
