@@ -12213,11 +12213,11 @@ CollectRing:				; XREF: Obj25_Collect
 		addq.w	#1,($FFFFFE20).w ; add 1 to rings
 		ori.b	#1,($FFFFFE1D).w ; update the rings counter
 		move.w	#$B5,d0		; play ring sound
-		cmpi.w	#100,($FFFFFE20).w ; do	you have < 100 rings?
+		cmpi.w	#1,($FFFFFE20).w ; do	you have < 100 rings?
 		bcs.s	Obj25_PlaySnd	; if yes, branch
 		bset	#1,($FFFFFE1B).w ; update lives	counter
 		beq.s	loc_9CA4
-		cmpi.w	#200,($FFFFFE20).w ; do	you have < 200 rings?
+		cmpi.w	#2,($FFFFFE20).w ; do	you have < 200 rings?
 		bcs.s	Obj25_PlaySnd	; if yes, branch
 		bset	#2,($FFFFFE1B).w ; update lives	counter
 		bne.s	Obj25_PlaySnd
