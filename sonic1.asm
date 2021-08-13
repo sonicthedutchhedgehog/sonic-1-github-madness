@@ -2913,9 +2913,9 @@ Pal_Ending:	incbin	pallet\ending.bin	; ending sequence pallets
 ; Subroutine to load correct player pallets
 ; ---------------------------------------------------------------------------
  
-CharPalList:        dc.l Pal_Sonic, Pal_Snorc
-CharPalListLZ:      dc.l Pal_LZSonWater, Pal_SnorcLZ
-CharPalListSBZ3:    dc.l Pal_SBZ3SonWat, Pal_SnorcSBZ3
+CharPalList:        dc.l Pal_Sonic, Pal_Snorc, Pal_Snorc
+CharPalListLZ:      dc.l Pal_LZSonWater, Pal_SnorcLZ, Pal_SnorcLZ
+CharPalListSBZ3:    dc.l Pal_SBZ3SonWat, Pal_SnorcSBZ3, Pal_SnorcSBZ3
  
 LoadPlayerPalettes:
         moveq   #0,d1
@@ -3398,19 +3398,24 @@ Title_CheckForB:
 		cmpi.b	#$10, ($FFFFF605).w	; has B been pressed?
 		bne.s	StartCheck		; if not, branch
 		
+CharSounds: dc.l $A3, $B5, $BF
 
 Title_SecondCharacter:
-		cmpi.b  #$04, ($FFFFFFF9).w ; are we snorc
-		bne.b	Title_Switcheroo 	; if not, become snorc
-		move.b	#$00, ($FFFFFFF9).w	; switch character from snorc to sos
-		move.b	#$A3,d0			; put value of death sound into d0
-		bsr.w	PlaySound_Special	; jump to the subroutine that plays the sound currently in d0 ($A3, at the moment)
-		jmp 	StartCheck		; jump to StartCheck so i dont get back into Title_Switcheroo FUCK.
-Title_Switcheroo:	
-		move.b	#$04, ($FFFFFFF9).w	; switch character from sos to snorc
-		move.b	#$B5,d0			; put value of ring sound into d0
-		bsr.w	PlaySound_Special	; jump to the subroutine that plays the sound currently in d0 ($B5, at the moment)
+		cmpi.b  #$08, ($FFFFFFF9).w ; are we sphere
+		beq.b	Title_BackTo0		; if so, switch to sos
+		addi.b	#$04, ($FFFFFFF9).w	; switch character
+		
+		jmp 	Title_Sound		; jump to StartCheck so i dont get back into Title_Switcheroo FUCK.
+Title_BackTo0:
+		move.b #$00, ($FFFFFFF9).w ;back to 0
 
+Title_Sound:
+		moveq   #0,d1           ; quickly clear d1
+        move.b  Current_Character.w,d1  ; get character ID
+ 
+        move.l  #CharSounds,d0  ;choose sound
+		bsr.w	PlaySound_Special	; jump to the subroutine that plays the sound currently in d0 ($A3, at the moment)
+		
 StartCheck:
 		andi.b	#$80,($FFFFF605).w ; check if Start is pressed
 		beq.w	loc_317C	; if not, branch
@@ -23652,7 +23657,7 @@ Map_obj65:
 ; Object 01 - Sonic
 ; ---------------------------------------------------------------------------
 
-Player_MapLoc:      dc.l Map_Sonic, Map_Snorc
+Player_MapLoc:      dc.l Map_Sonic, Map_Snorc, Map_Sphere
 
 Obj01:					; XREF: Obj_Index
 		tst.w	($FFFFFE08).w	; is debug mode	being used?
@@ -23688,8 +23693,8 @@ Obj01_Main:				; XREF: Obj01_Index
 		move.b	#$18,$19(a0)
 		move.b	#4,1(a0)
 		
-		cmpi.b  #$04, ($FFFFFFF9).w ; are we snorc
-		beq.b	Snorc_Vars 	; if so, become snorc
+		cmpi.b  #$00, ($FFFFFFF9).w ; are we snorc
+		bne.b	Default_Vars 	; if so, become snorc
 		
 Sos_Vars:
 		move.w	#$FFF,($FFFFF760).w ; Sonic's top speed
@@ -23697,7 +23702,7 @@ Sos_Vars:
 		move.w	#$0,($FFFFF764).w ; Sonic's deceleration
 		jmp Obj01_Control		; Jump to control routine so we dont overwrite our variables with Snorc's
 		
-Snorc_Vars:
+Default_Vars:
 		move.w	#$600,($FFFFF760).w ; Snorc's top speed
 		move.w	#$C,($FFFFF762).w ; Snorc's Acceleration
 		move.w	#$80,($FFFFF764).w ; Snorc's Decelleration
@@ -23805,6 +23810,8 @@ Obj01_ChkShoes:
 		move.w	#$600,($FFFFF760).w ; restore Sonic's speed
 		cmpi.b  #$04, ($FFFFFFF9).w ; are we snorc
 		beq.b	Snorc_After_Speed 	; if so, become snorc
+		cmpi.b  #$08, ($FFFFFFF9).w ; are we snorc
+		beq.b	Sphere_After_Speed 	; if so, become snorc
 		
 Sos_After_Speed:
 		move.w	#$FFF,($FFFFF760).w ; Sonic's top speed
@@ -23813,6 +23820,11 @@ Sos_After_Speed:
 		jmp	Obj01_ShoesOver
 
 Snorc_After_Speed:
+		move.w	#$C,($FFFFF762).w ; restore Sonic's acceleration
+		move.w	#$80,($FFFFF764).w ; restore Sonic's deceleration
+		jmp	Obj01_ShoesOver
+		
+Sphere_After_Speed:
 		move.w	#$C,($FFFFF762).w ; restore Sonic's acceleration
 		move.w	#$80,($FFFFF764).w ; restore Sonic's deceleration
 
@@ -23852,9 +23864,9 @@ Sonic_RecordPos:			; XREF: loc_12C7E; Obj01_Hurt; Obj01_Death
 Sonic_Water:				; XREF: loc_12C7E
 		cmpi.b	#1,($FFFFFE10).w ; is level LZ?
 		beq.s	Obj01_InWater	; if yes, branch
-
 locret_12D80:
-	rts
+	rts	
+
 ; ===========================================================================
 
 Obj01_InWater:
@@ -23866,23 +23878,23 @@ Obj01_InWater:
 		bsr.w	ResumeMusic
 		move.b	#$A,($FFFFD340).w ; load bubbles object	from Sonic's mouth
 		move.b	#$81,($FFFFD368).w
-		cmpi.b  #$04, ($FFFFFFF9).w ; are we snorc
-		bne.b	Obj01_InWaterSos 	; if not, become snorc
-Obj01_InWaterSnorc
-		move.w	#$300,($FFFFF760).w ; change Sonic's top speed
-		move.w	#6,($FFFFF762).w ; change Sonic's acceleration
-		move.w	#$40,($FFFFF764).w ; change Sonic's deceleration
-		jmp Obj01_InWaterEnd
+		cmpi.b  #$00, ($FFFFFFF9).w ; are we snorc
+		bne.b	Obj01_InWaterDefault 	; if not, become snorc
 Obj01_InWaterSos
 		move.w	#$10,($FFFFF760).w ; change Sonic's top speed
 		move.w	#10,($FFFFF762).w ; change Sonic's acceleration
+		move.w	#$40,($FFFFF764).w ; change Sonic's deceleration
+		jmp Obj01_InWaterEnd
+Obj01_InWaterDefault:
+		move.w	#$300,($FFFFF760).w ; change Sonic's top speed
+		move.w	#6,($FFFFF762).w ; change Sonic's acceleration
 		move.w	#$40,($FFFFF764).w ; change Sonic's deceleration
 		
 Obj01_InWaterEnd
 		asr	$10(a0)
 		asr	$12(a0)
 		asr	$12(a0)
-		beq.s	locret_12D80
+		beq.s	rts_stfu
 		move.b	#8,($FFFFD300).w ; load	splash object
 		move.w	#$AA,d0
 		jmp	(PlaySound_Special).l ;	play splash sound
@@ -23890,22 +23902,23 @@ Obj01_InWaterEnd
 
 Obj01_OutWater:
 		bclr	#6,$22(a0)
-		beq.s	locret_12D80
+		beq.s	rts_stfu
 		bsr.w	ResumeMusic
-		cmpi.b  #$04, ($FFFFFFF9).w ; are we snorc
-		bne.b	Obj01_OutWaterSos 	; if not, become snorc
-Obj01_OutWaterSnorc
-		move.w	#$600,($FFFFF760).w ; restore Sonic's speed
-		move.w	#$C,($FFFFF762).w ; restore Sonic's acceleration
-		move.w	#$80,($FFFFF764).w ; restore Sonic's deceleration
-		jmp Obj01_OutWaterEnd
+		cmpi.b  #$00, ($FFFFFFF9).w ; are we snorc
+		bne.b	Obj01_OutWaterDefault ; if not, become snorc
 Obj01_OutWaterSos
 		move.w	#$FFF,($FFFFF760).w ; Sonic's top speed
 		move.w	#$FF,($FFFFF762).w ; Sonic's acceleration
 		move.w	#$0,($FFFFF764).w ; Sonic's deceleration
+		jmp Obj01_OutWaterEnd
+Obj01_OutWaterDefault
+		move.w	#$600,($FFFFF760).w ; restore Sonic's speed
+		move.w	#$C,($FFFFF762).w ; restore Sonic's acceleration
+		move.w	#$80,($FFFFF764).w ; restore Sonic's deceleration
+		
 Obj01_OutWaterEnd:
 		asl	$12(a0)
-		beq.w	locret_12D80
+		beq.w	rts_stfu
 		move.b	#8,($FFFFD300).w ; load	splash object
 		cmpi.w	#-$1000,$12(a0)
 		bgt.s	loc_12E0E
@@ -23914,6 +23927,10 @@ Obj01_OutWaterEnd:
 loc_12E0E:
 		move.w	#$AA,d0
 		jmp	(PlaySound_Special).l ;	play splash sound
+
+rts_stfu:
+	rts
+
 ; End of function Sonic_Water
 
 ; ===========================================================================
@@ -25384,7 +25401,7 @@ locret_139C2:
 
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
-Player_AniDat:     dc.l SonicAniData, SnorcAniData
+Player_AniDat:     dc.l SonicAniData, SnorcAniData, SonicAniData
 
 
 Sonic_Animate:				; XREF: Obj01_Control; et al
@@ -25511,11 +25528,11 @@ loc_13AC2:
 		rts	
 ; ===========================================================================
 
-PAni_Run:   dc.l SonAni_Run,    SnorcAni_Run
-PAni_Walk:  dc.l SonAni_Walk,   SnorcAni_Walk
-PAni_Roll2: dc.l SonAni_Roll2,  SnorcAni_Roll2
-PAni_Roll:  dc.l SonAni_Roll,   SnorcAni_Roll
-PAni_Push:  dc.l SonAni_Push,   SnorcAni_Push
+PAni_Run:   dc.l SonAni_Run,    SnorcAni_Run, 	SonAni_Run
+PAni_Walk:  dc.l SonAni_Walk,   SnorcAni_Walk, 	SonAni_Walk
+PAni_Roll2: dc.l SonAni_Roll2,  SnorcAni_Roll2, SonAni_Roll2
+PAni_Roll:  dc.l SonAni_Roll,   SnorcAni_Roll, 	SonAni_Roll
+PAni_Push:  dc.l SonAni_Push,   SnorcAni_Push, 	SonAni_Push
 
 SAnim_RollJump:				; XREF: SAnim_WalkRun
 		addq.b	#1,d0		; is animation rolling/jumping?
@@ -25585,8 +25602,8 @@ SnorcAniData:
 
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
-Player_DPLCLoc:     dc.l SonicDynPLC, SnorcDynPLC
-Player_ArtLoc:      dc.l Art_Sonic, Art_Snorc
+Player_DPLCLoc:     dc.l SonicDynPLC, SnorcDynPLC, SphereDynPLC
+Player_ArtLoc:      dc.l Art_Sonic, Art_Snorc, Art_Sphere
 
 LoadSonicDynPLC:
         moveq   #0,d0               ; quickly clear d0
@@ -38051,6 +38068,18 @@ Map_Snorc:
 ; ---------------------------------------------------------------------------
 SnorcDynPLC:
 	include "_inc\Snorc dynamic pattern load cues.asm"
+	
+;	---------------------------------------------------------------------------
+; Sprite mappings - Sphere
+; ---------------------------------------------------------------------------
+Map_Sphere:
+	include "_maps\Sphere.asm"
+
+; ---------------------------------------------------------------------------
+; Uncompressed graphics	loading	array for Snorc
+; ---------------------------------------------------------------------------
+SphereDynPLC:
+	include "_inc\Sphere dynamic pattern load cues.asm"
 
 
 ; ---------------------------------------------------------------------------
@@ -38063,6 +38092,12 @@ Art_Sonic:	incbin	artunc\sonic.bin	; Sonic
 ; Uncompressed graphics	- Snorc
 ; ---------------------------------------------------------------------------
 Art_Snorc:	incbin	artunc\snorc.bin	; Snorc
+		even
+		
+; ---------------------------------------------------------------------------
+; Uncompressed graphics	- Sphere
+; ---------------------------------------------------------------------------
+Art_Sphere:	incbin	artunc\sphere.bin	; Snorc
 		even
 ; ---------------------------------------------------------------------------
 ; Compressed graphics - various
