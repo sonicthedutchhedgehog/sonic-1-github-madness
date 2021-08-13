@@ -12380,7 +12380,7 @@ Obj4B_Main:				; XREF: Obj4B_Index
 		bpl.s	Obj4B_Animate
 		cmpi.b	#6,($FFFFFE57).w ; do you have 6 emeralds?
 		beq.w	Obj4B_Delete	; if yes, branch
-		cmpi.w	#50,($FFFFFE20).w ; do you have	at least 50 rings?
+		cmpi.w	#1,($FFFFFE20).w ; do you have	at least 50 rings?
 		bcc.s	Obj4B_Okay	; if yes, branch
 		rts	
 ; ===========================================================================
