@@ -1189,7 +1189,7 @@ loc_13CA:
 
 		btst	#6,($FFFFF605).w ; is button A pressed?
 		beq.s	Pause_ChkBC	; if not, branch
-		move.b	#10,($FFFFF600).w ; set game mode to 4 (title screen)
+		move.b	#04,($FFFFF600).w ; set game mode to 4 (title screen)
 		nop	
 		bra.s	loc_1404
 ; ===========================================================================
