@@ -7319,26 +7319,19 @@ Deform_SBZ_4:				; XREF: Deform_SBZ
 ; ===========================================================================
 
 Deform_SBZ_Act2:			; XREF: Deform_SBZ
-		move.w	($FFFFF73A).w,d4
-		ext.l	d4
-		asl.l	#6,d4
-		move.w	($FFFFF73C).w,d5
-		ext.l	d5
-		asl.l	#5,d5
-		bsr.w	ScrollBlock1
-		move.w	($FFFFF70C).w,($FFFFF618).w
-		lea	($FFFFCC00).w,a1
-		move.w	#$DF,d1	; 'ß'
-		move.w	($FFFFF700).w,d0
-		neg.w	d0
-		swap	d0
-		move.w	($FFFFF708).w,d0
-		neg.w	d0
+                lea     ($FFFFCC00).w,a1
+                move.w  #$DF,d1
+                move.w  ($FFFFF700).w,d0
+                neg.w   d0
+                swap    d0
+                move.w  ($FFFFF708).w,d0
+                move.w  #0,d0
+                neg.w   d0
 
-Deform_SBZ_Act2_1:			; XREF: Deform_SBZ
-		move.l	d0,(a1)+
-		dbf	d1,Deform_SBZ_Act2_1
-		rts	
+loc_3F1C:
+                move.l  d0,(a1)+
+                dbf     d1,loc_3F1C
+                rts	
 ; End of function Deform_SBZ
 
 ; ---------------------------------------------------------------------------
@@ -12817,7 +12810,7 @@ CollectRing:				; XREF: Obj25_Collect
 loc_9CA4:
 		addq.b	#1,($FFFFFE12).w ; add 1 to the	number of lives	you have
 		addq.b	#1,($FFFFFE1C).w ; add 1 to the	lives counter
-		move.w	#$88,d0		; play extra life music
+		move.w	#$B5,d0		; play extra life music
 
 Obj25_PlaySnd:
 		jmp	(PlaySound_Special).l
@@ -13345,7 +13338,7 @@ Obj2E_ChkSonic:
 ExtraLife:
 		addq.b	#1,($FFFFFE12).w ; add 1 to the	number of lives	you have
 		addq.b	#1,($FFFFFE1C).w ; add 1 to the	lives counter
-		move.w	#$88,d0
+		move.w	#$B5,d0
 		jmp	(PlaySound).l	; play extra life music
 ; ===========================================================================
 
@@ -24284,7 +24277,7 @@ Obj01_Main:				; XREF: Obj01_Index
 		
 Sos_Vars:
 		move.w	#$FFF,($FFFFF760).w ; Sonic's top speed
-		move.w	#$FF,($FFFFF762).w ; Sonic's acceleration
+		move.w	#$FA,($FFFFF762).w ; Sonic's acceleration
 		move.w	#$0,($FFFFF764).w ; Sonic's deceleration
 		jmp Obj01_Control		; Jump to control routine so we dont overwrite our variables with Snorc's
 		
