@@ -25498,7 +25498,7 @@ Sonic_SpinDash:
 		move.b	($FFFFF603).w,d0
 		andi.b	#$70,d0
 		beq.w	locret_1AC8C
-		move.b	#$1F,$1C(a0)
+		move.b	#$9,$1C(a0)
 		move.w	#$BE,d0
 		jsr	(PlaySound_Special).l
 		addq.l	#4,sp
@@ -35749,7 +35749,7 @@ locret_1AF2E:
 Touch_Enemy:				; XREF: Touch_ChkValue
 		tst.b	($FFFFFE2D).w	; is Sonic invincible?
 		bne.s	loc_1AF40	; if yes, branch
-		cmpi.b	#$1F,$1C(a0)	; is Sonic Spin Dashing?
+		cmpi.b	#$9,$1C(a0)	; is Sonic Spin Dashing?
 		beq.w	loc_1AF40	; if yes, branch
 		cmpi.b	#2,$1C(a0)	; is Sonic rolling?
 		bne.w	Touch_ChkHurt	; if not, branch
