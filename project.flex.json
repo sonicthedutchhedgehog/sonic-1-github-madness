@@ -1,7 +1,33 @@
 {
     "Flex": 2,
     "name": "",
+    "node": "8675b844-c0cf-407a-a9d6-0ad532fd5495",
     "objects": [
+        {
+            "uuid": "8675b844-c0cf-407a-a9d6-0ad532fd5495",
+            "format": "Sonic 1.js",
+            "name": "contenue y AASS",
+            "palettes": [
+                {
+                    "path": "pallet\\sscontin.bin",
+                    "length": 1
+                }
+            ],
+            "art": {
+                "path": "artnem\\cntsonic.bin",
+                "compression": "Nemesis",
+                "offset": 0
+            },
+            "mappings": {
+                "path": "",
+                "label": ""
+            },
+            "dplcs": {
+                "enabled": false,
+                "path": "",
+                "label": ""
+            }
+        },
         {
             "uuid": "8d609c4f-4eb5-44c0-b464-61037890e13b",
             "format": "Sonic 1.js",
