@@ -16705,8 +16705,6 @@ Obj36_Upright:				; XREF: Obj36_Solid
 Obj36_Hurt:				; XREF: Obj36_SideWays; Obj36_Upright
 		tst.b	($FFFFFE2D).w	; is Sonic invincible?
 		bne.s	Obj36_Display	; if yes, branch
-		tst.w	($FFFFD030).w	; +++ is Sonic invulnerable?
-		bne.s	Obj36_Display	; +++ if yes, branch
 		move.l	a0,-(sp)
 		movea.l	a0,a2
 		lea	($FFFFD000).w,a0
