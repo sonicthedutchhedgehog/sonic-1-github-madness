@@ -3421,7 +3421,7 @@ Title_CheckForB:
 		cmpi.b	#$10, ($FFFFF605).w	; has B been pressed?
 		bne.s	StartCheck		; if not, branch
 Title_SecondCharacter:
-		cmpi.b  #$0B, ($FFFFFFF9).w ; are we dg
+		cmpi.b  #$0C, ($FFFFFFF9).w ; are we dg
 		beq.b	Title_BackTo0		; if so, switch to sos
 		addi.b	#$04, ($FFFFFFF9).w	; switch character
 		jmp 	Title_SFX	; jump to StartCheck so i dont get back into Title_Switcheroo FUCK.
