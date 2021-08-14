@@ -1181,16 +1181,15 @@ PauseGame:				; XREF: Level_MainLoop; et al
 
 loc_13BE:
 		move.w	#1,($FFFFF63A).w ; freeze time
-		move.b	#1,($FFFFF003).w ; pause music
+
 
 loc_13CA:
 		move.b	#$10,($FFFFF62A).w
 		bsr.w	DelayProgram
-		tst.b	($FFFFFFE1).w	; is slow-motion cheat on?
-		beq.s	Pause_ChkStart	; if not, branch
+
 		btst	#6,($FFFFF605).w ; is button A pressed?
 		beq.s	Pause_ChkBC	; if not, branch
-		move.b	#4,($FFFFF600).w ; set game mode to 4 (title screen)
+		move.b	#10,($FFFFF600).w ; set game mode to 4 (title screen)
 		nop	
 		bra.s	loc_1404
 ; ===========================================================================
