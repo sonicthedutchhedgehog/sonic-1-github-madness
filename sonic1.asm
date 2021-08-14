@@ -1109,8 +1109,19 @@ SoundDriverLoad:            ; XREF: GameClrRAM; TitleScreen
 
 
 PlaySound:
+		cmpi.b  #$7F,d0
+		ble.s   ChkSounds00to7F
+		jmp	 NormalSoundRequest
+ChkSounds00to7F:
+		cmpi.b  #$01,d0
+		bge.s   LoadSlots00to7F
+		jmp	 NormalSoundRequest
+LoadSlots00to7F:
+		add.b   #$80,d0; Add $80 to get slot to starts at $81			
+		move.b  #$01,($FFFFFFFC).w; Move $01 to $FFFFFC to make sound driver to load the secound index
+NormalSoundRequest:
 		move.b	d0,($FFFFF00A).w
-		rts	
+		rts
 ; End of function PlaySound
 
 ; ---------------------------------------------------------------------------
@@ -1127,8 +1138,20 @@ PlaySound:
 
 
 PlaySound_Special:
+		cmpi.b  #$7F,d0
+		ble.s   ChkSounds00to7F_Special
+		jmp	 NormalSoundRequest_Special
+ChkSounds00to7F_Special:
+
+		cmpi.b  #$01,d0
+		bge.s   LoadSlots00to7F_Special
+		jmp	 NormalSoundRequest_Special
+LoadSlots00to7F_Special:
+		add.b   #$80,d0; Add $80 to get slot to starts at $81			
+		move.b  #$01,($FFFFFFFC).w; Move $01 to $FFFFFC to make the sound driver to load the secound index
+NormalSoundRequest_Special:
 		move.b	d0,($FFFFF00B).w
-		rts	
+		rts
 ; End of function PlaySound_Special
 
 ; ===========================================================================
@@ -38756,6 +38779,8 @@ ObjPos_Null:	dc.b $FF, $FF, 0, 0, 0,	0
 
 Go_SoundTypes:	dc.l SoundTypes		; XREF: Sound_Play
 Go_SoundD0:	dc.l SoundD0Index	; XREF: Sound_D0toDF
+Go_MusicIndex00:	dc.l MusicIndex00
+Go_MusicIndexFF:	dc.l MusicIndexFF
 Go_MusicIndex:	dc.l MusicIndex		; XREF: Sound_81to9F
 Go_SoundIndex:	dc.l SoundIndex		; XREF: Sound_A0toCF
 off_719A0:	dc.l byte_71A94		; XREF: Sound_81to9F
@@ -38780,6 +38805,9 @@ byte_71A94:	dc.b 7,	$72, $73, $26, $15, 8, $FF, 5
 ; ---------------------------------------------------------------------------
 ; Music	Pointers
 ; ---------------------------------------------------------------------------
+MusicIndex00:
+		dc.l Music01
+
 MusicIndex:	dc.l Music81, Music82
 		dc.l Music83, Music84
 		dc.l Music85, Music86
@@ -38791,16 +38819,28 @@ MusicIndex:	dc.l Music81, Music82
 		dc.l Music91, Music92
 		dc.l Music93, Music94
 		dc.l Music95
+		
+MusicIndexFF:
+		dc.l MusicE5
 ; ---------------------------------------------------------------------------
 ; Type of sound	being played ($90 = music; $70 = normal	sound effect)
 ; ---------------------------------------------------------------------------
 SoundTypes:	dc.b $90, $90, $90, $90, $90, $90, $90,	$90, $90, $90, $90, $90, $90, $90, $90,	$90
-		dc.b $90, $90, $90, $90, $90, $90, $90,	$90, $90, $90, $90, $90, $90, $90, $90,	$80
-		dc.b $70, $70, $70, $70, $70, $70, $70,	$70, $70, $68, $70, $70, $70, $60, $70,	$70
-		dc.b $60, $70, $60, $70, $70, $70, $70,	$70, $70, $70, $70, $70, $70, $70, $7F,	$60
-		dc.b $70, $70, $70, $70, $70, $70, $70,	$70, $70, $70, $70, $70, $70, $70, $70,	$80
-		dc.b $80, $80, $80, $80, $80, $80, $80,	$80, $80, $80, $80, $80, $80, $80, $80,	$90
-		dc.b $90, $90, $90, $90
+		dc.b $90, $90, $90, $90, $90, $90, $90,	$90, $90, $90, $90, $90, $90, $90, $90,	$90
+		dc.b $90, $90, $90, $90, $90, $90, $90,	$90, $90, $90, $90, $90, $90, $90, $90,	$90
+		dc.b $90, $90, $90, $90, $90, $90, $90,	$90, $90, $90, $90, $90, $90, $90, $90,	$90
+		dc.b $90, $90, $90, $90, $90, $90, $90,	$90, $90, $90, $90, $90, $90, $90, $90,	$90
+		dc.b $90, $90, $90, $90, $90, $90, $90,	$90, $90, $90, $90, $90, $90, $90, $90,	$90
+		dc.b $90, $90, $90, $90, $90, $90, $90,	$90, $90, $90, $90, $90, $90, $90, $90,	$90
+		dc.b $90, $90, $90, $90, $90, $90, $90,	$90, $90, $90, $90, $90, $90, $90, $90,	$90
+		dc.b $90, $90, $90, $90, $90, $90, $90,	$90, $90, $90, $90, $90, $90, $90, $90,	$90
+		dc.b $90, $90, $90, $90, $90, $90, $90,	$90, $90, $90, $90, $90, $90, $90, $90,	$90
+		dc.b $90, $90, $90, $90, $90, $90, $90,	$90, $90, $90, $90, $90, $90, $90, $90,	$90
+		dc.b $90, $90, $90, $90, $90, $90, $90,	$90, $90, $90, $90, $90, $90, $90, $90,	$90
+		dc.b $90, $90, $90, $90, $90, $90, $90,	$90, $90, $90, $90, $90, $90, $90, $90,	$90
+		dc.b $90, $90, $90, $90, $90, $90, $90,	$90, $90, $90, $90, $90, $90, $90, $90,	$90
+		dc.b $90, $90, $90, $90, $90, $90, $90,	$90, $90, $90, $90, $90, $90, $90, $90,	$90
+		dc.b $90, $90, $90, $90, $90, $90, $90,	$90, $90, $90, $90, $90, $90, $90, $90, $90
 
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
@@ -39324,27 +39364,34 @@ locret_71F4A:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Sound_ChkValue:				; XREF: sub_71B4C
+Sound_ChkValue:; XREF: sub_71B4C
 		moveq	#0,d7
 		move.b	9(a6),d7
 		beq.w	Sound_E4
 		bpl.s	locret_71F8C
-		move.b	#$80,9(a6)	; reset	music flag
+		move.b	#$80,9(a6); reset	music flag
+		cmpi.b  #$01,($FFFFFFFC).w
+		bne.s   Load81to9F
+		jmp	 Sound_ChkValueFor00
+Load81to9F:
 		cmpi.b	#$9F,d7
-		bls.w	Sound_81to9F	; music	$81-$9F
+		bls.w	Sound_81to9F; music	$81-$9F
+ContinueSound_ChkValue:
 		cmpi.b	#$A0,d7
 		bcs.w	locret_71F8C
 		cmpi.b	#$CF,d7
-		bls.w	Sound_A0toCF	; sound	$A0-$CF
+		bls.w	Sound_A0toCF; sound	$A0-$CF
 		cmpi.b	#$D0,d7
 		bcs.w	locret_71F8C
 		cmpi.b	#$E0,d7
-		bcs.w	Sound_D0toDF	; sound	$D0-$DF
+		bcs.w	Sound_D0toDF; sound	$D0-$DF
 		cmpi.b	#$E4,d7
-		bls.s	Sound_E0toE4	; sound	$E0-$E4
+		bls.s	Sound_E0toE4; sound	$E0-$E4
+		cmpi.b  #$FF,d7
+		bls.w   Sound_E5toFF
 
 locret_71F8C:
-		rts	
+		rts
 ; ===========================================================================
 
 Sound_E0toE4:				; XREF: Sound_ChkValue
@@ -39392,6 +39439,15 @@ return_PlayPCM:
 ; Play music track $81-$9F
 ; ---------------------------------------------------------------------------
 
+Sound_ChkValueFor00:
+		cmpi.b  #$FF,d7; $FF = Last slot for musics in index $00 - $7F ($FF = $7F)
+		bls.w   Sound_81to9F
+		rts
+
+Sound_E5toFF:
+		move.b  #$01,($FFFFFFFD).w
+		sub.b   #$64,d7
+
 Sound_81to9F:				; XREF: Sound_ChkValue
 		cmpi.b	#$88,d7		; is "extra life" music	played?
 		bne.s	loc_72024	; if not, branch
@@ -39436,6 +39492,16 @@ loc_7202C:
 		subi.b	#$81,d7
 		move.b	(a4,d7.w),$29(a6)
 		movea.l	(Go_MusicIndex).l,a4
+		cmpi.b  #$01,($FFFFFFFD).w
+		bne.s   CheckSounds00to80
+		movea.l	(Go_MusicIndexFF).l,a4
+		jmp	 NormalIndexLoad
+CheckSounds00to80:
+		cmpi.b  #$01,($FFFFFFFC).w
+		bne.s   NormalIndexLoad
+		movea.l	(Go_MusicIndex00).l,a4		
+NormalIndexLoad:
+		clr.w   ($FFFFFFFC).w
 		lsl.w	#2,d7
 		movea.l	(a4,d7.w),a4
 		moveq	#0,d0
@@ -41036,6 +41102,14 @@ loc_72E64:				; XREF: loc_72A64
 		bra.w	sub_7272E
 ; ===========================================================================
 		include    'MegaPCM.asm'
+		
+; Music Starting at 00
+
+Music01:	incbin	sound\fartd.bin
+		even
+
+; Regular Music	
+
 Music81:	incbin	sound\music81.bin
 		even
 Music82:	incbin	sound\music82.bin
@@ -41077,6 +41151,11 @@ Music93:	incbin	sound\music93.bin
 Music94:	incbin	sound\music94.bin
 		even
 Music95:	incbin	sound\music95.bin
+		even
+		
+; Music starting at E5
+	
+MusicE5:	incbin sound\ghz.bin
 		even
 ; ---------------------------------------------------------------------------
 ; Sound	effect pointers
