@@ -25416,7 +25416,7 @@ locret_139C2:
 
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
-Player_AniDat:     dc.l SonicAniData, SnorcAniData, SonicAniData
+Player_AniDat:     dc.l SonicAniData, SonicAniData, SonicAniData
 
 
 Sonic_Animate:				; XREF: Obj01_Control; et al
@@ -25607,8 +25607,6 @@ loc_13B26:
 ; ===========================================================================
 SonicAniData:
 	include "_anim\Sonic.asm"
-SnorcAniData:
-	include "_anim\Snorc.asm"
 
 
 ; ---------------------------------------------------------------------------
