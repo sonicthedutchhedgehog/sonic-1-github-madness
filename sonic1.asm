@@ -25416,7 +25416,7 @@ locret_139C2:
 
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
-Player_AniDat:     dc.l SonicAniData, SnorcAniData, SonicAniData
+Player_AniDat:     dc.l SonicAniData, SonicAniData, SonicAniData
 
 
 Sonic_Animate:				; XREF: Obj01_Control; et al
@@ -25543,11 +25543,11 @@ loc_13AC2:
 		rts	
 ; ===========================================================================
 
-PAni_Run:   dc.l SonAni_Run,    SnorcAni_Run, 	SonAni_Run
-PAni_Walk:  dc.l SonAni_Walk,   SnorcAni_Walk, 	SonAni_Walk
-PAni_Roll2: dc.l SonAni_Roll2,  SnorcAni_Roll2, SonAni_Roll2
-PAni_Roll:  dc.l SonAni_Roll,   SnorcAni_Roll, 	SonAni_Roll
-PAni_Push:  dc.l SonAni_Push,   SnorcAni_Push, 	SonAni_Push
+PAni_Run:   dc.l SonAni_Run,    SonAni_Run, 	SonAni_Run
+PAni_Walk:  dc.l SonAni_Walk,  	SonAni_Walk, 	SonAni_Walk
+PAni_Roll2: dc.l SonAni_Roll2,  SonAni_Roll2, SonAni_Roll2
+PAni_Roll:  dc.l SonAni_Roll,   SonAni_Roll, 	SonAni_Roll
+PAni_Push:  dc.l SonAni_Push,   SonAni_Push, 	SonAni_Push
 
 SAnim_RollJump:				; XREF: SAnim_WalkRun
 		addq.b	#1,d0		; is animation rolling/jumping?
@@ -25607,8 +25607,6 @@ loc_13B26:
 ; ===========================================================================
 SonicAniData:
 	include "_anim\Sonic.asm"
-SnorcAniData:
-	include "_anim\Snorc.asm"
 
 
 ; ---------------------------------------------------------------------------
