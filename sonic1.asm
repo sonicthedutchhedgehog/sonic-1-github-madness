@@ -24518,7 +24518,6 @@ rts_stfu:
 ; ---------------------------------------------------------------------------
 
 Obj01_MdNormal:				; XREF: Obj01_Modes
-		bsr.w	Sonic_Peelout
 		bsr.w	Sonic_SpinDash
 		bsr.w	Sonic_Jump
 		bsr.w	Sonic_SlopeResist
@@ -25300,15 +25299,6 @@ loc_134C4:
 locret_134D2:
 		rts	
 ; End of function Sonic_JumpHeight
-; ---------------------------------------------------------------------------
-; Subroutine to make Sonic perform a peelout
-; ---------------------------------------------------------------------------
- 
-; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
-
-Sonic_Peelout:
-	include "misc\peelout.asm"
-	rts
 
 ; ---------------------------------------------------------------------------
 ; Subroutine to make Sonic perform a spindash
