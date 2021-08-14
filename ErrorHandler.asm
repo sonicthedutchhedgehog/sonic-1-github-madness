@@ -40,28 +40,28 @@ IllegalInstr:
 	__ErrorMessage "the famus iligal hah", _eh_default
 
 ZeroDivide:
-	__ErrorMessage "ZERO DIVIDE", _eh_default
+	__ErrorMessage "you divided by 0", _eh_default
 
 ChkInstr:
-	__ErrorMessage "CHK INSTRUCTION", _eh_default
+	__ErrorMessage "too many glitches", _eh_default
 
 TrapvInstr:
-	__ErrorMessage "TRAPV INSTRUCTION", _eh_default
+	__ErrorMessage "semen", _eh_default
 
 PrivilegeViol:
-	__ErrorMessage "PRIVILEGE VIOLATION", _eh_default
+	__ErrorMessage "check your privelage", _eh_default
 
 Trace:
-	__ErrorMessage "TRACE", _eh_default
+	__ErrorMessage "maybe ill be tracer", _eh_default
 
 Line1010Emu:
-	__ErrorMessage "LINE 1010 EMULATOR", _eh_default
+	__ErrorMessage "didnt use kega? fuck you", _eh_default
 
 Line1111Emu:
 	__ErrorMessage "piracy screen", _eh_default
 
 ErrorExcept:
-	__ErrorMessage "ERROR EXCEPTION", _eh_default
+	__ErrorMessage "ERROR LOL", _eh_default
 
 
 
