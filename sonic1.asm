@@ -24517,7 +24517,7 @@ rts_stfu:
 ; Modes	for controlling	Sonic
 ; ---------------------------------------------------------------------------
 
-Obj01_MdNormal:				; XREF: Obj01_Modes
+Obj01_MdNormal:	bsr.w	Sonic_Peelout			; XREF: Obj01_Modes
 		bsr.w	Sonic_SpinDash
 		bsr.w	Sonic_Jump
 		bsr.w	Sonic_SlopeResist
@@ -25132,15 +25132,17 @@ Boundary_Bottom:
 		cmp.w	d0,d1			; screen still scrolling down?
 		blt.s	Boundary_Bottom_locret	; if so, don't kill Sonic
 		cmpi.w	#$501,($FFFFFE10).w	; is level SBZ2 ?
-		bne.w	KillSonic		; if not, kill Sonic
+		bne.w	JmptoKillSonic		; if not, kill Sonic
 		cmpi.w	#$2000,($FFFFD008).w
-		bcs.w	KillSonic
+		bcs.w	JmptoKillSonic
 		clr.b	($FFFFFE30).w		; clear lamppost counter
 		move.w	#1,($FFFFFE02).w	; restart the level
 		move.w	#$103,($FFFFFE10).w	; set level to SBZ3 (LZ4)
 
 Boundary_Bottom_locret:
 		rts	
+JmptoKillSonic: jmp KillSonic
+
 ; ===========================================================================
 
 Boundary_Sides:
@@ -25299,7 +25301,15 @@ loc_134C4:
 locret_134D2:
 		rts	
 ; End of function Sonic_JumpHeight
+; ---------------------------------------------------------------------------
+; Subroutine to make Sonic perform a peelout
+; ---------------------------------------------------------------------------
+ 
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
+Sonic_Peelout:
+	include "_new\peelout.asm"
+	rts
 ; ---------------------------------------------------------------------------
 ; Subroutine to make Sonic perform a spindash
 ; ---------------------------------------------------------------------------
