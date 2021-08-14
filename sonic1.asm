@@ -2026,6 +2026,7 @@ PalCycle:	dc.w PalCycle_GHZ-PalCycle
 		dc.w PalCycle_SYZ-PalCycle
 		dc.w PalCycle_SBZ-PalCycle
 		dc.w PalCycle_GHZ-PalCycle
+		dc.w PalCycle_MMZ-PalCycle
 
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
@@ -2259,6 +2260,13 @@ loc_1B52:
 locret_1B64:
 		rts	
 ; End of function PalCycle_SBZ
+
+; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+
+
+PalCycle_MMZ:				; XREF: PalCycle
+		rts	
+; End of function PalCycle_MMZ
 
 ; ===========================================================================
 Pal_TitleCyc:	incbin	pallet\c_title.bin
@@ -16549,51 +16557,51 @@ byte_C9FE:	dc.b 8   		; TURD HILL
 		dc.b $F8, 5, 0,	$26, $2C
 		dc.b $F8, 5, 0,	$26, $3C
 byte_CA2C:	dc.b $A	;  LABYRINTH | BLUE OCEAN
-		dc.b $F8, 5, 0, 4, $80		; B
-		dc.b $F8, 5, 0, $26, $90	; L
-		dc.b $F8, 5, 0, $46, $A0	; U
-		dc.b $F8, 5, 0, $10, $B0	; E
-		dc.b $F8, 0, 0, $56, $C0	; Space
-		dc.b $F8, 5, 0, $32, $D0	; O
-		dc.b $F8, 5, 0, 8, $E0		; C
-		dc.b $F8, 5, 0, $10, $F0	; E
-		dc.b $F8, 5, 0, 0, $0		; A
-		dc.b $F8, 5, 0, $2E, $10	; N
+		dc.b $F8, 5, 0, 4, $AC		; B
+		dc.b $F8, 5, 0, $26, $BC	; L
+		dc.b $F8, 5, 0, $46, $CC	; U
+		dc.b $F8, 5, 0, $10, $DC	; E
+		dc.b $F8, 0, 0, $56, $EC	; Space
+		dc.b $F8, 5, 0, $32, $FC	; O
+		dc.b $F8, 5, 0, 8, $C		; C
+		dc.b $F8, 5, 0, $10, $1C	; E
+		dc.b $F8, 5, 0, 0, $2C		; A
+		dc.b $F8, 5, 0, $2E, $3C	; N
 byte_CA5A:	dc.b 9	;  MARBLE | BLUE HILL
-		dc.b $F8, 5, 0, 4, $80		; B
-		dc.b $F8, 5, 0, $26, $90	; L
-		dc.b $F8, 5, 0, $46, $A0	; U
-		dc.b $F8, 5, 0, $10, $B0	; E
-		dc.b $F8, 0, 0, $56, $C0	; Space
-		dc.b $F8, 5, 0, $1C, $D0	; H
-		dc.b $F8, 1, 0, $20, $E0	; I
-		dc.b $F8, 5, 0, $26, $E8	; L
-		dc.b $F8, 5, 0, $26, $F8	; L
+		dc.b $F8, 5, 0, 4, $C4		; B
+		dc.b $F8, 5, 0, $26, $D4	; L
+		dc.b $F8, 5, 0, $46, $E4	; U
+		dc.b $F8, 5, 0, $10, $F4	; E
+		dc.b $F8, 0, 0, $56, $4	; Space
+		dc.b $F8, 5, 0, $1C, $14	; H
+		dc.b $F8, 1, 0, $20, $24	; I
+		dc.b $F8, 5, 0, $26, $2C	; L
+		dc.b $F8, 5, 0, $26, $3C	; L
 		dc.b 0
 byte_CA7A:	dc.b $E	;  STAR LIGHT | ROCKY MOUNTAIN
-		dc.b $F8, 5, 0, $3A, $80	; R
-		dc.b $F8, 5, 0, $32, $90	; O
-		dc.b $F8, 5, 0, 8, $A0		; C
-		dc.b $F8, 5, 0, $22, $B0	; K
-		dc.b $F8, 5, 0, $4A, $C0	; Y
-		dc.b $F8, 0, 0, $56, $D0	; Space
-		dc.b $F8, 5, 0, $2A, $E0	; M
-		dc.b $F8, 5, 0, $32, $F0	; O
-		dc.b $F8, 5, 0, $46, $0	; U
-		dc.b $F8, 5, 0, $2E, $10	; N
-		dc.b $F8, 5, 0, $42, $20	; T
-		dc.b $F8, 5, 0, 0, $30		; A
-		dc.b $F8, 1, 0, $20, $40	; I
-		dc.b $F8, 5, 0, $2E, $48	; N
+		dc.b $F8, 5, 0, $3A, $84	; R
+		dc.b $F8, 5, 0, $32, $94	; O
+		dc.b $F8, 5, 0, 8, $A4		; C
+		dc.b $F8, 5, 0, $22, $B4	; K
+		dc.b $F8, 5, 0, $4A, $C4	; Y
+		dc.b $F8, 0, 0, $56, $D4	; Space
+		dc.b $F8, 5, 0, $2A, $E4	; M
+		dc.b $F8, 5, 0, $32, $F4	; O
+		dc.b $F8, 5, 0, $46, $4	; U
+		dc.b $F8, 5, 0, $2E, $14	; N
+		dc.b $F8, 5, 0, $42, $24	; T
+		dc.b $F8, 5, 0, 0, $34		; A
+		dc.b $F8, 1, 0, $20, $44	; I
+		dc.b $F8, 5, 0, $2E, $4C	; N
 byte_CAA8:	dc.b 8	;  SPRING YARD | SUS YARD
-		dc.b $F8, 5, 0, $3E, $80	; S
-		dc.b $F8, 5, 0, $46, $90	; U
-		dc.b $F8, 5, 0, $3E, $A0	; S
-		dc.b $F8, 0, 0, $56, $B0	; Space
-		dc.b $F8, 5, 0, $4A, $C0	; Y
-		dc.b $F8, 5, 0, 0, $D0		; A
-		dc.b $F8, 5, 0, $3A, $E0	; R
-		dc.b $F8, 5, 0, $0C, $F0	; D
+		dc.b $F8, 5, 0, $3E, $CC	; S
+		dc.b $F8, 5, 0, $46, $DC	; U
+		dc.b $F8, 5, 0, $3E, $EC	; S
+		dc.b $F8, 0, 0, $56, $FC	; Space
+		dc.b $F8, 5, 0, $4A, $C	; Y
+		dc.b $F8, 5, 0, 0, $1C		; A
+		dc.b $F8, 5, 0, $3A, $2C	; R
+		dc.b $F8, 5, 0, $0C, $3C	; D
 		dc.b 0
 byte_CADC:	dc.b $A			; SCRAP BRAIN
 		dc.b $F8, 5, 0,	$3E, $AC
@@ -16662,21 +16670,30 @@ Map_obj3A:	dc.w byte_CBEA-Map_obj3A
 		dc.w byte_CB31-Map_obj3A
 		dc.w byte_CB3C-Map_obj3A
 byte_CBEA:	dc.b $A	;  SONIC HAS | YOU TOOK A
-		dc.b $F8, 5, 0, $4A, $B0	; Y
-		dc.b $F8, 5, 0, $32, $C0	; O
-		dc.b $F8, 5, 0, $46, $D0	; U
-		dc.b $F8, 0, 0, $56, $E0	; Space
-		dc.b $F8, 5, 0, $42, $F0	; T
-		dc.b $F8, 5, 0, $32, $0	; O
-		dc.b $F8, 5, 0, $32, $10	; O
-		dc.b $F8, 5, 0, $22, $20	; K
-		dc.b $F8, 0, 0, $56, $30	; Space
-		dc.b $F8, 5, 0, 0, $40		; A
-byte_CC13:	dc.b 4	;  PASSED | DUMP
-		dc.b $F8, 5, 0, $0C, $E4	; D
-		dc.b $F8, 5, 0, $46, $F4	; U
-		dc.b $F8, 5, 0, $2A, $4	; M
-		dc.b $F8, 5, 0, $36, $14	; P
+		dc.b $F8, 5, 0, $4A, $AC	; Y
+		dc.b $F8, 5, 0, $32, $BC	; O
+		dc.b $F8, 5, 0, $46, $CC	; U
+		dc.b $F8, 0, 0, $56, $DC	; Space
+		dc.b $F8, 5, 0, $42, $EC	; T
+		dc.b $F8, 5, 0, $32, $FC	; O
+		dc.b $F8, 5, 0, $32, $C	; O
+		dc.b $F8, 5, 0, $22, $1C	; K
+		dc.b $F8, 0, 0, $56, $2C	; Space
+		dc.b $F8, 5, 0, 0, $3C		; A
+byte_CC13:	dc.b 4	;  PASSED | FAT SHIT LMAO
+		dc.b $F8, 5, 0, $14, $84	; F
+		dc.b $F8, 5, 0, 0, $94		; A
+		dc.b $F8, 5, 0, $42, $A4	; T
+		dc.b $F8, 0, 0, $56, $B4	; Space
+		dc.b $F8, 5, 0, $3E, $C4	; S
+		dc.b $F8, 5, 0, $1C, $D4	; H
+		dc.b $F8, 1, 0, $20, $E4	; I
+		dc.b $F8, 5, 0, $42, $EC	; T
+		dc.b $F8, 0, 0, $56, $FC	; Space
+		dc.b $F8, 5, 0, $26, $C	; L
+		dc.b $F8, 5, 0, $2A, $1C	; M
+		dc.b $F8, 5, 0, 0, $2C		; A
+		dc.b $F8, 5, 0, $32, $3C	; O
 byte_CC32:	dc.b 6			; SCORE
 		dc.b $F8, $D, 1, $4A, $B0
 		dc.b $F8, 1, 1,	$62, $D0
@@ -16756,35 +16773,25 @@ byte_CD5B:	dc.b 3
 		dc.b $F8, $D, $FF, $D1,	$B0
 		dc.b $F8, $D, $FF, $D9,	$D0
 		dc.b $F8, 1, $FF, $E1, $F0
-byte_CD6B:	dc.b $C			; "YOU SUCK LOL"
-		dc.b $F8, 5, 0,	$4A, $9C
-		dc.b $F8, 5, 0,	$32, $AC
-		dc.b $F8, 5, 0,	$46, $BC
-		dc.b $F8, 5, 0,	$56, $CC
-		dc.b $F8, 1, 0,	$3E, $DC
-		dc.b $F8, 5, 0,	$46, $E4
-		dc.b $F8, 5, 0,	$08, $F4
-		dc.b $F8, 5, 0,	$22, $14
-		dc.b $F8, 5, 0,	$56, $24
-		dc.b $F8, 5, 0,	$26, $34
-		dc.b $F8, 5, 0,	$32, $44
-		dc.b $F8, 5, 0,	$26, $54
-byte_CDA8:	dc.b $F			; "SONIC GOT THEM ALL"
-		dc.b $F8, 5, 0,	$3E, $88
-		dc.b $F8, 5, 0,	$32, $98
-		dc.b $F8, 5, 0,	$2E, $A8
-		dc.b $F8, 1, 0,	$20, $B8
-		dc.b $F8, 5, 0,	8, $C0
-		dc.b $F8, 5, 0,	$18, $D8
-		dc.b $F8, 5, 0,	$32, $E8
-		dc.b $F8, 5, 0,	$42, $F8
-		dc.b $F8, 5, 0,	$42, $10
-		dc.b $F8, 5, 0,	$1C, $20
-		dc.b $F8, 5, 0,	$10, $30
-		dc.b $F8, 5, 0,	$2A, $40
-		dc.b $F8, 5, 0,	0, $58
-		dc.b $F8, 5, 0,	$26, $68
-		dc.b $F8, 5, 0,	$26, $78
+byte_CD6B:	dc.b $C			; "YOU SUCK LMAO"
+		dc.b $F8, 5, 0, $4A, $8C	; Y
+		dc.b $F8, 5, 0, $32, $9C	; O
+		dc.b $F8, 5, 0, $46, $AC	; U
+		dc.b $F8, 0, 0, $56, $BC	; Space
+		dc.b $F8, 5, 0, $3E, $CC	; S
+		dc.b $F8, 5, 0, $46, $DC	; U
+		dc.b $F8, 5, 0, 8, $EC		; C
+		dc.b $F8, 5, 0, $22, $FC	; K
+		dc.b $F8, 0, 0, $56, $C	; Space
+		dc.b $F8, 5, 0, $26, $1C	; L
+		dc.b $F8, 5, 0, $2A, $2C	; M
+		dc.b $F8, 5, 0, 0, $3C		; A
+		dc.b $F8, 5, 0, $32, $4C	; O
+byte_CDA8:	dc.b $F			; "FUCK"
+		dc.b $F8, 5, 0, $14, $C	; F
+		dc.b $F8, 5, 0, $46, $1C	; U
+		dc.b $F8, 5, 0, 8, $2C		; C
+		dc.b $F8, 5, 0, $22, $3C	; K
 		even
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - chaos emeralds from	the special stage results screen
@@ -25491,7 +25498,7 @@ Sonic_SpinDash:
 		move.b	($FFFFF603).w,d0
 		andi.b	#$70,d0
 		beq.w	locret_1AC8C
-		move.b	#2,$1C(a0)
+		move.b	#$1F,$1C(a0)
 		move.w	#$BE,d0
 		jsr	(PlaySound_Special).l
 		addq.l	#4,sp
@@ -35742,6 +35749,8 @@ locret_1AF2E:
 Touch_Enemy:				; XREF: Touch_ChkValue
 		tst.b	($FFFFFE2D).w	; is Sonic invincible?
 		bne.s	loc_1AF40	; if yes, branch
+		cmpi.b	#$1F,$1C(a0)	; is Sonic Spin Dashing?
+		beq.w	loc_1AF40	; if yes, branch
 		cmpi.b	#2,$1C(a0)	; is Sonic rolling?
 		bne.w	Touch_ChkHurt	; if not, branch
 
@@ -39595,7 +39604,8 @@ MusicIndex:	dc.l Music81, Music82
 		dc.l Music8F, Music90
 		dc.l Music91, Music92
 		dc.l Music93, Music94
-		dc.l Music95
+		dc.l Music95, Music96
+		dc.l Music97
 		
 MusicIndexFF:
 		dc.l MusicE5
@@ -41928,6 +41938,10 @@ Music93:	incbin	sound\music93.bin
 Music94:	incbin	sound\music94.bin
 		even
 Music95:	incbin	sound\music95.bin
+		even
+Music96:	incbin	sound\music96.bin
+		even
+Music97:	incbin 	sound\music97.bin
 		even
 		
 ; Music starting at E5
