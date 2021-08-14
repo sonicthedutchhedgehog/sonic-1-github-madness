@@ -2897,6 +2897,7 @@ Pal_Title:	incbin	pallet\title.bin
 Pal_LevelSel:	incbin	pallet\levelsel.bin
 Pal_Sonic:	incbin	pallet\sonic.bin
 Pal_Snorc:	incbin	pallet\snorc.bin
+Pal_DG:	incbin	pallet\dg.bin
 Pal_GHZ:	incbin	pallet\ghz.bin
 Pal_GHZ2:	incbin	pallet\ghz.bin
 Pal_GHZ3:	incbin	pallet\ghz.bin
@@ -2935,9 +2936,9 @@ Pal_Ending:	incbin	pallet\ending.bin	; ending sequence pallets
 ; Subroutine to load correct player pallets
 ; ---------------------------------------------------------------------------
  
-CharPalList:        dc.l Pal_Sonic, Pal_Snorc, Pal_Snorc
-CharPalListLZ:      dc.l Pal_LZSonWater, Pal_SnorcLZ, Pal_SnorcLZ
-CharPalListSBZ3:    dc.l Pal_SBZ3SonWat, Pal_SnorcSBZ3, Pal_SnorcSBZ3
+CharPalList:        dc.l Pal_Sonic, Pal_Snorc, Pal_Snorc, Pal_DG
+CharPalListLZ:      dc.l Pal_LZSonWater, Pal_SnorcLZ, Pal_SnorcLZ, Pal_SnorcLZ
+CharPalListSBZ3:    dc.l Pal_SBZ3SonWat, Pal_SnorcSBZ3, Pal_SnorcSBZ3, Pal_SnorcSBZ3
  
 LoadPlayerPalettes:
         moveq   #0,d1
@@ -3420,7 +3421,7 @@ Title_CheckForB:
 		cmpi.b	#$10, ($FFFFF605).w	; has B been pressed?
 		bne.s	StartCheck		; if not, branch
 Title_SecondCharacter:
-		cmpi.b  #$08, ($FFFFFFF9).w ; are we sphere
+		cmpi.b  #$0B, ($FFFFFFF9).w ; are we dg
 		beq.b	Title_BackTo0		; if so, switch to sos
 		addi.b	#$04, ($FFFFFFF9).w	; switch character
 		jmp 	Title_SFX	; jump to StartCheck so i dont get back into Title_Switcheroo FUCK.
@@ -23672,7 +23673,7 @@ Map_obj65:
 ; Object 01 - Sonic
 ; ---------------------------------------------------------------------------
 
-Player_MapLoc:      dc.l Map_Sonic, Map_Snorc, Map_Sphere
+Player_MapLoc:      dc.l Map_Sonic, Map_Snorc, Map_Sphere, Map_DG
 
 Obj01:					; XREF: Obj_Index
 		tst.w	($FFFFFE08).w	; is debug mode	being used?
@@ -25416,7 +25417,7 @@ locret_139C2:
 
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
-Player_AniDat:     dc.l SonicAniData, SonicAniData, SonicAniData
+Player_AniDat:     dc.l SonicAniData, SonicAniData, SonicAniData, SonicAniData
 
 
 Sonic_Animate:				; XREF: Obj01_Control; et al
@@ -25543,11 +25544,11 @@ loc_13AC2:
 		rts	
 ; ===========================================================================
 
-PAni_Run:   dc.l SonAni_Run,    SonAni_Run, 	SonAni_Run
-PAni_Walk:  dc.l SonAni_Walk,  	SonAni_Walk, 	SonAni_Walk
-PAni_Roll2: dc.l SonAni_Roll2,  SonAni_Roll2, SonAni_Roll2
-PAni_Roll:  dc.l SonAni_Roll,   SonAni_Roll, 	SonAni_Roll
-PAni_Push:  dc.l SonAni_Push,   SonAni_Push, 	SonAni_Push
+PAni_Run:   dc.l SonAni_Run,    SonAni_Run, 	SonAni_Run,		SonAni_Run
+PAni_Walk:  dc.l SonAni_Walk,  	SonAni_Walk, 	SonAni_Walk, 	SonAni_Walk
+PAni_Roll2: dc.l SonAni_Roll2,  SonAni_Roll2, 	SonAni_Roll2, 	SonAni_Roll2
+PAni_Roll:  dc.l SonAni_Roll,   SonAni_Roll, 	SonAni_Roll, 	SonAni_Roll
+PAni_Push:  dc.l SonAni_Push,   SonAni_Push, 	SonAni_Push, 	SonAni_Push
 
 SAnim_RollJump:				; XREF: SAnim_WalkRun
 		addq.b	#1,d0		; is animation rolling/jumping?
@@ -25615,8 +25616,8 @@ SonicAniData:
 
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
-Player_DPLCLoc:     dc.l SonicDynPLC, SnorcDynPLC, SphereDynPLC
-Player_ArtLoc:      dc.l Art_Sonic, Art_Snorc, Art_Sphere
+Player_DPLCLoc:     dc.l SonicDynPLC, SnorcDynPLC, SphereDynPLC, DGDynPLC
+Player_ArtLoc:      dc.l Art_Sonic, Art_Snorc, Art_Sphere, Art_DG
 
 LoadSonicDynPLC:
         moveq   #0,d0               ; quickly clear d0
@@ -38080,17 +38081,29 @@ Map_Snorc:
 SnorcDynPLC:
 	include "_inc\Snorc dynamic pattern load cues.asm"
 	
-;	---------------------------------------------------------------------------
+; ---------------------------------------------------------------------------
 ; Sprite mappings - Sphere
 ; ---------------------------------------------------------------------------
 Map_Sphere:
 	include "_maps\Sphere.asm"
 
 ; ---------------------------------------------------------------------------
-; Uncompressed graphics	loading	array for Snorc
+; Uncompressed graphics	loading	array for Sphere
 ; ---------------------------------------------------------------------------
 SphereDynPLC:
 	include "_inc\Sphere dynamic pattern load cues.asm"
+	
+; ---------------------------------------------------------------------------
+; Sprite mappings - DG
+; ---------------------------------------------------------------------------
+Map_DG:
+	include "_maps\DG.asm"
+
+; ---------------------------------------------------------------------------
+; Uncompressed graphics	loading	array for DG
+; ---------------------------------------------------------------------------
+DGDynPLC:
+	include "_inc\DG dynamic pattern load cues.asm"
 
 
 ; ---------------------------------------------------------------------------
@@ -38109,6 +38122,12 @@ Art_Snorc:	incbin	artunc\snorc.bin	; Snorc
 ; Uncompressed graphics	- Sphere
 ; ---------------------------------------------------------------------------
 Art_Sphere:	incbin	artunc\sphere.bin	; Snorc
+		even
+		
+; ---------------------------------------------------------------------------
+; Uncompressed graphics	- DG
+; ---------------------------------------------------------------------------
+Art_DG:	incbin	artunc\dg.bin	; Snorc
 		even
 ; ---------------------------------------------------------------------------
 ; Compressed graphics - various
