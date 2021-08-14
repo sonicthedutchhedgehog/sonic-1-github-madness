@@ -31,13 +31,13 @@ _eh_default			equ	0 ;_eh_show_sr_usp
 ; ---------------------------------------------------------------
 
 BusError:
-	__ErrorMessage "BUS ERROR", _eh_default|_eh_address_error
+	__ErrorMessage "fuck you game crashed", _eh_default|_eh_address_error
 
 AddressError:
-	__ErrorMessage "ADDRESS ERROR", _eh_default|_eh_address_error
+	__ErrorMessage "oh ffs game adress error", _eh_default|_eh_address_error
 
 IllegalInstr:
-	__ErrorMessage "ILLEGAL INSTRUCTION", _eh_default
+	__ErrorMessage "the famus iligal hah", _eh_default
 
 ZeroDivide:
 	__ErrorMessage "ZERO DIVIDE", _eh_default
@@ -58,7 +58,7 @@ Line1010Emu:
 	__ErrorMessage "LINE 1010 EMULATOR", _eh_default
 
 Line1111Emu:
-	__ErrorMessage "LINE 1111 EMULATOR", _eh_default
+	__ErrorMessage "piracy screen", _eh_default
 
 ErrorExcept:
 	__ErrorMessage "ERROR EXCEPTION", _eh_default
