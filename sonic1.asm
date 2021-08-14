@@ -13188,6 +13188,8 @@ loc_A1EC:				; XREF: Obj26_Solid
 		bmi.s	loc_A20A
 		cmpi.b	#2,$1C(a1)	; is Sonic rolling?
 		beq.s	loc_A25C	; if yes, branch
+		cmpi.b	#$9,$1C(a1)	; is Sonic spin-dashing?
+		beq.s	loc_A25C	; if yes, branch
 
 loc_A20A:
 		tst.w	d1
@@ -24531,6 +24533,7 @@ Obj01_MdNormal:	bsr.w	Sonic_Peelout			; XREF: Obj01_Modes
 ; ===========================================================================
 
 Obj01_MdJump:				; XREF: Obj01_Modes
+		clr.b	$39(a0)
 		bsr.w	Sonic_JumpHeight
 		bsr.w	Sonic_ChgJumpDir
 		bsr.w	Sonic_LevelBound
@@ -24557,6 +24560,7 @@ Obj01_MdRoll:				; XREF: Obj01_Modes
 ; ===========================================================================
 
 Obj01_MdJump2:				; XREF: Obj01_Modes
+		clr.b	$39(a0)
 		bsr.w	Sonic_JumpHeight
 		bsr.w	Sonic_ChgJumpDir
 		bsr.w	Sonic_LevelBound
@@ -25344,6 +25348,7 @@ locret_1AC8C:
 ; ---------------------------------------------------------------------------
 
 loc_1AC8E:
+		move.b	#$9,$1C(a0)
 		move.b	($FFFFF602).w,d0
 		btst	#1,d0
 		bne.w	loc_1AD30
