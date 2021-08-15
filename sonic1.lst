@@ -51181,8 +51181,8 @@
 00080922 0407 0000 0000 0000        	DAC_Entry	$07, Kick, dpcm			; $81	- Kick
 0008092A 040A 0000 0000 0000        	DAC_Entry	$0A, Snare, dpcm		; $82	- Snare
 00080932 041B 0000 0000 0000        	DAC_Entry	$1B, Timpani, dpcm		; $83	- Timpani
-0008093A 001B 0000 0000 0000        	DAC_Entry	$1B, whoosh, pcm		; $84	- Amogus Whoosh SFX
-00080942 001B 0000 0000 0000        	DAC_Entry	$1B, crack, pcm			; $85	- Amogus Crack SFX
+0008093A 0004 0000 0000 0000        	DAC_Entry	$04, whoosh, pcm		; $84	- Amogus Whoosh SFX
+00080942 0003 0000 0000 0000        	DAC_Entry	$03, crack, pcm			; $85	- Amogus Crack SFX
 0008094A 0000 0000 0000 0000        	dc.l	0,0					; $86	- <Free>
 00080952 0000 0000 0000 0000        	dc.l	0,0					; $87	- <Free>
 0008095A 0412 0000 0000 0000        	DAC_Entry	$12, Timpani, dpcm		; $88	- Hi-Timpani
@@ -52130,76 +52130,76 @@
 000AA9C8 4EB9 0000 0000 7468 6520+  	__ErrorMessage "the famus iligal hah", _eh_default
 000AA9E4                            
 000AA9E4                            ZeroDivide:
-000AA9E4 4EB9 0000 0000 5A45 524F+  	__ErrorMessage "ZERO DIVIDE", _eh_default
-000AA9F8                            
-000AA9F8                            ChkInstr:
-000AA9F8 4EB9 0000 0000 4348 4B20+  	__ErrorMessage "CHK INSTRUCTION", _eh_default
-000AAA10                            
-000AAA10                            TrapvInstr:
-000AAA10 4EB9 0000 0000 5452 4150+  	__ErrorMessage "TRAPV INSTRUCTION", _eh_default
-000AAA2A                            
-000AAA2A                            PrivilegeViol:
-000AAA2A 4EB9 0000 0000 5052 4956+  	__ErrorMessage "PRIVILEGE VIOLATION", _eh_default
-000AAA46                            
-000AAA46                            Trace:
-000AAA46 4EB9 0000 0000 5452 4143+  	__ErrorMessage "TRACE", _eh_default
-000AAA54                            
-000AAA54                            Line1010Emu:
-000AAA54 4EB9 0000 0000 4C49 4E45+  	__ErrorMessage "LINE 1010 EMULATOR", _eh_default
-000AAA6E                            
-000AAA6E                            Line1111Emu:
-000AAA6E 4EB9 0000 0000 7069 7261+  	__ErrorMessage "piracy screen", _eh_default
-000AAA84                            
-000AAA84                            ErrorExcept:
-000AAA84 4EB9 0000 0000 4552 524F+  	__ErrorMessage "ERROR EXCEPTION", _eh_default
-000AAA9C                            
-000AAA9C                            
-000AAA9C                            
-000AAA9C                            ; ---------------------------------------------------------------
-000AAA9C                            ; Import error handler global functions
-000AAA9C                            ; ---------------------------------------------------------------
-000AAA9C                            
-000AAA9C                            ErrorHandler.__global__error_initconsole equ ErrorHandler+$146
-000AAA9C                            ErrorHandler.__global__errorhandler_setupvdp equ ErrorHandler+$234
-000AAA9C                            ErrorHandler.__global__console_loadpalette equ ErrorHandler+$A1C
-000AAA9C                            ErrorHandler.__global__console_setposasxy_stack equ ErrorHandler+$A58
-000AAA9C                            ErrorHandler.__global__console_setposasxy equ ErrorHandler+$A5E
-000AAA9C                            ErrorHandler.__global__console_getposasxy equ ErrorHandler+$A8A
-000AAA9C                            ErrorHandler.__global__console_startnewline equ ErrorHandler+$AAC
-000AAA9C                            ErrorHandler.__global__console_setbasepattern equ ErrorHandler+$AD4
-000AAA9C                            ErrorHandler.__global__console_setwidth equ ErrorHandler+$AE8
-000AAA9C                            ErrorHandler.__global__console_writeline_withpattern equ ErrorHandler+$AFE
-000AAA9C                            ErrorHandler.__global__console_writeline equ ErrorHandler+$B00
-000AAA9C                            ErrorHandler.__global__console_write equ ErrorHandler+$B04
-000AAA9C                            ErrorHandler.__global__console_writeline_formatted equ ErrorHandler+$BB0
-000AAA9C                            ErrorHandler.__global__console_write_formatted equ ErrorHandler+$BB4
-000AAA9C                            
-000AAA9C                            
-000AAA9C                            ; ---------------------------------------------------------------
-000AAA9C                            ; Error handler external functions (compiled only when used)
-000AAA9C                            ; ---------------------------------------------------------------
-000AAA9C                            
-000AAA9C                            
-000AAA9C                            
-000AAA9C                            
-000AAA9C                            
-000AAA9C                            ; ---------------------------------------------------------------
-000AAA9C                            ; Include error handler binary module
-000AAA9C                            ; ---------------------------------------------------------------
-000AAA9C                            
-000AAA9C                            ErrorHandler:
-000AAA9C                            	incbin	ErrorHandler.bin
-000AB69C                            
-000AB69C                            ; ---------------------------------------------------------------
-000AB69C                            ; WARNING!
-000AB69C                            ;	DO NOT put any data from now on! DO NOT use ROM padding!
-000AB69C                            ;	Symbol data should be appended here after ROM is compiled
-000AB69C                            ;	by ConvSym utility, otherwise debugger modules won't be able
-000AB69C                            ;	to resolve symbol names.
-000AB69C                            ; ---------------------------------------------------------------
-000AB69C                            ; ---------------------------------------------------------------
-000AB69C                            
-000AB69C                            ; end of 'ROM'
-000AB69C                            EndOfRom:
-000AB69C                            
-000AB69C                            
+000AA9E4 4EB9 0000 0000 796F 7520+  	__ErrorMessage "you divided by 0", _eh_default
+000AA9FC                            
+000AA9FC                            ChkInstr:
+000AA9FC 4EB9 0000 0000 746F 6F20+  	__ErrorMessage "too many glitches", _eh_default
+000AAA16                            
+000AAA16                            TrapvInstr:
+000AAA16 4EB9 0000 0000 7365 6D65+  	__ErrorMessage "semen", _eh_default
+000AAA24                            
+000AAA24                            PrivilegeViol:
+000AAA24 4EB9 0000 0000 6368 6563+  	__ErrorMessage "check your privelage", _eh_default
+000AAA40                            
+000AAA40                            Trace:
+000AAA40 4EB9 0000 0000 6D61 7962+  	__ErrorMessage "maybe ill be tracer", _eh_default
+000AAA5C                            
+000AAA5C                            Line1010Emu:
+000AAA5C 4EB9 0000 0000 6469 646E+  	__ErrorMessage "didnt use kega? fuck you", _eh_default
+000AAA7C                            
+000AAA7C                            Line1111Emu:
+000AAA7C 4EB9 0000 0000 7069 7261+  	__ErrorMessage "piracy screen", _eh_default
+000AAA92                            
+000AAA92                            ErrorExcept:
+000AAA92 4EB9 0000 0000 4552 524F+  	__ErrorMessage "ERROR LOL", _eh_default
+000AAAA4                            
+000AAAA4                            
+000AAAA4                            
+000AAAA4                            ; ---------------------------------------------------------------
+000AAAA4                            ; Import error handler global functions
+000AAAA4                            ; ---------------------------------------------------------------
+000AAAA4                            
+000AAAA4                            ErrorHandler.__global__error_initconsole equ ErrorHandler+$146
+000AAAA4                            ErrorHandler.__global__errorhandler_setupvdp equ ErrorHandler+$234
+000AAAA4                            ErrorHandler.__global__console_loadpalette equ ErrorHandler+$A1C
+000AAAA4                            ErrorHandler.__global__console_setposasxy_stack equ ErrorHandler+$A58
+000AAAA4                            ErrorHandler.__global__console_setposasxy equ ErrorHandler+$A5E
+000AAAA4                            ErrorHandler.__global__console_getposasxy equ ErrorHandler+$A8A
+000AAAA4                            ErrorHandler.__global__console_startnewline equ ErrorHandler+$AAC
+000AAAA4                            ErrorHandler.__global__console_setbasepattern equ ErrorHandler+$AD4
+000AAAA4                            ErrorHandler.__global__console_setwidth equ ErrorHandler+$AE8
+000AAAA4                            ErrorHandler.__global__console_writeline_withpattern equ ErrorHandler+$AFE
+000AAAA4                            ErrorHandler.__global__console_writeline equ ErrorHandler+$B00
+000AAAA4                            ErrorHandler.__global__console_write equ ErrorHandler+$B04
+000AAAA4                            ErrorHandler.__global__console_writeline_formatted equ ErrorHandler+$BB0
+000AAAA4                            ErrorHandler.__global__console_write_formatted equ ErrorHandler+$BB4
+000AAAA4                            
+000AAAA4                            
+000AAAA4                            ; ---------------------------------------------------------------
+000AAAA4                            ; Error handler external functions (compiled only when used)
+000AAAA4                            ; ---------------------------------------------------------------
+000AAAA4                            
+000AAAA4                            
+000AAAA4                            
+000AAAA4                            
+000AAAA4                            
+000AAAA4                            ; ---------------------------------------------------------------
+000AAAA4                            ; Include error handler binary module
+000AAAA4                            ; ---------------------------------------------------------------
+000AAAA4                            
+000AAAA4                            ErrorHandler:
+000AAAA4                            	incbin	ErrorHandler.bin
+000AB6A4                            
+000AB6A4                            ; ---------------------------------------------------------------
+000AB6A4                            ; WARNING!
+000AB6A4                            ;	DO NOT put any data from now on! DO NOT use ROM padding!
+000AB6A4                            ;	Symbol data should be appended here after ROM is compiled
+000AB6A4                            ;	by ConvSym utility, otherwise debugger modules won't be able
+000AB6A4                            ;	to resolve symbol names.
+000AB6A4                            ; ---------------------------------------------------------------
+000AB6A4                            ; ---------------------------------------------------------------
+000AB6A4                            
+000AB6A4                            ; end of 'ROM'
+000AB6A4                            EndOfRom:
+000AB6A4                            
+000AB6A4                            
