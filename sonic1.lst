@@ -51181,7 +51181,7 @@
 00080922 0407 0000 0000 0000        	DAC_Entry	$07, Kick, dpcm			; $81	- Kick
 0008092A 040A 0000 0000 0000        	DAC_Entry	$0A, Snare, dpcm		; $82	- Snare
 00080932 041B 0000 0000 0000        	DAC_Entry	$1B, Timpani, dpcm		; $83	- Timpani
-0008093A 0004 0000 0000 0000        	DAC_Entry	$04, whoosh, pcm		; $84	- Amogus Whoosh SFX
+0008093A 0003 0000 0000 0000        	DAC_Entry	$03, whoosh, pcm		; $84	- Amogus Whoosh SFX
 00080942 0003 0000 0000 0000        	DAC_Entry	$03, crack, pcm			; $85	- Amogus Crack SFX
 0008094A 0000 0000 0000 0000        	dc.l	0,0					; $86	- <Free>
 00080952 0000 0000 0000 0000        	dc.l	0,0					; $87	- <Free>
