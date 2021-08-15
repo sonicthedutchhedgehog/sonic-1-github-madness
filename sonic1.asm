@@ -3716,7 +3716,6 @@ Level_ClrVars3:
 		move.w	($FFFFF624).w,(a6)
 		clr.w ($FFFFC800).w
 		move.l #$FFFFC800,($FFFFC8FC).w
-		clr.w	($FFFFF601).w
 		cmpi.b	#1,($FFFFFE10).w ; is level LZ?
 		bne.s	Level_LoadPal	; if not, branch
 		move.w	#$8014,(a6)
@@ -19116,7 +19115,6 @@ GotThroughAct:				; XREF: Obj3E_EndAct
 		cmp.w	d1,d0		; is time 5 minutes or higher?
 		bcs.s	loc_ECD0	; if not, branch
 		move.w	d1,d0		; use minimum time bonus (0)
-		 move.b  #1,($FFFFF601).w ; Set victory animation flag
 
 loc_ECD0:
 		add.w	d0,d0
