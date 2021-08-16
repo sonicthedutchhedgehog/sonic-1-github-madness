@@ -3716,7 +3716,6 @@ Level_ClrVars3:
 		move.w	($FFFFF624).w,(a6)
 		clr.w ($FFFFC800).w
 		move.l #$FFFFC800,($FFFFC8FC).w
-		clr.w	($FFFFF601).w
 		cmpi.b	#1,($FFFFFE10).w ; is level LZ?
 		bne.s	Level_LoadPal	; if not, branch
 		move.w	#$8014,(a6)
@@ -13188,6 +13187,8 @@ loc_A1EC:				; XREF: Obj26_Solid
 		bmi.s	loc_A20A
 		cmpi.b	#2,$1C(a1)	; is Sonic rolling?
 		beq.s	loc_A25C	; if yes, branch
+		cmpi.b	#$9,$1C(a1)	; is Sonic spin-dashing?
+		beq.s	loc_A25C	; if yes, branch
 
 loc_A20A:
 		tst.w	d1
@@ -19114,7 +19115,6 @@ GotThroughAct:				; XREF: Obj3E_EndAct
 		cmp.w	d1,d0		; is time 5 minutes or higher?
 		bcs.s	loc_ECD0	; if not, branch
 		move.w	d1,d0		; use minimum time bonus (0)
-		 move.b  #1,($FFFFF601).w ; Set victory animation flag
 
 loc_ECD0:
 		add.w	d0,d0
@@ -24531,6 +24531,7 @@ Obj01_MdNormal:	bsr.w	Sonic_Peelout			; XREF: Obj01_Modes
 ; ===========================================================================
 
 Obj01_MdJump:				; XREF: Obj01_Modes
+		clr.b	$39(a0)
 		bsr.w	Sonic_JumpHeight
 		bsr.w	Sonic_ChgJumpDir
 		bsr.w	Sonic_LevelBound
@@ -24557,6 +24558,7 @@ Obj01_MdRoll:				; XREF: Obj01_Modes
 ; ===========================================================================
 
 Obj01_MdJump2:				; XREF: Obj01_Modes
+		clr.b	$39(a0)
 		bsr.w	Sonic_JumpHeight
 		bsr.w	Sonic_ChgJumpDir
 		bsr.w	Sonic_LevelBound
@@ -25344,6 +25346,7 @@ locret_1AC8C:
 ; ---------------------------------------------------------------------------
 
 loc_1AC8E:
+		move.b	#$9,$1C(a0)
 		move.b	($FFFFF602).w,d0
 		btst	#1,d0
 		bne.w	loc_1AD30
