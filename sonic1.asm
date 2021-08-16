@@ -3757,12 +3757,18 @@ Level_BgmNotLZ4:
 		cmpi.w	#$502,($FFFFFE10).w ; is level FZ?
 		bne.s	Level_PlayBgm	; if not, branch
 		moveq	#6,d0		; move 6 to d0
+		;cmpi.w	#$403,($FFFFFE10).w ; is level SLZ 2
+		;bne.s	Level_rmz	; if yes, branch
+
 
 Level_PlayBgm:
 		lea	(MusicList).l,a1 ; load	music playlist
 		move.b	(a1,d0.w),d0	; add d0 to a1
 		bsr.w	PlaySound	; play music
 		move.b	#$34,($FFFFD080).w ; load title	card object
+;Level_rmz:
+		;move.b	#$E2,d0		; play title screen music
+		;bsr.w	PlaySound	; play music
 
 Level_TtlCard:
 		move.b	#$C,($FFFFF62A).w
