@@ -3194,7 +3194,7 @@ loc_317C:
 		cmpi.w	#$1C00,d0	; has Sonic object passed x-position $1C00?
 		bcs.s	Title_ChkRegion	; if not, branch
 		move.b	#0,($FFFFF600).w ; go to Sega screen
-		rts	
+                rts	
 ; ===========================================================================
 
 Title_ChkRegion:
