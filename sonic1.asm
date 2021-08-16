@@ -212,7 +212,7 @@ GameClrRAM:
 		move.b	#0,($FFFFF600).w ; set Game Mode to Sega Screen
 
 MainGameLoop:
-		move.b	($FFFFF600).w,d0 ; load	Game Mode
+		move.b ($FFFFF600).w,d0 ; load  Game Mode
 		andi.w	#$1C,d0
 		jsr	GameModeArray(pc,d0.w) ; jump to apt location in ROM
 		bra.s	MainGameLoop
