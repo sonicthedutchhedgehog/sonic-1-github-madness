@@ -3089,8 +3089,6 @@ Title_ClrPallet:
         bsr LoadPlayerPalettes  ; load palette for current character
                 moveq	#$E,d0		; load Sonic's pallet
 		bsr.w	PalLoad1
-		moveq	#3,d0		; load Sonic's pallet
-		bsr.w	PalLoad1
 		jsr	ObjectsLoad
 		jsr	BuildSprites
 		bsr.w	Pal_FadeTo
@@ -10735,12 +10733,13 @@ Map_obj18b:
 
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
-; Object 19 - blank
+; Object 19  speedup music obj
 ; ---------------------------------------------------------------------------
 
 Obj19:					; XREF: Obj_Index
-		move.w	#$C2,d0
-		bsr.w	(PlaySound_Special) ;	play collapsing	sound
+		move.b	#1,($FFFFFE2E).w ; speed up the	BG music
+		move.w	#$E2,d0
+		jmp	(PlaySound).l	; Speed	up the music
 		rts	
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
@@ -19768,10 +19767,17 @@ Map_obj40:
 
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
-; Object 4F - blank
+; Object 4F unused stop music
 ; ---------------------------------------------------------------------------
 
 Obj4F:					; XREF: Obj_Index
+		move.b	#1,($FFFFFE2E).w ; speed up the	BG music
+		move.w	#$4B0,($FFFFD034).w ; time limit for the power-up
+		move.w	#$C00,($FFFFF760).w ; change Sonic's top speed
+		move.w	#$18,($FFFFF762).w
+		move.w	#$80,($FFFFF764).w
+		move.w	#$E2,d0
+		jmp	(PlaySound).l	; Speed	up the music
 		rts	
 
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
