@@ -19771,14 +19771,7 @@ Map_obj40:
 ; ---------------------------------------------------------------------------
 
 Obj4F:					; XREF: Obj_Index
-		move.b	#1,($FFFFFE2E).w ; speed up the	BG music
-		move.w	#$4B0,($FFFFD034).w ; time limit for the power-up
-		move.w	#$C00,($FFFFF760).w ; change Sonic's top speed
-		move.w	#$18,($FFFFF762).w
-		move.w	#$80,($FFFFF764).w
-		move.w	#$E2,d0
-		jmp	(PlaySound).l	; Speed	up the music
-		rts	
+		move.b	#$14,($FFFFF600).w ; go to title screen
 
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
