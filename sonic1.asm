@@ -3087,7 +3087,9 @@ Title_ClrPallet:
         lea $FFFFFB80,a2        ; normal target palette
         lea $FFFFFA00,a3        ; underwater target palette
         bsr LoadPlayerPalettes  ; load palette for current character
-        moveq	#$E,d0		; load Sonic's pallet
+                moveq	#$E,d0		; load Sonic's pallet
+		bsr.w	PalLoad1
+		moveq	#3,d0		; load Sonic's pallet
 		bsr.w	PalLoad1
 		jsr	ObjectsLoad
 		jsr	BuildSprites
@@ -10737,6 +10739,8 @@ Map_obj18b:
 ; ---------------------------------------------------------------------------
 
 Obj19:					; XREF: Obj_Index
+		move.w	#$C2,d0
+		bsr.w	(PlaySound_Special) ;	play collapsing	sound
 		rts	
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
