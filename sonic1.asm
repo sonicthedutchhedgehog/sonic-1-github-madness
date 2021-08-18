@@ -3060,12 +3060,7 @@ TitleScreen:				; XREF: GameModeArray
                 jsr SHC2021
                 jsr SHC2021
                 jsr SHC2021
-                jsr SHC2021
-                jsr SHC2021
-                jsr SHC2021
-                jsr SHC2021
-                jsr SHC2021
-                jsr SHC2021
+                jsr SHC2021      
 		lea	($FFFFD000).w,a1
 		moveq	#0,d0
 		move.w	#$7FF,d1
