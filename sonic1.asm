@@ -2732,8 +2732,8 @@ Pal_Sonic:	incbin	pallet\sonic.bin
 Pal_Snorc:	incbin	pallet\snorc.bin
 Pal_DG:	incbin	pallet\dg.bin
 Pal_GHZ:	incbin	pallet\ghz.bin
-Pal_GHZ2:	incbin	pallet\ghz.bin
-Pal_GHZ3:	incbin	pallet\ghz.bin
+Pal_GHZ2:	incbin	pallet\ghz2.bin
+Pal_GHZ3:	incbin	pallet\ghz3.bin
 Pal_LZ:		incbin	pallet\lz.bin
 Pal_LZ2:	incbin	pallet\lz.bin
 Pal_LZ3:	incbin	pallet\lz.bin
