@@ -37,7 +37,7 @@ AddressError:
 	__ErrorMessage "oh ffs game adress error", _eh_default|_eh_address_error
 
 IllegalInstr:
-	__ErrorMessage "the famus iligal hah", _eh_default
+	__ErrorMessage "too late!", _eh_default
 
 ZeroDivide:
 	__ErrorMessage "you divided by 0", _eh_default
