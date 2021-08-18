@@ -52128,61 +52128,61 @@
 000A8B3C 4EB9 0000 0000 6D61 7962+  	__ErrorMessage "maybe ill be tracer", _eh_default
 000A8B58                            
 000A8B58                            Line1010Emu:
-000A8B58 4EB9 0000 0000 6469 646E+  	__ErrorMessage "didnt use kega? fuck you", _eh_default
-000A8B78                            
-000A8B78                            Line1111Emu:
-000A8B78 4EB9 0000 0000 7069 7261+  	__ErrorMessage "piracy screen", _eh_default
-000A8B8E                            
-000A8B8E                            ErrorExcept:
-000A8B8E 4EB9 0000 0000 4552 524F+  	__ErrorMessage "ERROR LOL", _eh_default
-000A8BA0                            
-000A8BA0                            
-000A8BA0                            
-000A8BA0                            ; ---------------------------------------------------------------
-000A8BA0                            ; Import error handler global functions
-000A8BA0                            ; ---------------------------------------------------------------
-000A8BA0                            
-000A8BA0                            ErrorHandler.__global__error_initconsole equ ErrorHandler+$146
-000A8BA0                            ErrorHandler.__global__errorhandler_setupvdp equ ErrorHandler+$234
-000A8BA0                            ErrorHandler.__global__console_loadpalette equ ErrorHandler+$A1C
-000A8BA0                            ErrorHandler.__global__console_setposasxy_stack equ ErrorHandler+$A58
-000A8BA0                            ErrorHandler.__global__console_setposasxy equ ErrorHandler+$A5E
-000A8BA0                            ErrorHandler.__global__console_getposasxy equ ErrorHandler+$A8A
-000A8BA0                            ErrorHandler.__global__console_startnewline equ ErrorHandler+$AAC
-000A8BA0                            ErrorHandler.__global__console_setbasepattern equ ErrorHandler+$AD4
-000A8BA0                            ErrorHandler.__global__console_setwidth equ ErrorHandler+$AE8
-000A8BA0                            ErrorHandler.__global__console_writeline_withpattern equ ErrorHandler+$AFE
-000A8BA0                            ErrorHandler.__global__console_writeline equ ErrorHandler+$B00
-000A8BA0                            ErrorHandler.__global__console_write equ ErrorHandler+$B04
-000A8BA0                            ErrorHandler.__global__console_writeline_formatted equ ErrorHandler+$BB0
-000A8BA0                            ErrorHandler.__global__console_write_formatted equ ErrorHandler+$BB4
-000A8BA0                            
-000A8BA0                            
-000A8BA0                            ; ---------------------------------------------------------------
-000A8BA0                            ; Error handler external functions (compiled only when used)
-000A8BA0                            ; ---------------------------------------------------------------
-000A8BA0                            
-000A8BA0                            
-000A8BA0                            
-000A8BA0                            
-000A8BA0                            
-000A8BA0                            ; ---------------------------------------------------------------
-000A8BA0                            ; Include error handler binary module
-000A8BA0                            ; ---------------------------------------------------------------
-000A8BA0                            
-000A8BA0                            ErrorHandler:
-000A8BA0                            	incbin	ErrorHandler.bin
-000A97A0                            
-000A97A0                            ; ---------------------------------------------------------------
-000A97A0                            ; WARNING!
-000A97A0                            ;	DO NOT put any data from now on! DO NOT use ROM padding!
-000A97A0                            ;	Symbol data should be appended here after ROM is compiled
-000A97A0                            ;	by ConvSym utility, otherwise debugger modules won't be able
-000A97A0                            ;	to resolve symbol names.
-000A97A0                            ; ---------------------------------------------------------------
-000A97A0                            ; ---------------------------------------------------------------
-000A97A0                            
-000A97A0                            ; end of 'ROM'
-000A97A0                            EndOfRom:
-000A97A0                            
-000A97A0                            
+000A8B58 4EB9 0000 0000 6974 2069+  	__ErrorMessage "it is a serious crime to not use kega fusion", _eh_default
+000A8B8C                            
+000A8B8C                            Line1111Emu:
+000A8B8C 4EB9 0000 0000 7069 7261+  	__ErrorMessage "piracy screen", _eh_default
+000A8BA2                            
+000A8BA2                            ErrorExcept:
+000A8BA2 4EB9 0000 0000 4552 524F+  	__ErrorMessage "ERROR LOL", _eh_default
+000A8BB4                            
+000A8BB4                            
+000A8BB4                            
+000A8BB4                            ; ---------------------------------------------------------------
+000A8BB4                            ; Import error handler global functions
+000A8BB4                            ; ---------------------------------------------------------------
+000A8BB4                            
+000A8BB4                            ErrorHandler.__global__error_initconsole equ ErrorHandler+$146
+000A8BB4                            ErrorHandler.__global__errorhandler_setupvdp equ ErrorHandler+$234
+000A8BB4                            ErrorHandler.__global__console_loadpalette equ ErrorHandler+$A1C
+000A8BB4                            ErrorHandler.__global__console_setposasxy_stack equ ErrorHandler+$A58
+000A8BB4                            ErrorHandler.__global__console_setposasxy equ ErrorHandler+$A5E
+000A8BB4                            ErrorHandler.__global__console_getposasxy equ ErrorHandler+$A8A
+000A8BB4                            ErrorHandler.__global__console_startnewline equ ErrorHandler+$AAC
+000A8BB4                            ErrorHandler.__global__console_setbasepattern equ ErrorHandler+$AD4
+000A8BB4                            ErrorHandler.__global__console_setwidth equ ErrorHandler+$AE8
+000A8BB4                            ErrorHandler.__global__console_writeline_withpattern equ ErrorHandler+$AFE
+000A8BB4                            ErrorHandler.__global__console_writeline equ ErrorHandler+$B00
+000A8BB4                            ErrorHandler.__global__console_write equ ErrorHandler+$B04
+000A8BB4                            ErrorHandler.__global__console_writeline_formatted equ ErrorHandler+$BB0
+000A8BB4                            ErrorHandler.__global__console_write_formatted equ ErrorHandler+$BB4
+000A8BB4                            
+000A8BB4                            
+000A8BB4                            ; ---------------------------------------------------------------
+000A8BB4                            ; Error handler external functions (compiled only when used)
+000A8BB4                            ; ---------------------------------------------------------------
+000A8BB4                            
+000A8BB4                            
+000A8BB4                            
+000A8BB4                            
+000A8BB4                            
+000A8BB4                            ; ---------------------------------------------------------------
+000A8BB4                            ; Include error handler binary module
+000A8BB4                            ; ---------------------------------------------------------------
+000A8BB4                            
+000A8BB4                            ErrorHandler:
+000A8BB4                            	incbin	ErrorHandler.bin
+000A97B4                            
+000A97B4                            ; ---------------------------------------------------------------
+000A97B4                            ; WARNING!
+000A97B4                            ;	DO NOT put any data from now on! DO NOT use ROM padding!
+000A97B4                            ;	Symbol data should be appended here after ROM is compiled
+000A97B4                            ;	by ConvSym utility, otherwise debugger modules won't be able
+000A97B4                            ;	to resolve symbol names.
+000A97B4                            ; ---------------------------------------------------------------
+000A97B4                            ; ---------------------------------------------------------------
+000A97B4                            
+000A97B4                            ; end of 'ROM'
+000A97B4                            EndOfRom:
+000A97B4                            
+000A97B4                            

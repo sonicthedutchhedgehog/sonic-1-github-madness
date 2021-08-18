@@ -55,7 +55,7 @@ Trace:
 	__ErrorMessage "maybe ill be tracer", _eh_default
 
 Line1010Emu:
-	__ErrorMessage "didnt use kega? fuck you", _eh_default
+	__ErrorMessage "it is a serious crime to not use kega fusion", _eh_default
 
 Line1111Emu:
 	__ErrorMessage "piracy screen", _eh_default
