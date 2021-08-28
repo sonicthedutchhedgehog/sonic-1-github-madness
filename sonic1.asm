@@ -12726,6 +12726,9 @@ loc_9B80:
 		movea.l	a0,a1
 		move.w	8(a0),d2
 		move.w	$C(a0),d3
+		
+		move.w	$C(a0), $30(a0)		;Storing Original Y for later
+		
 		lsr.b	#1,d4
 		bcs.s	loc_9C02
 		bclr	#7,(a2)
@@ -12767,6 +12770,18 @@ loc_9C0E:
 		bne.w	DeleteObject
 
 Obj25_Animate:				; XREF: Obj25_Index
+		
+		add.w	#3, $26(a0)				;Make this bigger to make the bounce faster
+		move.w	$26(a0), d0
+		jsr		CalcSine
+		asr.w	#2, d0					;Make this bigger (up to 8) to make the arc smaller
+		bpl		@Skip
+		move.w	#0, $26(a0)
+	@Skip:
+		neg.w	d0
+		add.w	$30(a0), d0
+		move.w	d0, $C(a0)
+		
 		move.b	($FFFFFEC3).w,$1A(a0) ;	set frame
 		bsr.w	DisplaySprite
 		move.w	$32(a0),d0
