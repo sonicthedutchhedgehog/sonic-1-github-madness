@@ -927,6 +927,18 @@ SoundDriverLoad:            ; XREF: GameClrRAM; TitleScreen
 ; End of function SoundDriverLoad
 
 ; ---------------------------------------------------------------------------
+; Subroutine to    play a DAC sample
+; ---------------------------------------------------------------------------
+ 
+PlaySample:
+    move.w    #$100,($A11100).l    ; stop the Z80
+@0    btst    #0,($A11100).l
+    bne.s    @0
+    move.b    d0,$A01FFF
+    move.w    #0,($A11100).l
+    rts
+
+; ---------------------------------------------------------------------------
 ; Subroutine to	play a sound or	music track
 ; ---------------------------------------------------------------------------
 
@@ -1857,11 +1869,13 @@ PalCycle:	dc.w PalCycle_GHZ-PalCycle
 
 
 PalCycle_Title:				; XREF: TitleScreen	
-	jmp	PalCycle_GHZ
+	jmp	PalCycle_SYZ
 	rts
 ; ===========================================================================
 
 PalCycle_GHZ:				; XREF: PalCycle
+				jmp	PalCycle_SYZ
+				rts
 				tst.w	($FFFFF63A).w	; is game paused?
 				bne.s	Offset_0x00221A	; if yes, branch
                 subq.w  #5,($FFFFF79C).w
@@ -1897,17 +1911,20 @@ Offset_0x00221A:
 Pal_CNzCyc1:                                                   ; Offset_0x0023F0    
                 dc.w    $000E, $00EE, $006E, $006E, $000E, $00EE, $00EE, $006E
                 dc.w    $000E, $00EC, $0080, $00C4, $00C4, $00EC, $0080, $0080
-                dc.w    $00C4, $00EC    
+                dc.w    $00C4, $00EC  
+				even
 ;-------------------------------------------------------------------------------  
 Pal_CNzCyc2:                                                   ; Offset_0x002414   
                 dc.w    $000E, $00EE, $006E, $006E, $000E, $00EE, $00EE, $006E
                 dc.w    $000E, $00EC, $0080, $00C4, $00C4, $00EC, $0080, $0080
                 dc.w    $00C4, $00EC   
+				even
 ;-------------------------------------------------------------------------------    
 Pal_CNzCyc3:                                                   ; Offset_0x002426     
                 dc.w    $008E, $00AE, $00EC, $0EEE, $00EA, $00E4, $06C0, $0CC4
                 dc.w    $0E80, $0E40, $0E04, $0C08, $0C2E, $080E, $040E, $000E
-                dc.w    $004E, $006E, $008E, $00AE 				
+                dc.w    $004E, $006E, $008E, $00AE 	
+				even
 
 
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
@@ -2024,11 +2041,11 @@ PalCycle_SYZ:				; XREF: PalCycle
 		lsl.w	#2,d0
 		move.w	d0,d1
 		add.w	d0,d0
-		lea	(Pal_SYZCyc1).l,a0
+		lea	(Pal_CNzCyc2).l,a0
 		lea	($FFFFFB6E).w,a1
 		move.l	(a0,d0.w),(a1)+
 		move.l	4(a0,d0.w),(a1)
-		lea	(Pal_SYZCyc2).l,a0
+		lea	(Pal_CNzCyc1).l,a0
 		lea	($FFFFFB76).w,a1
 		move.w	(a0,d1.w),(a1)
 		move.w	2(a0,d1.w),4(a1)
@@ -2758,6 +2775,7 @@ Pal_SegaBG:	incbin	pallet\sega_bg.bin
 Pal_Title:	incbin	pallet\title.bin
 Pal_LevelSel:	incbin	pallet\levelsel.bin
 Pal_Sonic:	incbin	pallet\sonic.bin
+Pal_SonicS3:	incbin	pallet\sonics3.bin
 Pal_Snorc:	incbin	pallet\snorc.bin
 Pal_DG:	incbin	pallet\dg.bin
 Pal_GHZ:	incbin	pallet\ghz.bin
@@ -2798,9 +2816,9 @@ Pal_Ending:	incbin	pallet\ending.bin	; ending sequence pallets
 ; Subroutine to load correct player pallets
 ; ---------------------------------------------------------------------------
  
-CharPalList:        dc.l Pal_Sonic, Pal_Snorc, Pal_Snorc, Pal_DG
-CharPalListLZ:      dc.l Pal_LZSonWater, Pal_SnorcLZ, Pal_SnorcLZ, Pal_SnorcLZ
-CharPalListSBZ3:    dc.l Pal_SBZ3SonWat, Pal_SnorcSBZ3, Pal_SnorcSBZ3, Pal_SnorcSBZ3
+CharPalList:        dc.l Pal_Sonic, Pal_Snorc, Pal_Snorc, Pal_DG, Pal_SonicS3
+CharPalListLZ:      dc.l Pal_LZSonWater, Pal_SnorcLZ, Pal_SnorcLZ, Pal_SnorcLZ, Pal_SonicS3
+CharPalListSBZ3:    dc.l Pal_SBZ3SonWat, Pal_SnorcSBZ3, Pal_SnorcSBZ3, Pal_SnorcSBZ3, Pal_SonicS3
  
 LoadPlayerPalettes:
         moveq   #0,d1
@@ -3177,12 +3195,12 @@ Title_LoadText:
 		move.l	#$40000000,($C00004).l
 		lea	(Nem_GHZ_1st).l,a0 ; load GHZ patterns
 		bsr.w	NemDec
-		moveq	#1,d0		; load title screen pallet
+		moveq	#4,d0		; load title screen pallet
 		bsr.w	PalLoad1
-		move.b	#$8A,d0		; play title screen music
-		bsr.w	PlaySound_Special
+        moveq    #$FFFFFF86,d0
+        jsr    PlaySample
 		move.b	#0,($FFFFFFFA).w ; disable debug mode
-		move.w	#$178,($FFFFF614).w ; run title	screen for $178	frames
+		move.w	#$FFFF,($FFFFF614).w ; run title	screen for $178	frames
 		lea	($FFFFD080).w,a1
 		moveq	#0,d0
 		move.w	#$F,d1	; ($40 / 4) - 1
@@ -3274,7 +3292,8 @@ Title_CountC:
 		move.b	($FFFFF605).w,d0
 		andi.b	#$20,d0		; is C button pressed?
 		beq.s	loc_3230	; if not, branch
-		addq.w	#1,($FFFFFFE6).w ; increment C button counter
+		add.b	#1,(Current_Character).w ; increment C counter
+
 
 loc_3230:
 		tst.w	($FFFFF614).w
@@ -3406,7 +3425,7 @@ PlayLevel:				; XREF: ROM:00003246j ...
 		move.l	d0,($FFFFFE58).w ; clear emeralds
 		move.l	d0,($FFFFFE5C).w ; clear emeralds
 		move.b	d0,($FFFFFE18).w ; clear continues
-		move.b	#$E0,d0
+		move.b	#$E4,d0
 		bsr.w	PlaySound_Special ; fade out music
 		rts	
 ; ===========================================================================
@@ -3671,7 +3690,7 @@ Level:					; XREF: GameModeArray
 		bset	#7,($FFFFF600).w ; add $80 to screen mode (for pre level sequence)
 		tst.w	($FFFFFFF0).w
 		bmi.s	loc_37B6
-		move.b	#$E0,d0
+		move.b	#$E4,d0
 		bsr.w	PlaySound_Special ; fade out music
 
 loc_37B6:
@@ -26106,7 +26125,7 @@ locret_139C2:
 
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
-Player_AniDat:     dc.l SonicAniData, SonicAniData, SonicAniData, SonicAniData
+Player_AniDat:     dc.l SonicAniData, SonicAniData, SonicAniData, SonicAniData, SonicS3KAniData
 
 
 Sonic_Animate:				; XREF: Obj01_Control; et al
@@ -26297,7 +26316,8 @@ loc_13B26:
 ; ===========================================================================
 SonicAniData:
 	include "_anim\Sonic.asm"
-
+SonicS3KAniData:
+	include "_anim\SonicS3.asm"
 
 ; ---------------------------------------------------------------------------
 ; Sonic	pattern	loading	subroutine
@@ -26305,8 +26325,8 @@ SonicAniData:
 
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
-Player_DPLCLoc:     dc.l SonicDynPLC, SnorcDynPLC, SphereDynPLC, DGDynPLC
-Player_ArtLoc:      dc.l Art_Sonic, Art_Snorc, Art_Sphere, Art_DG
+Player_DPLCLoc:     dc.l SonicDynPLC, SnorcDynPLC, SphereDynPLC, DGDynPLC, S3DynPLC
+Player_ArtLoc:      dc.l Art_Sonic, Art_Snorc, Art_Sphere, Art_DG, Art_SonicS3
 
 LoadSonicDynPLC:
         moveq   #0,d0               ; quickly clear d0
@@ -38762,7 +38782,8 @@ Nem_JapNames:	incbin	artnem\japcreds.bin	; Japanese credits
 ; ---------------------------------------------------------------------------
 Map_Sonic:
 	include "_maps\Sonic.asm"
-
+Map_SonicS3:
+	include "_maps\SonicS3.asm"
 ; ---------------------------------------------------------------------------
 ; Uncompressed graphics	loading	array for Sonic
 ; ---------------------------------------------------------------------------
@@ -38805,13 +38826,15 @@ Map_DG:
 DGDynPLC:
 	include "_inc\DG dynamic pattern load cues.asm"
 
-
+S3DynPLC:
+	include "_inc\SonicS3 dynamic pattern load cues.asm"
 ; ---------------------------------------------------------------------------
 ; Uncompressed graphics	- Sonic
 ; ---------------------------------------------------------------------------
 Art_Sonic:	incbin	artunc\sonic.bin	; Sonic
 		even
-		
+Art_SonicS3:	incbin	artunc\sonics3.bin	; Sonic
+		even		
 ; ---------------------------------------------------------------------------
 ; Uncompressed graphics	- Snorc
 ; ---------------------------------------------------------------------------

@@ -60,7 +60,7 @@ MegaPCM:
 	DAC_Entry	$1B, Timpani, dpcm		; $83	- Timpani
 	DAC_Entry	$04, whoosh, pcm		; $84	- Amogus Whoosh SFX
 	DAC_Entry	$03, crack, pcm			; $85	- Amogus Crack SFX
-	dc.l	0,0					; $86	- <Free>
+    DAC_Entry    $01, menuscreenmusic, pcm+pri+loop        ; $86    - UHOH!	
 	dc.l	0,0					; $87	- <Free>
 	DAC_Entry	$12, Timpani, dpcm		; $88	- Hi-Timpani
 	DAC_Entry	$15, Timpani, dpcm		; $89	- Mid-Timpani
@@ -78,5 +78,6 @@ MegaPCM_End:
 	IncludeDAC	Timpani, bin
 	IncludeDac	whoosh, wav
 	IncludeDac 	crack, wav
+    IncludeDAC  menuscreenmusic, wav	
 	even
 
