@@ -1856,29 +1856,58 @@ PalCycle:	dc.w PalCycle_GHZ-PalCycle
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-PalCycle_Title:				; XREF: TitleScreen
-		lea	(Pal_TitleCyc).l,a0
-		bra.s	loc_196A
+PalCycle_Title:				; XREF: TitleScreen	
+	jmp	PalCycle_GHZ
+	rts
 ; ===========================================================================
 
 PalCycle_GHZ:				; XREF: PalCycle
-		lea	(Pal_GHZCyc).l,a0
+				tst.w	($FFFFF63A).w	; is game paused?
+				bne.s	Offset_0x00221A	; if yes, branch
+                subq.w  #5,($FFFFF79C).w
+                bpl.s   Offset_0x00221A
+                move.w  #$15, ($FFFFF79C).w
+                lea     Pal_CNzCyc1(pc), a0                      ; Offset_0x0023F0
+                move.w  ($FFFFF79A).w, d0
+                addq.w  #1, ($FFFFF79A).w
+                cmpi.w  #6, ($FFFFF79A).w
+                bcs.s   Offset_0x0021A6
+                move.w  #0, ($FFFFF79A).w
+Offset_0x0021A6:
+                lea     (a0, d0.w), a0
+                lea     ($FFFFFB00).w, a1                       ; $FFFFFB00
+                move.w  (a0), $4A(a1)
+                move.w	7(a0), $4C(a1)
+                move.w  $C(a0), $4E(a1)
+                lea     Pal_CNzCyc2(pc), a0                      ; Offset_0x002414
+                lea     (a0, d0.w), a0
+                move.w  ($FFFFF652).w, d0
+                addq.w  #8,($FFFFF652).w
+                cmpi.w  #$24,($FFFFF652).w
+                bcs.s   Offset_0x00220A
+                move.w  #3,($FFFFF652).w
+Offset_0x00220A:
+                lea     ($FFFFFB72).w, a1
+                move.w  4(a0, d0), (a1)+
+                move.w  2(a0, d0), (a1)+
+                move.w  0(a0, d0), (a1)+
+Offset_0x00221A:
+                rts
 
-loc_196A:				; XREF: PalCycle_Title
-		subq.w	#1,($FFFFF634).w
-		bpl.s	locret_1990
-		move.w	#5,($FFFFF634).w
-		move.w	($FFFFF632).w,d0
-		addq.w	#1,($FFFFF632).w
-		andi.w	#3,d0
-		lsl.w	#3,d0
-		lea	($FFFFFB50).w,a1
-		move.l	(a0,d0.w),(a1)+
-		move.l	4(a0,d0.w),(a1)
-
-locret_1990:
-		rts	
-; End of function PalCycle_Title
+Pal_CNzCyc1:                                                   ; Offset_0x0023F0    
+                dc.w    $000E, $00EE, $006E, $006E, $000E, $00EE, $00EE, $006E
+                dc.w    $000E, $00EC, $0080, $00C4, $00C4, $00EC, $0080, $0080
+                dc.w    $00C4, $00EC    
+;-------------------------------------------------------------------------------  
+Pal_CNzCyc2:                                                   ; Offset_0x002414   
+                dc.w    $000E, $00EE, $006E, $006E, $000E, $00EE, $00EE, $006E
+                dc.w    $000E, $00EC, $0080, $00C4, $00C4, $00EC, $0080, $0080
+                dc.w    $00C4, $00EC   
+;-------------------------------------------------------------------------------    
+Pal_CNzCyc3:                                                   ; Offset_0x002426     
+                dc.w    $008E, $00AE, $00EC, $0EEE, $00EA, $00E4, $06C0, $0CC4
+                dc.w    $0E80, $0E40, $0E04, $0C08, $0C2E, $080E, $040E, $000E
+                dc.w    $004E, $006E, $008E, $00AE 				
 
 
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
@@ -6774,6 +6803,8 @@ Deform_Index:	dc.w Deform_GHZ-Deform_Index, Deform_LZ-Deform_Index
 
 
 Deform_GHZ:
+		jmp		Deform_LZ
+		rts
 		move.w	($FFFFF73A).w,d4
 		ext.l	d4
 		asl.l	#5,d4
@@ -6882,77 +6913,121 @@ Deform_GHZ_9:				; XREF: Deform_GHZ
 
 
 Deform_LZ:
-		move.w	($FFFFF73A).w,d4
-		ext.l	d4
-		asl.l	#7,d4
-		move.w	($FFFFF73C).w,d5
-		ext.l	d5
-		asl.l	#7,d5
-		bsr.w	ScrollBlock1
-		move.w	($FFFFF70C).w,($FFFFF618).w
-		lea	(LZ_Wave_Data).l,a3
-		lea	(Obj0A_WobbleData).l,a2
-		move.b	($FFFFF7D8).w,d2
-		move.b	d2,d3
-		addi.w	#$80,($FFFFF7D8).w ; '€'
-		add.w	($FFFFF70C).w,d2
-		andi.w	#$FF,d2
-		add.w	($FFFFF704).w,d3
-		andi.w	#$FF,d3
-		lea	($FFFFCC00).w,a1
-		move.w	#$DF,d1	; 'ß'
-		move.w	($FFFFF700).w,d0
-		neg.w	d0
-		move.w	d0,d6
-		swap	d0
-		move.w	($FFFFF708).w,d0
-		neg.w	d0
-		move.w	($FFFFF646).w,d4
-		move.w	($FFFFF704).w,d5
-
-Deform_LZ_1:				; XREF: Deform_LZ
-		cmp.w	d4,d5
-		bge.s	Deform_LZ_2
-		move.l	d0,(a1)+
-		addq.w	#1,d5
-		addq.b	#1,d2
-		addq.b	#1,d3
-		dbf	d1,Deform_LZ_1
-		rts	
+        move.w  ($FFFFF73A).w,d4    ; d4 = Cam_X_shift (8 fixed)
+        ext.l   d4
+        asl.l   #1,d4           ; d4 = Cam_X_shift / 2 (16 fixed)
+        move.w  ($FFFFF73C).w,d5    ; d5 = Cam_Y_shift (8 fixed)
+        ext.l   d5
+        asl.l   #1,d5           ; d5 = Cam_Y_shify / 2 (16 fixed)
+        bsr ScrollBlock1        ; scroll layer, setup redraw flags
+        move.w  ($FFFFF70C).w,($FFFFF618).w ; load 'Cam_BG_Y' into VSRAM buffer
+ 
+        ; Setup scroll value
+        lea ($FFFFCC00).w,a1
+        move.w  ($FFFFF700).w,d0
+        neg.w   d0          ; d0 = Plane A scrolling
+        move.w  d0,d1           ; d1 = Plane A scrolling (backup)
+        swap    d0
+        move.w  ($FFFFF708).w,d0
+        neg.w   d0          ; d0 = Plane B scrolling
+ 
+        ; Calculate water line and decide where to start
+        moveq   #0,d2
+        move.b  ($FFFFF7D8).w,d2
+        move.w  d2,d3
+        addi.w  #$80,($FFFFF7D8).w  ; WaveValue += 0.5    
+        add.b   ($FFFFF704+1).w,d3  ; d3 = (WaveValue + Cam_Y) & $FF
+        add.b   ($FFFFF70C+1).w,d2  ; d2 = (WaveValue + Cam_Y) & $FF
+        move.w  #224,d6         ; d6 = Number of lines
+        move.w  ($FFFFF646).w,d4    ; d4 = WaterLevel
+        sub.w   ($FFFFF704).w,d4    ; d4 = WaterLevel - Cam_Y
+        beq.s   @DeformWater_2
+        bmi.s   @DeformWater_2      ; if water line is above screen, branch
+        cmp.w   d6,d4           ; d4 > Lines on screen?
+        blt.s   @DeformDry_Partial  ; if not, branch
+ 
+; ---------------------------------------------------------------------------
+; Works, if full screen is dry
+ 
+        subq.w  #1,d6
+ 
+@DeformDry_Full:
+        move.l  d0,(a1)+
+        dbf d6,@DeformDry_Full
+        rts
+ 
+; ---------------------------------------------------------------------------
+; Works, if only part of screen is dry
+ 
+@DeformDry_Partial:
+        move.w  d4,d5           ; d5 = WaterLevel
+        subq.w  #1,d4
+ 
+    @0: move.l  d0,(a1)+
+        dbf d4,@0
+ 
+; ---------------------------------------------------------------------------
+; Works if screen is full of water, or water at least takes place
+ 
+@DeformWater:
+        sub.w   d5,d6           ; d6 = 224 - WaterLevel = Lines left for water
+        add.b   d5,d2           ;
+        add.b   d5,d3           ;
+ 
+@DeformWater_2:
+        subq.w  #1,d6
+        lea (Obj0A_WobbleData).l,a2 ; a2 = Water Deformation Data for Plane B
+        lea LZ_Wave_Data(pc),a3 ; a3 = Water Deformation Data for Plane A
+        lea (Obj0A_WobbleData),a2 ; a2 = Water Deformation Data for Plane A	
+;        lea (Obj0A_WobbleData).l,a1 ; a2 = Water Deformation Data for Plane A			
+        add.w   d2,a2           ; load array from position of water line
+        add.w   d3,a3           ;
+ 
+    @1: move.b  (a3)+,d2
+        ext.w   d2
+        add.w   d1,d2           ; d2 = Plane A scrolling
+        move.w  d2,(a1)+
+        move.b  (a2)+,d2
+        ext.w   d2
+        add.w   d0,d2           ; d2 = Plane B scrolling
+        move.w  d2,(a1)+
+        dbf d6,@1
+        rts
+ 
 ; ===========================================================================
-
-Deform_LZ_2:				; XREF: Deform_LZ
-		move.b	(a3,d3.w),d4
-		ext.w	d4
-		add.w	d6,d4
-		move.w	d4,(a1)+
-		move.b	(a2,d2.w),d4
-		ext.w	d4
-		add.w	d0,d4
-		move.w	d4,(a1)+
-		addq.b	#1,d2
-		addq.b	#1,d3
-		dbf	d1,Deform_LZ_2
-		rts	
-; End of function Deform_LZ
-
-; ===========================================================================
-LZ_Wave_Data:	dc.b   1,  1,  2,  2,  3,  3,  3,  3,  2,  2,  1,  1,  0,  0,  0,  0
-		dc.b   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
-		dc.b   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
-		dc.b   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
-		dc.b   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
-		dc.b   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
-		dc.b   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
-		dc.b   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
-		dc.b $FF,$FF,$FE,$FE,$FD,$FD,$FD,$FD,$FE,$FE,$FF,$FF,  0,  0,  0,  0
-		dc.b   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
-		dc.b   1,  1,  2,  2,  3,  3,  3,  3,  2,  2,  1,  1,  0,  0,  0,  0
-		dc.b   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
-		dc.b   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
-		dc.b   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
-		dc.b   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
-		dc.b   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
+LZ_Wave_Data:   dc.b   9,  9,  8,  8,  7,  7,  7,  7,  8,  8,  9,  9,  0,  0,  0,  0
+        dc.b   9,  9,  8,  8,  7,  7,  7,  7,  8,  8,  9,  9,  0,  0,  0,  0
+        dc.b   9,  9,  8,  8,  7,  7,  7,  7,  8,  8,  9,  9,  0,  0,  0,  0
+        dc.b   9,  9,  8,  8,  7,  7,  7,  7,  8,  8,  9,  9,  0,  0,  0,  0
+        dc.b   9,  9,  8,  8,  7,  7,  7,  7,  8,  8,  9,  9,  0,  0,  0,  0
+        dc.b   9,  9,  8,  8,  7,  7,  7,  7,  8,  8,  9,  9,  0,  0,  0,  0
+        dc.b   9,  9,  8,  8,  7,  7,  7,  7,  8,  8,  9,  9,  0,  0,  0,  0
+        dc.b   9,  9,  8,  8,  7,  7,  7,  7,  8,  8,  9,  9,  0,  0,  0,  0
+        dc.b   9,  9,  8,  8,  7,  7,  7,  7,  8,  8,  9,  9,  0,  0,  0,  0
+        dc.b   9,  9,  8,  8,  7,  7,  7,  7,  8,  8,  9,  9,  0,  0,  0,  0
+        dc.b   9,  9,  8,  8,  7,  7,  7,  7,  8,  8,  9,  9,  0,  0,  0,  0
+        dc.b   9,  9,  8,  8,  7,  7,  7,  7,  8,  8,  9,  9,  0,  0,  0,  0
+        dc.b   9,  9,  8,  8,  7,  7,  7,  7,  8,  8,  9,  9,  0,  0,  0,  0
+        dc.b   9,  9,  8,  8,  7,  7,  7,  7,  8,  8,  9,  9,  0,  0,  0,  0
+        dc.b   9,  9,  8,  8,  7,  7,  7,  7,  8,  8,  9,  9,  0,  0,  0,  0
+        dc.b   9,  9,  8,  8,  7,  7,  7,  7,  8,  8,  9,  9,  0,  0,  0,  0
+        dc.b   9,  9,  8,  8,  7,  7,  7,  7,  8,  8,  9,  9,  0,  0,  0,  0
+        dc.b   9,  9,  8,  8,  7,  7,  7,  7,  8,  8,  9,  9,  0,  0,  0,  0
+        dc.b   9,  9,  8,  8,  7,  7,  7,  7,  8,  8,  9,  9,  0,  0,  0,  0
+        dc.b   9,  9,  8,  8,  7,  7,  7,  7,  8,  8,  9,  9,  0,  0,  0,  0
+        dc.b   9,  9,  8,  8,  7,  7,  7,  7,  8,  8,  9,  9,  0,  0,  0,  0
+        dc.b   9,  9,  8,  8,  7,  7,  7,  7,  8,  8,  9,  9,  0,  0,  0,  0
+        dc.b   9,  9,  8,  8,  7,  7,  7,  7,  8,  8,  9,  9,  0,  0,  0,  0
+        dc.b   9,  9,  8,  8,  7,  7,  7,  7,  8,  8,  9,  9,  0,  0,  0,  0
+        dc.b   9,  9,  8,  8,  7,  7,  7,  7,  8,  8,  9,  9,  0,  0,  0,  0
+        dc.b   9,  9,  8,  8,  7,  7,  7,  7,  8,  8,  9,  9,  0,  0,  0,  0
+        dc.b   9,  9,  8,  8,  7,  7,  7,  7,  8,  8,  9,  9,  0,  0,  0,  0
+        dc.b   9,  9,  8,  8,  7,  7,  7,  7,  8,  8,  9,  9,  0,  0,  0,  0
+        dc.b   9,  9,  8,  8,  7,  7,  7,  7,  8,  8,  9,  9,  0,  0,  0,  0
+        dc.b   9,  9,  8,  8,  7,  7,  7,  7,  8,  8,  9,  9,  0,  0,  0,  0
+        dc.b   9,  9,  8,  8,  7,  7,  7,  7,  8,  8,  9,  9,  0,  0,  0,  0
+        dc.b   9,  9,  8,  8,  7,  7,  7,  7,  8,  8,  9,  9,  0,  0,  0,  0
+ 
 
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
