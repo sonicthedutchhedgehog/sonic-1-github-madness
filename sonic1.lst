@@ -1295,7 +1295,7 @@
 00001174                            
 00001174 0838 0006 F605             		btst	#6,($FFFFF605).w ; is button A pressed?
 0000117A 6700                       		beq.s	Pause_ChkBC	; if not, branch
-0000117C 11FC 0004 F600             		move.b	#04,($FFFFF600).w ; set game mode to 4 (title screen)
+0000117C 4EF9 0000 0000                             jmp     Level
 00001182 4E71                       		nop	
 00001184 6000                       		bra.s	loc_1404
 00001186                            ; ===========================================================================
@@ -3807,9 +3807,9 @@
 00003878                            
 00003878                            loc_3210:				; XREF: Title_EnterCheat
 00003878 4A00                       		tst.b	d0
-0000387A 6700                       		beq.s	Title_CountC
+0000387A 6700                       		beq.s	Title_CheckForB
 0000387C 0C78 0009 FFE4             		cmpi.w	#9,($FFFFFFE4).w
-00003882 6700                       		beq.s	Title_CountC
+00003882 6700                       		beq.s	Title_CheckForB
 00003884 31FC 0000 FFE4             		move.w	#0,($FFFFFFE4).w
 0000388A                            
 0000388A                            Title_CountC:
@@ -30343,7 +30343,7 @@
 00015067 20A8 FF                    SonS3Ani_Death1:	dc.b  $20, $A8,	$FF	; DATA XREF: ROM:00012AA6o
 0001506A 20A9 FF                    SonS3Ani_Drown:	dc.b  $20, $A9,	$FF	; DATA XREF: ROM:00012AA6o
 0001506D 20A7 FF                    SonS3Ani_Death2:	dc.b  $20, $A7,	$FF	; DATA XREF: ROM:00012AA6o
-00015070                            
+00015070                            
 00015070 09D7 D8FF                  SonS3Ani_Shrink:	 dc.b	9, $D7,	$D8, $FF ; DATA	XREF: ROM:00012AA6o
 00015074 408D FF                    SonS3Ani_Hurt:	dc.b  $40, $8D,	$FF	; DATA XREF: ROM:00012AA6o
 00015077 098C 8DFF                  SonS3Ani_LZSlide:	dc.b	9, $8C,	$8D, $FF ; DATA	XREF: ROM:00012AA6o
@@ -45881,7 +45881,7 @@
 00022EE8                            ; --------------------------------------------------------------------------------
 00022EE8                            ; Sprite mappings - output from SonMapEd - Sonic 1 format
 00022EE8                            ; --------------------------------------------------------------------------------
-00022EE8                            
+00022EE8                            
 00022EE8                            SME_KM9WW:	
 00022EE8 0000 0000                  		dc.w SME_KM9WW_1B4-SME_KM9WW, SME_KM9WW_1B5-SME_KM9WW	
 00022EEC 0000 0000                  		dc.w SME_KM9WW_1C5-SME_KM9WW, SME_KM9WW_1D5-SME_KM9WW	
@@ -49242,7 +49242,7 @@
 00025824                            	include "_inc\SonicS3 dynamic pattern load cues.asm"
 00025824                            ; --------------------------------------------------------------------------------
 00025824                            ; Dynamic Pattern Loading Cues - output from SonMapEd - Sonic 1 format; --------------------------------------------------------------------------------
-00025824                            
+00025824                            
 00025824                            SME_kbS1m:	
 00025824 0000 0000                  		dc.w SME_kbS1m_1B4-SME_kbS1m, SME_kbS1m_1B5-SME_kbS1m	
 00025828 0000 0000                  		dc.w SME_kbS1m_1BC-SME_kbS1m, SME_kbS1m_1C3-SME_kbS1m	
@@ -49578,6 +49578,9 @@
 00025FB2                            ; ---------------------------------------------------------------------------
 00025FB2                            Art_Sonic:	incbin	artunc\sonic.bin	; Sonic
 00030D52                            		even
+00030D52                            ; ---------------------------------------------------------------------------
+00030D52                            ; Uncompressed graphics	- S3sonic
+00030D52                            ; ---------------------------------------------------------------------------
 00030D52                            Art_SonicS3:	incbin	artunc\sonics3.bin	; Sonic
 00050E12                            		even		
 00050E12                            ; ---------------------------------------------------------------------------

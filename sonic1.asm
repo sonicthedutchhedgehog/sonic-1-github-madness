@@ -1026,7 +1026,7 @@ loc_13CA:
 
 		btst	#6,($FFFFF605).w ; is button A pressed?
 		beq.s	Pause_ChkBC	; if not, branch
-		move.b	#04,($FFFFF600).w ; set game mode to 4 (title screen)
+                jmp     Level
 		nop	
 		bra.s	loc_1404
 ; ===========================================================================
@@ -3283,9 +3283,9 @@ Title_PlayRing:
 
 loc_3210:				; XREF: Title_EnterCheat
 		tst.b	d0
-		beq.s	Title_CountC
+		beq.s	Title_CheckForB
 		cmpi.w	#9,($FFFFFFE4).w
-		beq.s	Title_CountC
+		beq.s	Title_CheckForB
 		move.w	#0,($FFFFFFE4).w
 
 Title_CountC:
@@ -38833,6 +38833,9 @@ S3DynPLC:
 ; ---------------------------------------------------------------------------
 Art_Sonic:	incbin	artunc\sonic.bin	; Sonic
 		even
+; ---------------------------------------------------------------------------
+; Uncompressed graphics	- S3sonic
+; ---------------------------------------------------------------------------
 Art_SonicS3:	incbin	artunc\sonics3.bin	; Sonic
 		even		
 ; ---------------------------------------------------------------------------
