@@ -53583,139 +53583,139 @@
 00344766                            ;-------------------------------------------------------------------------------
 00344766                            Menu_Font:
 00344766                                            incbin  'data\menu\menufont.nem' 
-00344CDA                            Level_Icons:
-00344CDA                                            incbin  'data\menu\levelico.nem'   
-00345FD6                            Menu_Mappings:
-00345FD6                                            incbin  'data\menu\menubg.eni'
-00346182                            Icons_Mappings:
-00346182                                            incbin  'data\menu\iconsmap.eni'
-00346198                            Sonic_Miles_Spr:                                         
-00346198                                            incbin  'data\menu\soncmils.dat'   
-00346698                            ;===============================================================================
-00346698                            ; Menu do Sonic 2 No Sonic 1 reprogramado por Esrael L. G. Neto
-00346698                            ; [ Fim ]
-00346698                            ;===============================================================================
-00346698                            ;===============================================================================
-00346698                                SHC2021:    incbin "SHC21_lite_Sonic12.bin"
-0034C8FA                                            even
-0034C8FA                            ; ==============================================================
-0034C8FA                            ; --------------------------------------------------------------
-0034C8FA                            ; Debugging modules
-0034C8FA                            ; --------------------------------------------------------------
-0034C8FA                            
-0034C8FA                               include   "ErrorHandler.asm"
-0034C8FA                            
-0034C8FA                            ; ===============================================================
-0034C8FA                            ; ---------------------------------------------------------------
-0034C8FA                            ; Error handling and debugging modules
-0034C8FA                            ; 2016-2017, Vladikcomper
-0034C8FA                            ; ---------------------------------------------------------------
-0034C8FA                            ; Error handler functions and calls
-0034C8FA                            ; ---------------------------------------------------------------
-0034C8FA                            
-0034C8FA                            ; ---------------------------------------------------------------
-0034C8FA                            ; Error handler control flags
-0034C8FA                            ; ---------------------------------------------------------------
-0034C8FA                            
-0034C8FA                            ; Screen appearence flags
-0034C8FA =00000001                  _eh_address_error	equ	$01		; use for address and bus errors only (tells error handler to display additional "Address" field)
-0034C8FA =00000002                  _eh_show_sr_usp		equ	$02		; displays SR and USP registers content on error screen
-0034C8FA                            
-0034C8FA                            ; Advanced execution flags
-0034C8FA                            ; WARNING! For experts only, DO NOT USES them unless you know what you're doing
-0034C8FA =00000020                  _eh_return			equ	$20
-0034C8FA =00000040                  _eh_enter_console	equ	$40
-0034C8FA =00000080                  _eh_align_offset	equ	$80
-0034C8FA                            
-0034C8FA                            ; ---------------------------------------------------------------
-0034C8FA                            ; Errors vector table
-0034C8FA                            ; ---------------------------------------------------------------
-0034C8FA                            
-0034C8FA                            ; Default screen configuration
-0034C8FA =00000000                  _eh_default			equ	0 ;_eh_show_sr_usp
-0034C8FA                            
-0034C8FA                            ; ---------------------------------------------------------------
-0034C8FA                            
-0034C8FA                            BusError:
-0034C8FA 4EB9 0000 0000 6675 636B+  	__ErrorMessage "fuck you game crashed", _eh_default|_eh_address_error
-0034C918                            
-0034C918                            AddressError:
-0034C918 4EB9 0000 0000 6F68 2066+  	__ErrorMessage "oh ffs game adress error", _eh_default|_eh_address_error
-0034C938                            
-0034C938                            IllegalInstr:
-0034C938 4EB9 0000 0000 746F 6F20+  	__ErrorMessage "too late!", _eh_default
-0034C94A                            
-0034C94A                            ZeroDivide:
-0034C94A 4EB9 0000 0000 796F 7520+  	__ErrorMessage "you divided by 0", _eh_default
-0034C962                            
-0034C962                            ChkInstr:
-0034C962 4EB9 0000 0000 746F 6F20+  	__ErrorMessage "too many glitches", _eh_default
-0034C97C                            
-0034C97C                            TrapvInstr:
-0034C97C 4EB9 0000 0000 7365 6D65+  	__ErrorMessage "semen", _eh_default
-0034C98A                            
-0034C98A                            PrivilegeViol:
-0034C98A 4EB9 0000 0000 6368 6563+  	__ErrorMessage "check your privelage", _eh_default
-0034C9A6                            
-0034C9A6                            Trace:
-0034C9A6 4EB9 0000 0000 6D61 7962+  	__ErrorMessage "maybe ill be tracer", _eh_default
-0034C9C2                            
-0034C9C2                            Line1010Emu:
-0034C9C2 4EB9 0000 0000 6974 2069+  	__ErrorMessage "it is a serious crime to use kega fusion", _eh_default
-0034C9F2                            
-0034C9F2                            Line1111Emu:
-0034C9F2 4EB9 0000 0000 7069 7261+  	__ErrorMessage "piracy screen", _eh_default
-0034CA08                            
-0034CA08                            ErrorExcept:
-0034CA08 4EB9 0000 0000 4552 524F+  	__ErrorMessage "ERROR LOL", _eh_default
-0034CA1A                            
-0034CA1A                            
-0034CA1A                            
-0034CA1A                            ; ---------------------------------------------------------------
-0034CA1A                            ; Import error handler global functions
-0034CA1A                            ; ---------------------------------------------------------------
-0034CA1A                            
-0034CA1A                            ErrorHandler.__global__error_initconsole equ ErrorHandler+$146
-0034CA1A                            ErrorHandler.__global__errorhandler_setupvdp equ ErrorHandler+$234
-0034CA1A                            ErrorHandler.__global__console_loadpalette equ ErrorHandler+$A1C
-0034CA1A                            ErrorHandler.__global__console_setposasxy_stack equ ErrorHandler+$A58
-0034CA1A                            ErrorHandler.__global__console_setposasxy equ ErrorHandler+$A5E
-0034CA1A                            ErrorHandler.__global__console_getposasxy equ ErrorHandler+$A8A
-0034CA1A                            ErrorHandler.__global__console_startnewline equ ErrorHandler+$AAC
-0034CA1A                            ErrorHandler.__global__console_setbasepattern equ ErrorHandler+$AD4
-0034CA1A                            ErrorHandler.__global__console_setwidth equ ErrorHandler+$AE8
-0034CA1A                            ErrorHandler.__global__console_writeline_withpattern equ ErrorHandler+$AFE
-0034CA1A                            ErrorHandler.__global__console_writeline equ ErrorHandler+$B00
-0034CA1A                            ErrorHandler.__global__console_write equ ErrorHandler+$B04
-0034CA1A                            ErrorHandler.__global__console_writeline_formatted equ ErrorHandler+$BB0
-0034CA1A                            ErrorHandler.__global__console_write_formatted equ ErrorHandler+$BB4
-0034CA1A                            
-0034CA1A                            
-0034CA1A                            ; ---------------------------------------------------------------
-0034CA1A                            ; Error handler external functions (compiled only when used)
-0034CA1A                            ; ---------------------------------------------------------------
-0034CA1A                            
-0034CA1A                            
-0034CA1A                            
-0034CA1A                            
-0034CA1A                            
-0034CA1A                            ; ---------------------------------------------------------------
-0034CA1A                            ; Include error handler binary module
-0034CA1A                            ; ---------------------------------------------------------------
-0034CA1A                            
-0034CA1A                            ErrorHandler:
-0034CA1A                            	incbin	ErrorHandler.bin
-0034D61A                            
-0034D61A                            ; ---------------------------------------------------------------
-0034D61A                            ; WARNING!
-0034D61A                            ;	DO NOT put any data from now on! DO NOT use ROM padding!
-0034D61A                            ;	Symbol data should be appended here after ROM is compiled
-0034D61A                            ;	by ConvSym utility, otherwise debugger modules won't be able
-0034D61A                            ;	to resolve symbol names.
-0034D61A                            ; ---------------------------------------------------------------
-0034D61A                            ; ---------------------------------------------------------------
-0034D61A                            
-0034D61A                            ; end of 'ROM'
-0034D61A                            EndOfRom:
-0034D61A                            
-0034D61A                            
+00344CB8                            Level_Icons:
+00344CB8                                            incbin  'data\menu\levelico.nem'   
+00345FB2                            Menu_Mappings:
+00345FB2                                            incbin  'data\menu\menubg.eni'
+0034615E                            Icons_Mappings:
+0034615E                                            incbin  'data\menu\iconsmap.eni'
+00346174                            Sonic_Miles_Spr:                                         
+00346174                                            incbin  'data\menu\soncmils.dat'   
+00346674                            ;===============================================================================
+00346674                            ; Menu do Sonic 2 No Sonic 1 reprogramado por Esrael L. G. Neto
+00346674                            ; [ Fim ]
+00346674                            ;===============================================================================
+00346674                            ;===============================================================================
+00346674                                SHC2021:    incbin "SHC21_lite_Sonic12.bin"
+0034C8D6                                            even
+0034C8D6                            ; ==============================================================
+0034C8D6                            ; --------------------------------------------------------------
+0034C8D6                            ; Debugging modules
+0034C8D6                            ; --------------------------------------------------------------
+0034C8D6                            
+0034C8D6                               include   "ErrorHandler.asm"
+0034C8D6                            
+0034C8D6                            ; ===============================================================
+0034C8D6                            ; ---------------------------------------------------------------
+0034C8D6                            ; Error handling and debugging modules
+0034C8D6                            ; 2016-2017, Vladikcomper
+0034C8D6                            ; ---------------------------------------------------------------
+0034C8D6                            ; Error handler functions and calls
+0034C8D6                            ; ---------------------------------------------------------------
+0034C8D6                            
+0034C8D6                            ; ---------------------------------------------------------------
+0034C8D6                            ; Error handler control flags
+0034C8D6                            ; ---------------------------------------------------------------
+0034C8D6                            
+0034C8D6                            ; Screen appearence flags
+0034C8D6 =00000001                  _eh_address_error	equ	$01		; use for address and bus errors only (tells error handler to display additional "Address" field)
+0034C8D6 =00000002                  _eh_show_sr_usp		equ	$02		; displays SR and USP registers content on error screen
+0034C8D6                            
+0034C8D6                            ; Advanced execution flags
+0034C8D6                            ; WARNING! For experts only, DO NOT USES them unless you know what you're doing
+0034C8D6 =00000020                  _eh_return			equ	$20
+0034C8D6 =00000040                  _eh_enter_console	equ	$40
+0034C8D6 =00000080                  _eh_align_offset	equ	$80
+0034C8D6                            
+0034C8D6                            ; ---------------------------------------------------------------
+0034C8D6                            ; Errors vector table
+0034C8D6                            ; ---------------------------------------------------------------
+0034C8D6                            
+0034C8D6                            ; Default screen configuration
+0034C8D6 =00000000                  _eh_default			equ	0 ;_eh_show_sr_usp
+0034C8D6                            
+0034C8D6                            ; ---------------------------------------------------------------
+0034C8D6                            
+0034C8D6                            BusError:
+0034C8D6 4EB9 0000 0000 6675 636B+  	__ErrorMessage "fuck you game crashed", _eh_default|_eh_address_error
+0034C8F4                            
+0034C8F4                            AddressError:
+0034C8F4 4EB9 0000 0000 6F68 2066+  	__ErrorMessage "oh ffs game adress error", _eh_default|_eh_address_error
+0034C914                            
+0034C914                            IllegalInstr:
+0034C914 4EB9 0000 0000 746F 6F20+  	__ErrorMessage "too late!", _eh_default
+0034C926                            
+0034C926                            ZeroDivide:
+0034C926 4EB9 0000 0000 796F 7520+  	__ErrorMessage "you divided by 0", _eh_default
+0034C93E                            
+0034C93E                            ChkInstr:
+0034C93E 4EB9 0000 0000 746F 6F20+  	__ErrorMessage "too many glitches", _eh_default
+0034C958                            
+0034C958                            TrapvInstr:
+0034C958 4EB9 0000 0000 7365 6D65+  	__ErrorMessage "semen", _eh_default
+0034C966                            
+0034C966                            PrivilegeViol:
+0034C966 4EB9 0000 0000 6368 6563+  	__ErrorMessage "check your privelage", _eh_default
+0034C982                            
+0034C982                            Trace:
+0034C982 4EB9 0000 0000 6D61 7962+  	__ErrorMessage "maybe ill be tracer", _eh_default
+0034C99E                            
+0034C99E                            Line1010Emu:
+0034C99E 4EB9 0000 0000 6974 2069+  	__ErrorMessage "it is a serious crime to use kega fusion", _eh_default
+0034C9CE                            
+0034C9CE                            Line1111Emu:
+0034C9CE 4EB9 0000 0000 7069 7261+  	__ErrorMessage "piracy screen", _eh_default
+0034C9E4                            
+0034C9E4                            ErrorExcept:
+0034C9E4 4EB9 0000 0000 4552 524F+  	__ErrorMessage "ERROR LOL", _eh_default
+0034C9F6                            
+0034C9F6                            
+0034C9F6                            
+0034C9F6                            ; ---------------------------------------------------------------
+0034C9F6                            ; Import error handler global functions
+0034C9F6                            ; ---------------------------------------------------------------
+0034C9F6                            
+0034C9F6                            ErrorHandler.__global__error_initconsole equ ErrorHandler+$146
+0034C9F6                            ErrorHandler.__global__errorhandler_setupvdp equ ErrorHandler+$234
+0034C9F6                            ErrorHandler.__global__console_loadpalette equ ErrorHandler+$A1C
+0034C9F6                            ErrorHandler.__global__console_setposasxy_stack equ ErrorHandler+$A58
+0034C9F6                            ErrorHandler.__global__console_setposasxy equ ErrorHandler+$A5E
+0034C9F6                            ErrorHandler.__global__console_getposasxy equ ErrorHandler+$A8A
+0034C9F6                            ErrorHandler.__global__console_startnewline equ ErrorHandler+$AAC
+0034C9F6                            ErrorHandler.__global__console_setbasepattern equ ErrorHandler+$AD4
+0034C9F6                            ErrorHandler.__global__console_setwidth equ ErrorHandler+$AE8
+0034C9F6                            ErrorHandler.__global__console_writeline_withpattern equ ErrorHandler+$AFE
+0034C9F6                            ErrorHandler.__global__console_writeline equ ErrorHandler+$B00
+0034C9F6                            ErrorHandler.__global__console_write equ ErrorHandler+$B04
+0034C9F6                            ErrorHandler.__global__console_writeline_formatted equ ErrorHandler+$BB0
+0034C9F6                            ErrorHandler.__global__console_write_formatted equ ErrorHandler+$BB4
+0034C9F6                            
+0034C9F6                            
+0034C9F6                            ; ---------------------------------------------------------------
+0034C9F6                            ; Error handler external functions (compiled only when used)
+0034C9F6                            ; ---------------------------------------------------------------
+0034C9F6                            
+0034C9F6                            
+0034C9F6                            
+0034C9F6                            
+0034C9F6                            
+0034C9F6                            ; ---------------------------------------------------------------
+0034C9F6                            ; Include error handler binary module
+0034C9F6                            ; ---------------------------------------------------------------
+0034C9F6                            
+0034C9F6                            ErrorHandler:
+0034C9F6                            	incbin	ErrorHandler.bin
+0034D5F6                            
+0034D5F6                            ; ---------------------------------------------------------------
+0034D5F6                            ; WARNING!
+0034D5F6                            ;	DO NOT put any data from now on! DO NOT use ROM padding!
+0034D5F6                            ;	Symbol data should be appended here after ROM is compiled
+0034D5F6                            ;	by ConvSym utility, otherwise debugger modules won't be able
+0034D5F6                            ;	to resolve symbol names.
+0034D5F6                            ; ---------------------------------------------------------------
+0034D5F6                            ; ---------------------------------------------------------------
+0034D5F6                            
+0034D5F6                            ; end of 'ROM'
+0034D5F6                            EndOfRom:
+0034D5F6                            
+0034D5F6                            
