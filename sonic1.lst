@@ -307,7 +307,7 @@
 000000E0 0000 0000 0000 0000 0000+  		dc.l ErrorTrap,	ErrorTrap, ErrorTrap, ErrorTrap
 000000F0 0000 0000 0000 0000 0000+  		dc.l ErrorTrap,	ErrorTrap, ErrorTrap, ErrorTrap
 00000100 5345 4741 204D 4547 4120+  Console2:	dc.b 'SEGA MEGA DRIVE ' ; Hardware system ID
-00000110 2843 2953 4547 4120 3139+  Date:		dc.b '(C)SEGA 1991.APR' ; Release date
+00000110 2843 2953 4547 4120 3230+  Date:		dc.b '(C)SEGA 2021.OCT' ; uh i mean 1999
 00000120 5748 454E 2041 4D59 2053+  Title_Local:	dc.b 'WHEN AMY SEES THIS SHELL MELT                   ' ; Domestic name
 00000150 4252 5548 204D 4F4D 454E+  Title_Int:		dc.b 'BRUH MOMENT LMFAO                               ' ; International name
 00000180 474D 2030 3030 3031 3030+  Serial:		dc.b 'GM 00001009-00'   ; Serial/version number

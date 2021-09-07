@@ -38,7 +38,7 @@ Vectors:	dc.l $FFFE00, EntryPoint, BusError, AddressError
 		dc.l ErrorTrap,	ErrorTrap, ErrorTrap, ErrorTrap
 		dc.l ErrorTrap,	ErrorTrap, ErrorTrap, ErrorTrap
 Console2:	dc.b 'SEGA MEGA DRIVE ' ; Hardware system ID
-Date:		dc.b '(C)SEGA 1991.APR' ; Release date
+Date:		dc.b '(C)SEGA 2021.OCT' ; uh i mean 1999
 Title_Local:	dc.b 'WHEN AMY SEES THIS SHELL MELT                   ' ; Domestic name
 Title_Int:		dc.b 'BRUH MOMENT LMFAO                               ' ; International name
 Serial:		dc.b 'GM 00001009-00'   ; Serial/version number
