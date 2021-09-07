@@ -12581,7 +12581,7 @@ locret_986C:
 Obj22_Fire:				; XREF: Obj22_Move
 		bsr.w	SingleObjLoad
 		bne.s	locret_98D0
-		move.b	#$23,0(a1)	; load missile object
+		move.b	#$22,0(a1)	; load buzz bomber
 		move.w	8(a0),8(a1)
 		move.w	$C(a0),$C(a1)
 		addi.w	#$1C,$C(a1)
@@ -19836,10 +19836,10 @@ Obj40_FixToFloor:			; XREF: Obj40_Index2
 		add.w	d1,$C(a0)	; match	object's position with the floor
 		subq.b	#1,$33(a0)
 		bpl.s	locret_F756
-		move.b	#$F,$33(a0)
+		move.b	#$F*3,$33(a0)
 		bsr.w	SingleObjLoad
 		bne.s	locret_F756
-		move.b	#$40,0(a1)	; load exhaust smoke object
+		move.b	#$2B,0(a1)	; load exhaust smoke object
 		move.w	8(a0),8(a1)
 		move.w	$C(a0),$C(a1)
 		move.b	$22(a0),$22(a1)
