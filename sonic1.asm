@@ -11804,8 +11804,8 @@ Obj3F_Main:				; XREF: Obj3F_Index
 		move.b	#$C,$19(a0)
 		move.b	#7,$1E(a0)
 		move.b	#0,$1A(a0)
-		move.w	#$C4,d0
-		jmp	(PlaySound_Special).l ;	play exploding bomb sound
+        moveq    #$FFFFFF8F,d0
+        JMP    PlaySample				
 ; ===========================================================================
 Ani_obj1E:
 	include "_anim\obj1E.asm"
@@ -18028,6 +18028,8 @@ Obj41_BounceUp:				; XREF: Obj41_Up
 		clr.b	$25(a0)
 		move.w	#$CC,d0
 		jsr	(PlaySound_Special).l ;	play spring sound
+        moveq    #$FFFFFF8C,d0
+        jsr    PlaySample		
 
 Obj41_AniUp:				; XREF: Obj41_Index
 		lea	(Ani_obj41).l,a1
@@ -18078,6 +18080,8 @@ loc_DC56:
 		bclr	#5,$22(a1)
 		move.w	#$CC,d0
 		jsr	(PlaySound_Special).l ;	play spring sound
+        moveq    #$FFFFFF8C,d0
+        jsr    PlaySample		
 
 Obj41_AniLR:				; XREF: Obj41_Index
 		lea	(Ani_obj41).l,a1
@@ -18122,6 +18126,8 @@ Obj41_BounceDwn:			; XREF: Obj41_Dwn
 		clr.b	$25(a0)
 		move.w	#$CC,d0
 		jsr	(PlaySound_Special).l ;	play spring sound
+        moveq    #$FFFFFF8C,d0
+        jsr    PlaySample		
 
 Obj41_AniDwn:				; XREF: Obj41_Index
 		lea	(Ani_obj41).l,a1
@@ -24650,7 +24656,7 @@ Obj01_MdNormal:	bsr.w	Sonic_Peelout			; XREF: Obj01_Modes
 ; ===========================================================================
 
 Obj01_MdJump:				; XREF: Obj01_Modes
-		clr.b	$39(a0)
+		clr.b	$39(a0)	
 		bsr.w	Sonic_JumpHeight
 		bsr.w	Sonic_ChgJumpDir
 		bsr.w	Sonic_LevelBound
@@ -24678,6 +24684,7 @@ Obj01_MdRoll:				; XREF: Obj01_Modes
 
 Obj01_MdJump2:				; XREF: Obj01_Modes
 		clr.b	$39(a0)
+		bsr.w	 Sonic_DoubleJump		
 		bsr.w	Sonic_JumpHeight
 		bsr.w	Sonic_ChgJumpDir
 		bsr.w	Sonic_LevelBound
@@ -24933,6 +24940,8 @@ loc_130BA:
 		bclr	#0,$22(a0)
 		move.w	#$A4,d0
 		jsr	(PlaySound_Special).l ;	play stopping sound
+        moveq    #$FFFFFF8F,d0
+        jsr    PlaySample			
 
 locret_130E8:
 		rts	
@@ -24982,6 +24991,8 @@ loc_13120:
 		bset	#0,$22(a0)
 		move.w	#$A4,d0
 		jsr	(PlaySound_Special).l ;	play stopping sound
+        moveq    #$FFFFFF8F,d0
+        jsr    PlaySample		
 
 locret_1314E:
 		rts	
@@ -25363,6 +25374,8 @@ loc_1341C:
 		clr.b	$38(a0)
 		move.w	#$A0,d0
 		jsr	(PlaySound_Special).l ;	play jumping sound
+        moveq    #$FFFFFF90,d0
+        jsr    PlaySample		
 		move.b	#$13,$16(a0)
 		move.b	#9,$17(a0)
 		btst	#2,$22(a0)
@@ -25544,6 +25557,31 @@ loc_1AD8C:
 		move.w #$60,($FFFFF73E).w
 		rts
 ; End of subroutine Sonic_SpinDash
+
+; ---------------------------------------------------------------------------
+; Subrotine to perform Double Jump
+; ---------------------------------------------------------------------------
+
+; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+
+Sonic_DoubleJump:
+		move.b	($FFFFF603).w,d0
+		andi.b	#$70,d0		; is A,	B or C pressed?
+		beq.w	DJ_End		; if not, branch 
+		tst.b	($FFFFFFEB).w; was doublejump flag set?
+		bne.s	DJ_End	; if yes, branch
+		move.b	#1,($FFFFFFEB).w; if not, set doublejump flag
+		move.b	#$10,$1C(a0)    		; use anim 2
+	    moveq    #$FFFFFF92,d0
+        jsr    PlaySample
+		bclr	#4,$22(a0); clear double jump flag
+		move.w	#-$720,$12(a0); set normal double jump speed
+		btst	#6,$22(a0); is Sonic underwater?
+		beq.s	DJ_End	; if not, branch
+		move.w	#-$300,$12(a0); set underwater double jump speed
+DJ_End:
+		rts		; return or cancel double jump
+; End of function Sonic_DoubleJump
 ; ---------------------------------------------------------------------------
 ; Subroutine to	slow Sonic walking up a	slope
 ; ---------------------------------------------------------------------------
@@ -25900,6 +25938,7 @@ locret_1379E:
 
 
 Sonic_ResetOnFloor:			; XREF: PlatformObject; et al
+		clr.b ($FFFFFFEB).w; clear doublejump flag
 		btst	#4,$22(a0)
 		beq.s	loc_137AE
 		nop	
@@ -35882,6 +35921,8 @@ KillSonic:
 
 Kill_Sound:
 		jsr	(PlaySound_Special).l
+        moveq    #$FFFFFF8D,d0
+        jsr    PlaySample		
 
 Kill_NoDeath:
 		moveq	#-1,d0
