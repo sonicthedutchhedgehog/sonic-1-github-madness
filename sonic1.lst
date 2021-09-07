@@ -52756,966 +52756,966 @@
 00337A4A                            Music90:	incbin	sound\music90.bin
 003384DC 00                         		even
 003384DC                            Music91:	incbin	sound\music91.bin
-00338BE6 00                         		even
-00338BE6                            Music92:	incbin	sound\music92.bin
-00338D10                            		even
-00338D10                            Music93:	incbin	sound\music93.bin
-00338DDE                            		even
-00338DDE                            Music94:	incbin	sound\music94.bin
-0033D6F0 00                         		even
-0033D6F0                            Music95:	incbin	sound\music95.bin
-0033D7F0 00                         		even
-0033D7F0                            Music96:	incbin	sound\music96.bin
-0033FD2E 00                         		even
-0033FD2E                            Music97:	incbin 	sound\music97.bin
-0034146C                            		even
-0034146C                            		
-0034146C                            ; Music starting at E5
-0034146C                            	
-0034146C                            MusicE5:	incbin sound\ghz.bin
-003414CC                            		even
-003414CC                            ; ---------------------------------------------------------------------------
-003414CC                            ; Sound	effect pointers
-003414CC                            ; ---------------------------------------------------------------------------
-003414CC 0000 0000 0000 0000 0000+  SoundIndex:	dc.l SoundA0, SoundA1, SoundA2
-003414D8 0000 0000 0000 0000 0000+  		dc.l SoundA3, SoundA4, SoundA5
-003414E4 0000 0000 0000 0000 0000+  		dc.l SoundA6, SoundA7, SoundA8
-003414F0 0000 0000 0000 0000 0000+  		dc.l SoundA9, SoundAA, SoundAB
-003414FC 0000 0000 0000 0000 0000+  		dc.l SoundAC, SoundAD, SoundAE
-00341508 0000 0000 0000 0000 0000+  		dc.l SoundAF, SoundB0, SoundB1
-00341514 0000 0000 0000 0000 0000+  		dc.l SoundB2, SoundB3, SoundB4
-00341520 0000 0000 0000 0000 0000+  		dc.l SoundB5, SoundB6, SoundB7
-0034152C 0000 0000 0000 0000 0000+  		dc.l SoundB8, SoundB9, SoundBA
-00341538 0000 0000 0000 0000 0000+  		dc.l SoundBB, SoundBC, SoundBD
-00341544 0000 0000 0000 0000 0000+  		dc.l SoundBE, SoundBF, SoundC0
-00341550 0000 0000 0000 0000 0000+  		dc.l SoundC1, SoundC2, SoundC3
-0034155C 0000 0000 0000 0000 0000+  		dc.l SoundC4, SoundC5, SoundC6
-00341568 0000 0000 0000 0000 0000+  		dc.l SoundC7, SoundC8, SoundC9
-00341574 0000 0000 0000 0000 0000+  		dc.l SoundCA, SoundCB, SoundCC
-00341580 0000 0000 0000 0000 0000+  		dc.l SoundCD, SoundCE, SoundCF
-0034158C 0000 0000                  SoundD0Index:	dc.l SoundD0
-00341590                            SoundA0:	incbin	sound\soundA0.bin
-003415C4                            		even
-003415C4                            SoundA1:	incbin	sound\soundA1.bin
-003415EE                            		even
-003415EE                            SoundA2:	incbin	sound\soundA2.bin
-0034160E                            		even
-0034160E                            SoundA3:	incbin	sound\soundA3.bin
-00341640                            		even
-00341640                            SoundA4:	incbin	sound\soundA4.bin
-00341676                            		even
-00341676                            SoundA5:	incbin	sound\soundA5.bin
-003416A2                            		even
-003416A2                            SoundA6:	incbin	sound\soundA6.bin
-003416D2                            		even
-003416D2                            SoundA7:	incbin	sound\soundA7.bin
-00341702                            		even
-00341702                            SoundA8:	incbin	sound\soundA8.bin
-00341736                            		even
-00341736                            SoundA9:	incbin	sound\soundA9.bin
-00341748                            		even
-00341748                            SoundAA:	incbin	sound\soundAA.bin
-0034178A                            		even
-0034178A                            SoundAB:	incbin	sound\soundAB.bin
-003417AA                            		even
-003417AA                            SoundAC:	incbin	sound\soundAC.bin
-003417DE                            		even
-003417DE                            SoundAD:	incbin	sound\soundAD.bin
-00341814                            		even
-00341814                            SoundAE:	incbin	sound\soundAE.bin
-0034185E                            		even
-0034185E                            SoundAF:	incbin	sound\soundAF.bin
-0034188C                            		even
-0034188C                            SoundB0:	incbin	sound\soundB0.bin
-003418BE                            		even
-003418BE                            SoundB1:	incbin	sound\soundB1.bin
-003418EA                            		even
-003418EA                            SoundB2:	incbin	sound\soundB2.bin
-0034193A                            		even
-0034193A                            SoundB3:	incbin	sound\soundB3.bin
-00341984                            		even
-00341984                            SoundB4:	incbin	sound\soundB4.bin
-003419E0                            		even
-003419E0                            SoundB5:	incbin	sound\soundB5.bin
-00341A0E                            		even
-00341A0E                            SoundB6:	incbin	sound\soundB6.bin
-00341A2C                            		even
-00341A2C                            SoundB7:	incbin	sound\soundB7.bin
-00341A68                            		even
-00341A68                            SoundB8:	incbin	sound\soundB8.bin
-00341A86                            		even
-00341A86                            SoundB9:	incbin	sound\soundB9.bin
-00341AEA                            		even
-00341AEA                            SoundBA:	incbin	sound\soundBA.bin
-00341B12                            		even
-00341B12                            SoundBB:	incbin	sound\soundBB.bin
-00341B3E                            		even
-00341B3E                            SoundBC:	incbin	sound\soundBC.bin
-00341B80                            		even
-00341B80                            SoundBD:	incbin	sound\soundBD.bin
-00341BD4                            		even
-00341BD4                            SoundBE:	incbin	sound\soundBE.bin
-00341C0E                            		even
-00341C0E                            SoundBF:	incbin	sound\soundBF.bin
-00341C80                            		even
-00341C80                            SoundC0:	incbin	sound\soundC0.bin
-00341CAE                            		even
-00341CAE                            SoundC1:	incbin	sound\soundC1.bin
-00341CE8                            		even
-00341CE8                            SoundC2:	incbin	sound\soundC2.bin
-00341D12                            		even
-00341D12                            SoundC3:	incbin	sound\soundC3.bin
-00341D8C                            		even
-00341D8C                            SoundC4:	incbin	sound\soundC4.bin
-00341DB4                            		even
-00341DB4                            SoundC5:	incbin	sound\soundC5.bin
-00341E1C                            		even
-00341E1C                            SoundC6:	incbin	sound\soundC6.bin
-00341E5E                            		even
-00341E5E                            SoundC7:	incbin	sound\soundC7.bin
-00341E8C                            		even
-00341E8C                            SoundC8:	incbin	sound\soundC8.bin
-00341E9E                            		even
-00341E9E                            SoundC9:	incbin	sound\soundC9.bin
-00341ECC                            		even
-00341ECC                            SoundCA:	incbin	sound\soundCA.bin
-00341EFA                            		even
-00341EFA                            SoundCB:	incbin	sound\soundCB.bin
-00341F46                            		even
-00341F46                            SoundCC:	incbin	sound\soundCC.bin
-00341F80                            		even
-00341F80                            SoundCD:	incbin	sound\soundCD.bin
-00341FC8                            		even
-00341FC8                            SoundCE:	incbin	sound\soundCE.bin
-00341FF6                            		even
-00341FF6                            SoundCF:	incbin	sound\soundCF.bin
-0034202E                            		even
-0034202E                            SoundD0:	incbin	sound\soundD0.bin
-00342068                            		even
-00342068                            SegaPCM:	incbin	sound\segapcm.bin
-00343C64                            SegaPCM_end:	even
-00343C64                            	include	"s2_menu.asm"	; Sonic 2 level select
-00343C64                            ;===============================================================================
-00343C64                            ; Menu do Sonic 2 No Sonic 1 reprogramado por Esrael L. G. Neto
-00343C64                            ; [ Início ]
-00343C64                            ;
-00343C64                            ; O código deste menu foi desenvolvido para funcionar com
-00343C64                            ; o disassembly do Sonic 1 feito por -> drx (www.hacking-cult.org)
-00343C64                            ; 
-00343C64                            ; Se estiver usando um disassembly diferente modifique os jumps no final do 
-00343C64                            ; código para que aponte para as rotinas equivalentes.
-00343C64                            ; 
-00343C64                            ; Para pode utilizar este menu basta fazer a seguinte modificação no código 
-00343C64                            ; original:
-00343C64                            ; Localize o label  -> loc_3242 adicione -> jmp     Level_Select_Menu
-00343C64                            ; O código deve ficar como abaixo
-00343C64                            ;               ......................
-00343C64                            ; loc_3242:
-00343C64                            ;		tst.b	($FFFFFFE0).w
-00343C64                            ;		beq.w	PlayLevel	
-00343C64                            ;		btst	#6,($FFFFF604).w 
-00343C64                            ;		beq.w	PlayLevel	  		
-00343C64                            ;		jmp     Level_Select_Menu ; <- Carrega o Menu do Sonic 2	
-00343C64                            ;		moveq	#2,d0		
-00343C64                            ;		bsr.w	PalLoad		 
-00343C64                            ;               ...............
-00343C64                            ;
-00343C64                            ; Não esqueça de incluir este asm em seu código com a diretiva include:
-00343C64                            ;               include 's2_menu.asm'
-00343C64                            ;===============================================================================  
-00343C64 =FFFFFFE1                  Slow_Motion_Flag      equ $FFFFFFE1
-00343C64 =FFFFFFE2                  Debug_Mode_Flag       equ $FFFFFFE2
-00343C64                            
-00343C64 =00000095                  Level_Select_Menu_snd   = $0095
-00343C64 =00000093                  Emerald_Snd             = $0093
-00343C64 =000000B5                  Ring_Snd                = $00B5
-00343C64 =000000E0                  Volume_Down             = $00E0
-00343C64 =000000E4                  Stop_Sound              = $00E4
-00343C64                            ;-------------------------------------------------------------------------------
-00343C64                            Level_Select_Menu:
-00343C64 103C 00E4                                  move.b  #Stop_Sound, D0
-00343C68 6100 0000                                  bsr     Menu_Play_Music
-00343C6C 6100 0000                                  bsr     Menu_Pal_FadeFrom
-00343C70 46FC 2700                                  move    #$2700, SR
-00343C74 3038 F60C                                  move.w  ($FFFFF60C).w, D0
-00343C78 0200 00BF                                  andi.b  #$BF, D0
-00343C7C 33C0 00C0 0004                             move.w  D0, ($00C00004)
-00343C82 6100 0000                                  bsr     Menu_ClearScreen
-00343C86 4DF9 00C0 0004                             lea     ($00C00004), A6
-00343C8C 3CBC 8004                                  move.w  #$8004, (A6)
-00343C90 3CBC 8230                                  move.w  #$8230, (A6)
-00343C94 3CBC 8407                                  move.w  #$8407, (A6)
-00343C98 3CBC 8230                                  move.w  #$8230, (A6)
-00343C9C 3CBC 8700                                  move.w  #$8700, (A6)
-00343CA0 3CBC 8C81                                  move.w  #$8C81, (A6)
-00343CA4 3CBC 9001                                  move.w  #$9001, (A6)
-00343CA8 43F8 AC00                                  lea     ($FFFFAC00).w, A1
-00343CAC 7000                                       moveq   #$00, D0
-00343CAE 323C 00FF                                  move.w  #$00FF, D1
-00343CB2                            Offset_0x026ACA:
-00343CB2 22C0                                       move.l  D0, (A1)+
-00343CB4 51C9 FFFC                                  dbra    D1, Offset_0x026ACA
-00343CB8 43F8 B000                                  lea     ($FFFFB000).w, A1
-00343CBC 7000                                       moveq   #$00, D0
-00343CBE 323C 07FF                                  move.w  #$07FF, D1
-00343CC2                            Offset_0x026ADA:
-00343CC2 22C0                                       move.l  D0, (A1)+
-00343CC4 51C9 FFFC                                  dbra    D1, Offset_0x026ADA
-00343CC8 4278 DC00                                  clr.w   ($FFFFDC00).w
-00343CCC 21FC FFFF DC00 DCFC                        move.l  #$FFFFDC00, ($FFFFDCFC).w
-00343CD4 23FC 4200 0000 00C0 0004                   move.l  #$42000000, ($00C00004)
-00343CDE 41F9 0000 0000                             lea     (Menu_Font), A0
-00343CE4 6100 0000                                  bsr     Menu_NemesisDec
-00343CE8 23FC 5200 0000 00C0 0004                   move.l  #$52000000, ($00C00004)
-00343CF2 41F9 0000 0000                             lea     (Level_Icons), A0
-00343CF8 4EB9 0000 0000                             jsr     Menu_NemesisDec
-00343CFE                            ;-------------------------------------------------------------------------------                
-00343CFE                            ; Carrega o Mapeamento do Fundo Sonic/Miles               
-00343CFE                            ;-------------------------------------------------------------------------------
-00343CFE 43F9 FFFF 0000                             lea     ($FFFF0000), A1
-00343D04 41F9 0000 0000                             lea     (Menu_Mappings), A0
-00343D0A 303C 6000                                  move.w  #$6000, D0
-00343D0E 6100 0000                                  bsr     Menu_EnigmaDec
-00343D12 43F9 FFFF 0000                             lea     ($FFFF0000), A1
-00343D18 203C 6000 0003                             move.l  #$60000003, D0
-00343D1E 7227                                       moveq   #$27, D1
-00343D20 741B                                       moveq   #$1B, D2
-00343D22 6100 0000                                  bsr     Menu_ShowVDPGraphics
-00343D26                            ;-------------------------------------------------------------------------------                
-00343D26                            ; Carrega o Texto do Menu de Sele??o de Fases               
-00343D26                            ;-------------------------------------------------------------------------------
-00343D26 47F9 FFFF 0000             		lea		($FFFF0000),a3
-00343D2C 323C 045F                  		move.w	#$045F,d1
-00343D30                            
-00343D30                            Offset_0x026B4E:
-00343D30 36FC 0000                  		move.w	#$0000,(a3)+
-00343D34 51C9 FFFA                  		dbra	d1,Offset_0x026B4E
-00343D38 47F9 FFFF 0000             		lea		($FFFF0000),a3
-00343D3E 43F9 0000 0000             		lea		(Menu_Level_Select_Text),a1
-00343D44 4BF9 0000 0000             		lea		(Menu_Text_Positions),a5
-00343D4A 7000                       		moveq	#$00,d0
-00343D4C 323C 0009                  		move.w	#$0009,d1	; Quantidade de textos a ser carregada e posi??o do Sound Test
-00343D50                            
-00343D50                            Menu_Loop_Load_Text:
-00343D50 361D                       		move.w	(a5)+,d3
-00343D52 45F3 3000                  		lea		$00(a3,d3),a2
-00343D56 7400                       		moveq	#$00,d2
-00343D58 1419                       		move.b	(a1)+,d2
-00343D5A 3602                       		move.w	d2,d3
-00343D5C                            
-00343D5C                            Offset_0x026B7A:
-00343D5C 1019                       		move.b	(a1)+,d0
-00343D5E 34C0                       		move.w	d0,(a2)+
-00343D60 51CA FFFA                  		dbra	d2,Offset_0x026B7A
-00343D64 343C 000D                  		move.w	#$000D,d2
-00343D68 9443                       		sub.w	d3,d2
-00343D6A 6500                       		bcs.s	Offset_0x026B92
-00343D6C                            
-00343D6C                            Offset_0x026B8A:
-00343D6C 34FC 0000                  		move.w	#$0000,(a2)+
-00343D70 51CA FFFA                  		dbra	d2,Offset_0x026B8A
-00343D74                            
-00343D74                            Offset_0x026B92:
-00343D74 34BC 0011                  		move.w	#$0011,(a2) 	 	 	 ; Load "1"
-00343D78 45EA 0050                  		lea		$0050(a2),a2
-00343D7C 34BC 0012                  		move.w	#$0012,(a2) 	 	 	 ; Load "2"
-00343D80 45EA 0050                  		lea		$0050(a2),a2
-00343D84 34BC 0013                  		move.w	#$0013,(a2) 	 	 	 ; Load "3"
-00343D88 51C9 FFC6                  		dbra	d1,Menu_Loop_Load_Text
-00343D8C                            ;-------------------------------------------------------------------------------
-00343D8C 720E                       		moveq	#$0E,d1
-00343D8E 45EA FBA0                  		lea		$FFFFFBA0(a2),a2
-00343D92                            
-00343D92                            Menu_Clear_Act_x:						; Limpa os n?meros dos acts n?o usados e carrega o "*" do Sound Test
-00343D92 34BC 0000                  		move.w	#$0000,(a2)				; Load " "
-00343D96 45EA 0050                  		lea		$0050(a2),a2
-00343D9A 51C9 FFF6                  		dbra	d1,Menu_Clear_Act_x
-00343D9E                            ;		lea     $FF10(a2), a2
-00343D9E                            ;		move.w  #$001A, (a2)          ; Load "*"
-00343D9E                            ;-------------------------------------------------------------------------------
-00343D9E                            ; Carrega o Mapeamento das Asas onde são mostrados os ícones
-00343D9E                            ;------------------------------------------------------------------------------- 
-00343D9E 41F9 0000 0000                             lea     (Wings_Mappings), A0
-00343DA4 43F9 FFFF 0670                             lea     ($FFFF0670), A1
-00343DAA 323C 0006                                  move     #$06, D1
-00343DAE                            Menu_Loop_Next_Line:
-00343DAE 303C 0009                                  move     #$09, D0
-00343DB2                            Menu_Loop_Load_Wings:
-00343DB2 32D8                                       move.w   (A0)+, (A1)+
-00343DB4 51C8 FFFC                                  dbra     D0, Menu_Loop_Load_Wings
-00343DB8 D2FC 003C                                  add.w    #$3C, A1
-00343DBC 51C9 FFF0                                  dbra     D1, Menu_Loop_Next_Line
-00343DC0                            ;-------------------------------------------------------------------------------                
-00343DC0                            ; Carrega o Mapeamento dos ícones               
-00343DC0                            ;-------------------------------------------------------------------------------                                    
-00343DC0 43F9 FFFF 08C0                             lea     ($FFFF08C0), A1
-00343DC6 41F9 0000 0000                             lea     (Icons_Mappings), A0
-00343DCC 303C 0090                                  move.w  #$0090, D0
-00343DD0 6100 0000                                  bsr     Menu_EnigmaDec
-00343DD4 43F9 FFFF 0000                             lea     ($FFFF0000), A1
-00343DDA 203C 4000 0003                             move.l  #$40000003, D0
-00343DE0 7227                                       moveq   #$27, D1
-00343DE2 741B                                       moveq   #$1B, D2
-00343DE4 6100 0000                                  bsr     Menu_ShowVDPGraphics
-00343DE8                            ;-------------------------------------------------------------------------------                
-00343DE8 7600                                       moveq   #$00, D3
-00343DEA 6100 0000                                  bsr     Offset_0x027040
-00343DEE 4278 FF70                                  clr.w   ($FFFFFF70).w
-00343DF2 4278 FE40                                  clr.w   ($FFFFFE40).w
-00343DF6 4238 F711                                  clr.b   ($FFFFF711).w
-00343DFA 4278 F7F0                                  clr.w   ($FFFFF7F0).w
-00343DFE                            ;------------------------------------------------------------------------------- 
-00343DFE 4EB9 0000 0000                             jsr     Dynamic_Menu           ; Chama a rotina de animação
-00343E04                            ;-------------------------------------------------------------------------------
-00343E04                            
-00343E04 7014                                       moveq   #$14, D0
-00343E06 6100 0000                                  bsr     Menu_PalLoad1
-00343E0A 43F8 FB40                                  lea     ($FFFFFB40).w, A1
-00343E0E 45F8 FBC0                                  lea     ($FFFFFBC0).w, A2
-00343E12 7207                                       moveq   #$07, D1
-00343E14                            Offset_0x026C26:
-00343E14 24D1                                       move.l  (A1), (A2)+
-00343E16 4299                                       clr.l   (A1)+
-00343E18 51C9 FFFA                                  dbra    D1, Offset_0x026C26
-00343E1C 103C 0095                                  move.b  #Level_Select_Menu_snd, D0
-00343E20 6100 0000                                  bsr     Menu_Play_Music
-00343E24 7000                                       moveq   #$00, D0
-00343E26 4EB9 0000 0000                             jsr     Menu_LoadPLC2
-00343E2C 31FC 0707 F614                             move.w  #$0707, ($FFFFF614).w
-00343E32 4278 FFDC                                  clr.w   ($FFFFFFDC).w
-00343E36 42B8 EE00                                  clr.l   ($FFFFEE00).w
-00343E3A 42B8 EE04                                  clr.l   ($FFFFEE04).w
-00343E3E 4278 FF0C                                  clr.w   ($FFFFFF0C).w
-00343E42 4278 FF0E                                  clr.w   ($FFFFFF0E).w
-00343E46 11FC 0018 F62A                             move.b  #$18, ($FFFFF62A).w
-00343E4C 6100 0000                                  bsr     Menu_DelayProgram
-00343E50 3038 F60C                                  move.w  ($FFFFF60C).w, D0
-00343E54 0000 0040                                  ori.b   #$40, D0
-00343E58 33C0 00C0 0004                             move.w  D0, ($00C00004)
-00343E5E 6100 0000                                  bsr     Menu_Pal_FadeTo
-00343E62                            Menu_Main_Loop:
-00343E62 11FC 0018 F62A                             move.b  #$18, ($FFFFF62A).w
-00343E68 6100 0000                                  bsr     Menu_DelayProgram
-00343E6C 46FC 2700                                  move    #$2700, SR
-00343E70 7600                                       moveq   #$00, D3
-00343E72 6100 0000                                  bsr     Offset_0x026ED8
-00343E76 6100 0000                                  bsr     Offset_0x026DEC
-00343E7A 363C 6000                                  move.w  #$6000, D3
-00343E7E 6100 0000                                  bsr     Offset_0x027048
-00343E82 46FC 2300                                  move    #$2300, SR
-00343E86 4EB9 0000 0000                             jsr     Dynamic_Menu
-00343E8C 6100 0000                                  bsr     Menu_RunPLC
-00343E90 0838 0004 F604                             btst    #$04, ($FFFFF604).w
-00343E96 6700                                       beq.s   Offset_0x026CC6
-00343E98 31FC 0001 FFD8                             move.w  #$0001, ($FFFFFFD8).w
-00343E9E                            Offset_0x026CC6:
-00343E9E 1038 F605                                  move.b  ($FFFFF605).w, D0
-00343EA2 8038 F607                                  or.b    ($FFFFF607).w, D0
-00343EA6 0200 0080                                  andi.b  #$80, D0
-00343EAA 6600                                       bne.s   Offset_0x026CD8
-00343EAC 60B4                                       bra     Menu_Main_Loop
-00343EAE                            Offset_0x026CD8:
-00343EAE 3038 FF82                                  move.w  ($FFFFFF82).w, D0
-00343EB2 D040                                       add.w   D0, D0
-00343EB4 303B 0000                                  move.w  Menu_Level_Select_Array(PC, D0), D0
-00343EB8 6B00 0000                                  bmi     Menu_Game_Reset
-00343EBC 0C40 0600                                  cmpi.w  #$0600, D0
-00343EC0 6700 0000                                  beq     Menu_Ending_Sequence
-00343EC4 0C40 5555                                  cmpi.w  #$5555, D0
-00343EC8 6798                                       beq     Menu_Main_Loop
-00343ECA 0C40 4000                                  cmpi.w  #$4000, D0
-00343ECE 6600 0000                                  bne     Menu_Load_Level
-00343ED2 11FC 0010 F600                             move.b  #$10, ($FFFFF600).w
-00343ED8 4278 FE10                                  clr.w   ($FFFFFE10).w
-00343EDC 11FC 0003 FE12                             move.b  #$03, ($FFFFFE12).w
-00343EE2 11FC 0003 FEC6                             move.b  #$03, ($FFFFFEC6).w
-00343EE8 7000                                       moveq   #$00, D0
-00343EEA 31C0 FE20                                  move.w  D0, ($FFFFFE20).w
-00343EEE 21C0 FE22                                  move.l  D0, ($FFFFFE22).w
-00343EF2 21C0 FE26                                  move.l  D0, ($FFFFFE26).w
-00343EF6 31C0 FED0                                  move.w  D0, ($FFFFFED0).w
-00343EFA 21C0 FED2                                  move.l  D0, ($FFFFFED2).w
-00343EFE 21C0 FED6                                  move.l  D0, ($FFFFFED6).w
-00343F02 21FC 0000 1388 FFC0                        move.l  #$00001388, ($FFFFFFC0).w
-00343F0A 21FC 0000 1388 FFC4                        move.l  #$00001388, ($FFFFFFC4).w
-00343F12 31F8 FF72 FF70                             move.w  ($FFFFFF72).w, ($FFFFFF70).w
-00343F18 4E75                                       rts
-00343F1A                            Menu_Game_Reset:
-00343F1A 11FC 0000 F600                             move.b  #$0000, ($FFFFF600).w
-00343F20 4E75                                       rts
-00343F22                            Menu_Ending_Sequence:
-00343F22 11FC 0018 F600                             move.b	#$0018,($FFFFF600).w
-00343F28 31FC 0600 FE10             		move.w	#$0600,($FFFFFE10).w
-00343F2E 4E75                       		rts
-00343F30                            Menu_Level_Select_Array:
-00343F30 0000 0001 0002                             dc.w    $0000, $0001, $0002	;GHZ
-00343F36 0200 0201 0202                             dc.w    $0200, $0201, $0202	;MZ
-00343F3C 0400 0401 0402                             dc.w    $0400, $0401, $0402	;SYZ				
-00343F42 0100 0101 0102                             dc.w    $0100, $0101, $0102 ;LZ
-00343F48 0300 0301 0302                             dc.w    $0300, $0301, $0302	;SLZ
-00343F4E 0500 0501 0103                             dc.w    $0500, $0501, $0103	;SBZ
-00343F54 0502 4000 0600                             dc.w    $0502, $4000, $0600	
-00343F5A FFFF                                       dc.w    $FFFF
-00343F5C                            Menu_Load_Level:
-00343F5C 0240 3FFF                                  andi.w  #$3FFF, D0
-00343F60 31C0 FE10                                  move.w  D0, ($FFFFFE10).w
-00343F64 11FC 000C F600                             move.b  #$0C, ($FFFFF600).w
-00343F6A 11FC 0003 FE12                             move.b  #$03, ($FFFFFE12).w
-00343F70 11FC 0003 FEC6                             move.b  #$03, ($FFFFFEC6).w
-00343F76 7000                                       moveq   #$00, D0
-00343F78 31C0 FE20                                  move.w  D0, ($FFFFFE20).w
-00343F7C 21C0 FE22                                  move.l  D0, ($FFFFFE22).w
-00343F80 21C0 FE26                                  move.l  D0, ($FFFFFE26).w
-00343F84 31C0 FED0                                  move.w  D0, ($FFFFFED0).w
-00343F88 21C0 FED2                                  move.l  D0, ($FFFFFED2).w
-00343F8C 21C0 FED6                                  move.l  D0, ($FFFFFED6).w
-00343F90 4E71                                       nop
-00343F92 4E71                                       nop
-00343F94 21FC 0000 1388 FFC0                        move.l  #$00001388, ($FFFFFFC0).w
-00343F9C 21FC 0000 1388 FFC4                        move.l  #$00001388, ($FFFFFFC4).w
-00343FA4 103C 00E0                                  move.b  #Volume_Down, D0
-00343FA8 6100 0000                                  bsr     Menu_Play_Music     
-00343FAC 7000                                       moveq   #$00, D0
-00343FAE 31C0 FF8A                                  move.w  D0, ($FFFFFF8A).w
-00343FB2 31C0 FFDC                                  move.w  D0, ($FFFFFFDC).w
-00343FB6 4E75                                       rts
-00343FB8                            Offset_0x026DEC:
-00343FB8 1238 F605                                  move.b  ($FFFFF605).w, D1
-00343FBC 0201 0003                                  andi.b  #$03, D1
-00343FC0 6600                                       bne.s   Offset_0x026DFC
-00343FC2 5378 FF80                                  subq.w  #$01, ($FFFFFF80).w
-00343FC6 6A00                                       bpl.s   Offset_0x026E32
-00343FC8                            Offset_0x026DFC:
-00343FC8 31FC 000B FF80                             move.w  #$000B, ($FFFFFF80).w
-00343FCE 1238 F604                                  move.b  ($FFFFF604).w, D1
-00343FD2 0201 0003                                  andi.b  #$03, D1
-00343FD6 6700                                       beq.s   Offset_0x026E32
-00343FD8 3038 FF82                                  move.w  ($FFFFFF82).w, D0
-00343FDC 0801 0000                                  btst    #$00, D1
-00343FE0 6700                                       beq.s   Offset_0x026E1C
-00343FE2 5340                                       subq.w  #$01, D0
-00343FE4 6400                                       bcc.s   Offset_0x026E1C
-00343FE6 7015                                       moveq   #$15, D0     ; Último item após apertar para cima
-00343FE8                            Offset_0x026E1C:
-00343FE8 0801 0001                                  btst    #$01, D1
-00343FEC 6700                                       beq.s   Offset_0x026E2C
-00343FEE 5240                                       addq.w  #$01, D0
-00343FF0 0C40 0016                                  cmpi.w  #$0016, D0   ; Verifica qual o último item da lista
-00343FF4 6500                                       bcs.s   Offset_0x026E2C
-00343FF6 7000                                       moveq   #$00, D0
-00343FF8                            Offset_0x026E2C:
-00343FF8 31C0 FF82                                  move.w  D0, ($FFFFFF82).w
-00343FFC 4E75                                       rts
-00343FFE                            Offset_0x026E32:
-00343FFE 0C78 0015 FF82                             cmpi.w  #$0015, ($FFFFFF82).w ; se o item for igual muda as funções de esquerda e direita 
-00344004 6600                                       bne.s   Offset_0x026E9C
-00344006 3038 FF84                                  move.w  ($FFFFFF84).w, D0
-0034400A 1238 F605                                  move.b  ($FFFFF605).w, D1
-0034400E 0801 0002                                  btst    #$02, D1
-00344012 6700                                       beq.s   Offset_0x026E4E
-00344014 5300                                       subq.b  #$01, D0
-00344016 6400                                       bcc.s   Offset_0x026E4E
-00344018 707F                                       moveq   #$7F, D0
-0034401A                            Offset_0x026E4E:
-0034401A 0801 0003                                  btst    #$03, D1
-0034401E 6700                                       beq.s   Offset_0x026E5E
-00344020 5200                                       addq.b  #$01, D0
-00344022 0C40 0080                                  cmpi.w  #$0080, D0
-00344026 6500                                       bcs.s   Offset_0x026E5E
-00344028 7000                                       moveq   #$00, D0
-0034402A                            Offset_0x026E5E:
-0034402A 0801 0006                                  btst    #$06, D1
-0034402E 6700                                       beq.s   Offset_0x026E6C
-00344030 0600 0010                                  addi.b  #$10, D0
-00344034 0200 007F                                  andi.b  #$7F, D0
-00344038                            Offset_0x026E6C:
-00344038 31C0 FF84                                  move.w  D0, ($FFFFFF84).w
-0034403C 0241 0030                                  andi.w  #$0030, D1
-00344040 6700                                       beq.s   Offset_0x026E9A
-00344042 3038 FF84                                  move.w  ($FFFFFF84).w, D0
-00344046 0640 0080                                  addi.w  #$0080, D0
-0034404A 6100 0000                                  bsr     Menu_Play_Music 
-0034404E 41F9 0000 0000                             lea     (Code_Debug_Mode), A0   
-00344054 45F9 0000 0000                             lea     (Code_All_Emeralds), A2 
-0034405A 43F8 FF0A                                  lea     ($FFFFFF0A).w, A1
-0034405E 7401                                       moveq   #$01, D2
-00344060 6100 0000                                  bsr     Menu_Code_Test 
-00344064                            Offset_0x026E9A:
-00344064 4E75                                       rts
-00344066                            Offset_0x026E9C:
-00344066 1238 F605                                  move.b  ($FFFFF605).w, D1
-0034406A 0201 000C                                  andi.b  #$0C, D1
-0034406E 6700                                       beq.s   Offset_0x026EB2
-00344070 3038 FF82                                  move.w  ($FFFFFF82).w, D0
-00344074 103B 0000                                  move.b  Menu_Left_Right_Select(PC, D0), D0
-00344078 31C0 FF82                                  move.w  D0, ($FFFFFF82).w
-0034407C                            Offset_0x026EB2:
-0034407C 4E75                                       rts
-0034407E                            Menu_Left_Right_Select:                   
-0034407E 0F10 1112 1212 1313 1314+                  dc.b    $0F, $10, $11, $12, $12, $12, $13, $13, $13, $14, $14, $14, $15, $15, $15
-0034408D 0001 0203 0609 0C                          dc.b    $00, $01, $02, $03, $06, $09, $0C
-00344094                            Offset_0x026ED8:
-00344094 49F9 FFFF 0000                             lea     ($FFFF0000), A4
-0034409A 4BF9 0000 0000                             lea     (Menu_Text_Highlight), A5
-003440A0 4DF9 00C0 0000                             lea     ($00C00000), A6
-003440A6 7000                                       moveq   #$00, D0
-003440A8 3038 FF82                                  move.w  ($FFFFFF82).w, D0
-003440AC E548                                       lsl.w   #$02, D0
-003440AE 47F5 0000                                  lea     $00(A5, D0), A3
-003440B2 7000                                       moveq   #$00, D0
-003440B4 1013                                       move.b  (A3), D0
-003440B6 C0FC 0050                                  mulu.w  #$0050, D0
-003440BA 7200                                       moveq   #$00, D1
-003440BC 122B 0001                                  move.b  $0001(A3), D1
-003440C0 D041                                       add.w   D1, D0
-003440C2 43F4 0000                                  lea     $00(A4, D0), A1
-003440C6 7200                                       moveq   #$00, D1
-003440C8 1213                                       move.b  (A3), D1
-003440CA EF49                                       lsl.w   #$07, D1
-003440CC D22B 0001                                  add.b   $0001(A3), D1
-003440D0 0641 C000                                  addi.w  #$C000, D1
-003440D4 E589                                       lsl.l   #$02, D1
-003440D6 E449                                       lsr.w   #$02, D1
-003440D8 0041 4000                                  ori.w   #$4000, D1
-003440DC 4841                                       swap.w  D1
-003440DE 2D41 0004                                  move.l  D1, $0004(A6)
-003440E2 740E                                       moveq   #$0E, D2    ; Quantidade de letras a selecionar (Highlight)
-003440E4                            Offset_0x026F28:                
-003440E4 3019                                       move.w  (A1)+, D0
-003440E6 D043                                       add.w   D3, D0
-003440E8 3C80                                       move.w  D0, (A6)
-003440EA 51CA FFF8                                  dbra    D2, Offset_0x026F28
-003440EE 544B                                       addq.w  #$02, A3
-003440F0 7000                                       moveq   #$00, D0
-003440F2 1013                                       move.b  (A3), D0
-003440F4 6700                                       beq.s   Offset_0x026F6C
-003440F6 C0FC 0050                                  mulu.w  #$0050, D0
-003440FA 7200                                       moveq   #$00, D1
-003440FC 122B 0001                                  move.b  $0001(A3), D1
-00344100 D041                                       add.w   D1, D0
-00344102 43F4 0000                                  lea     $00(A4, D0), A1
-00344106 7200                                       moveq   #$00, D1
-00344108 1213                                       move.b  (A3), D1
-0034410A EF49                                       lsl.w   #$07, D1
-0034410C D22B 0001                                  add.b   $0001(A3), D1
-00344110 0641 C000                                  addi.w  #$C000, D1
-00344114 E589                                       lsl.l   #$02, D1
-00344116 E449                                       lsr.w   #$02, D1
-00344118 0041 4000                                  ori.w   #$4000, D1
-0034411C 4841                                       swap.w  D1
-0034411E 2D41 0004                                  move.l  D1, $0004(A6)
-00344122 3019                                       move.w  (A1)+, D0
-00344124 D043                                       add.w   D3, D0
-00344126 3C80                                       move.w  D0, (A6)
-00344128                            Offset_0x026F6C:
-00344128 0C78 0015 FF82                             cmpi.w  #$0015, ($FFFFFF82).w  ; Se for igual seleciona o número do Sound Test
-0034412E 6600                                       bne.s   Offset_0x026F78
-00344130 6100 0000                                  bsr     Offset_0x026F7A
-00344134                            Offset_0x026F78:
-00344134 4E75                                       rts
-00344136                            Offset_0x026F7A:
-00344136 23FC 49C6 0003 00C0 0004                   move.l  #$49C60003, ($00C00004) ; Posição dos números do Sound Test
-00344140 3038 FF84                                  move.w  ($FFFFFF84).w, D0
-00344144 1400                                       move.b  D0, D2
-00344146 E808                                       lsr.b   #$04, D0
-00344148 6100                                       bsr.s   Offset_0x026F90
-0034414A 1002                                       move.b  D2, D0
-0034414C                            Offset_0x026F90:
-0034414C 0240 000F                                  andi.w  #$000F, D0
-00344150 0C00 000A                                  cmpi.b  #$0A, D0
-00344154 6500                                       bcs.s   Offset_0x026F9E
-00344156 5800                                       addi.b  #$04, D0
-00344158                            Offset_0x026F9E:
-00344158 0600 0010                                  addi.b  #$10, D0
-0034415C D043                                       add.w   D3, D0
-0034415E 3C80                                       move.w  D0, (A6)
-00344160 4E75                                       rts
-00344162                            ;-------------------------------------------------------------------------------                
-00344162                            Menu_Code_Test: 
-00344162 3038 FF0C                                  move.w  ($FFFFFF0C).w, D0
-00344166 D0C0                                       adda.w  D0, A0
-00344168 3038 FF84                                  move.w  ($FFFFFF84).w, D0
-0034416C B010                                       cmp.b   (A0), D0
-0034416E 6600                                       bne.s   Menu_Reset_Debug_Mode_Code_Counter
-00344170 5278 FF0C                                  addq.w  #$01, ($FFFFFF0C).w
-00344174 4A28 0001                                  tst.b   $0001(A0)
-00344178 6A00                                       bpl.s   Menu_All_Emeralds_Code_Test 
-0034417A 32BC 0101                                  move.w  #$0101, (A1)
-0034417E 6000 0000                                  bra     Menu_Set_Debug_Flag 
-00344182                            Menu_Reset_Debug_Mode_Code_Counter: 
-00344182 31FC 0000 FF0C                             move.w  #$0000, ($FFFFFF0C).w
-00344188                            Menu_All_Emeralds_Code_Test: 
-00344188 3038 FF0E                                  move.w  ($FFFFFF0E).w, D0
-0034418C D4C0                                       adda.w  D0, A2
-0034418E 3038 FF84                                  move.w  ($FFFFFF84).w, D0
-00344192 B012                                       cmp.b   (A2), D0
-00344194 6600                                       bne.s   Menu_Reset_All_Emerald_Code_Counter 
-00344196 5278 FF0E                                  addq.w  #$01, ($FFFFFF0E).w
-0034419A 4A2A 0001                                  tst.b   $0001(A2)
-0034419E 6A00                                       bpl.s   Menu_Code_Not_0xFF 
-003441A0 4A42                                       tst.w   D2
-003441A2 6600                                       bne.s   Menu_Set_All_Emeralds 
-003441A4                            Menu_Set_Debug_Flag: 
-003441A4 11FC 0001 FFE1                             move.b  #$01, (Slow_Motion_Flag).w
-003441AA 11FC 0001 FFE2                             move.b  #$01, (Debug_Mode_Flag).w
-003441B0 103C 00B5                                  move.b  #Ring_Snd, D0
-003441B4 6100 0000                                  bsr     Menu_Play_Music 
-003441B8 6000                                       bra.s   Menu_Reset_All_Emerald_Code_Counter 
-003441BA                            Menu_Set_All_Emeralds: 
-003441BA 31FC 0006 FE56                             move.w  #$0006, ($FFFFFE56).w
-003441C0 103C 0093                                  move.b  #Emerald_Snd, D0
-003441C4 6100 0000                                  bsr     Menu_Play_Music 
-003441C8                            Menu_Reset_All_Emerald_Code_Counter: 
-003441C8 31FC 0000 FF0E                             move.w  #$0000, ($FFFFFF0E).w
-003441CE                            Menu_Code_Not_0xFF: 
-003441CE 4E75                                       rts               
-003441D0                            Code_Debug_Mode: 
-003441D0 0200 0108 FF                               dc.b    $02, $00, $01, $08, $FF ; Among Us release year
-003441D6 00                                         even
-003441D6                            Code_All_Emeralds: 
-003441D6 0609 0402 00FF                             dc.b    $06, $09, $04, $02, $00, $FF ; Haha funni numbers
-003441DC                                            even
-003441DC                            ;-------------------------------------------------------------------------------                 
-003441DC                            Offset_0x027040:
-003441DC 6100 FF58                                  bsr     Offset_0x026F7A
-003441E0 6000 0000                                  bra     Offset_0x027050
-003441E4                            Offset_0x027048:
-003441E4 6100 FEAE                                  bsr     Offset_0x026ED8
-003441E8 6000 0000                                  bra     Offset_0x027050
-003441EC                            Offset_0x027050:
-003441EC 3038 FF82                                  move.w  ($FFFFFF82).w, D0
-003441F0 47F9 0000 0000                             lea     (Menu_Icon_List), A3
-003441F6 47F3 0000                                  lea     $00(A3, D0), A3
-003441FA 43F9 FFFF 08C0                             lea     ($FFFF08C0), A1
-00344200 7000                                       moveq   #$00, D0
-00344202 1013                                       move.b  (A3), D0
-00344204 E748                                       lsl.w   #$03, D0
-00344206 3200                                       move.w  D0, D1
-00344208 D040                                       add.w   D0, D0
-0034420A D041                                       add.w   D1, D0
-0034420C 43F1 0000                                  lea     $00(A1, D0), A1
-00344210 203C 4B36 0003                             move.l  #$4B360003, D0        ; Posição Horizontal dos Ícones
-00344216 7203                                       moveq   #$03, D1
-00344218 7402                                       moveq   #$02, D2
-0034421A 6100 0000                                  bsr     Menu_ShowVDPGraphics 
-0034421E 43F9 0000 0000                             lea     (Icon_Palettes), A1  
-00344224 7000                                       moveq   #$00, D0
-00344226 1013                                       move.b  (A3), D0
-00344228 EB48                                       lsl.w   #$05, D0
-0034422A 43F1 0000                                  lea     $00(A1, D0), A1
-0034422E 45F8 FB40                                  lea     ($FFFFFB40).w, A2
-00344232 7207                                       moveq   #$07, D1
-00344234                            Offset_0x027098:                
-00344234 24D9                                       move.l  (A1)+, (A2)+
-00344236 51C9 FFFC                                  dbra    D1, Offset_0x027098
-0034423A 4E75                                       rts
-0034423C                            ;-------------------------------------------------------------------------------                            
-0034423C                            Dynamic_Menu:                           
-0034423C 5338 F7B9                                  subq.b  #$01, ($FFFFF7B9).w          ; Decrementa em 1 o Tempo
-00344240 6A00                                       bpl.s   Exit_Dinamic_Menu            ; Se for maior ou igual a 0 sai da função
-00344242 11FC 0007 F7B9                             move.b  #$07, ($FFFFF7B9).w          ; Inicializa o tempo de duração de cada frame
-00344248 1038 F7B8                                  move.b  ($FFFFF7B8).w, D0            ; Carrega o Id do Frame Atual em D0
-0034424C 5238 F7B8                                  addq.b  #$01, ($FFFFF7B8).w          ; Carrega o próximo frame em $FFFFFFB8
-00344250 0240 001F                                  andi.w  #$001F, D0
-00344254 103B 0000                                  move.b  Sonic_Miles_Frame_Select(PC, D0), D0  ; Carrega o Id do frame em D0
-00344258                                          ; muls.w  #$0140, D0                   ; Multiplica o Id pelo tamanho em bytes de cada frame
-00344258 ED48                                       lsl.w   #$06, D0
-0034425A 4DF9 00C0 0000                             lea     ($00C00000), A6
-00344260 2D7C 4020 0000 0004                        move.l  #$40200000, $0004(A6)
-00344268 43F9 0000 0000                             lea     (Sonic_Miles_Spr), A1
-0034426E 43F1 0000                                  lea     $00(A1, D0), A1
-00344272 303C 0009                                  move.w  #$0009, D0                   ; Tiles-1 a serem carregados por vez 
-00344276                            Menu_Loop_Load_Tiles:
-00344276 2C99                                       move.l  (A1)+, (A6)
-00344278 2C99                                       move.l  (A1)+, (A6)     
-0034427A 2C99                                       move.l  (A1)+, (A6)     
-0034427C 2C99                                       move.l  (A1)+, (A6)     
-0034427E 2C99                                       move.l  (A1)+, (A6)     
-00344280 2C99                                       move.l  (A1)+, (A6)
-00344282 2C99                                       move.l  (A1)+, (A6)
-00344284 2C99                                       move.l  (A1)+, (A6)
-00344286 51C8 FFEE                                  dbra    D0, Menu_Loop_Load_Tiles
-0034428A                            Exit_Dinamic_Menu:                
-0034428A 4E75                                       rts              
-0034428C                            Sonic_Miles_Frame_Select:     
-0034428C 0000 0000 0000 0000 0000+                  dc.b    $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
-0034429A 050A                                       dc.b    $05, $0A
-0034429C 0F0F 0F0F 0F0F 0F0F 0F0F+                  dc.b    $0F, $0F, $0F, $0F, $0F, $0F, $0F, $0F, $0F, $0F, $0F, $0F, $0F, $0F
-003442AA 0A05                                       dc.b    $0A, $05   
-003442AC                                            ; 0 = 0000000000  ; 1 = 0101000000  ; 2 = 1010000000 ; 3 = 1111000000
-003442AC                            ;------------------------------------------------------------------------------                  
-003442AC =00000000                  __ = $00
-003442AC =0000001E                  _A = $1E
-003442AC =0000001F                  _B = $1F
-003442AC =00000020                  _C = $20
-003442AC =00000021                  _D = $21
-003442AC =00000022                  _E = $22    
-003442AC =00000023                  _F = $23
-003442AC =00000024                  _G = $24
-003442AC =00000025                  _H = $25
-003442AC =00000026                  _I = $26
-003442AC =00000027                  _J = $27
-003442AC =00000028                  _K = $28
-003442AC =00000029                  _L = $29
-003442AC =0000002A                  _M = $2A
-003442AC =0000002B                  _N = $2B
-003442AC =0000002C                  _O = $2C
-003442AC =0000002D                  _P = $2D
-003442AC =0000002E                  _Q = $2E
-003442AC =0000002F                  _R = $2F
-003442AC =00000030                  _S = $30
-003442AC =00000031                  _T = $31
-003442AC =00000032                  _U = $32
-003442AC =00000033                  _V = $33
-003442AC =00000034                  _W = $34
-003442AC =00000035                  _X = $35
-003442AC =00000036                  _Y = $36
-003442AC =00000037                  _Z = $37
-003442AC =0000001A                  _st = $1A
-003442AC                            ;-------------------------------------------------------------------------------  
-003442AC                            Icon_Palettes: 
-003442AC 0000 0000 0048 006A 008E+                  dc.w    $0000, $0000, $0048, $006A, $008E, $00CE, $0EEE, $00E0
-003442BC 00A4 0082 0062 0000 0E86+                  dc.w    $00A4, $0082, $0062, $0000, $0E86, $0026, $0E42, $0C00
-003442CC 0000 0000 0420 0820 0C00+                  dc.w    $0000, $0000, $0420, $0820, $0C00, $0E60, $0A00, $0000
-003442DC 0E00 0000 0000 0000 0444+                  dc.w    $0E00, $0000, $0000, $0000, $0444, $0666, $0AAA, $0EEE
-003442EC 0000 0204 0026 0248 046A+                  dc.w    $0000, $0204, $0026, $0248, $046A, $048C, $06CE, $0002
-003442FC 0000 0220 0040 0060 0080+                  dc.w    $0000, $0220, $0040, $0060, $0080, $02A0, $06E0, $0A0C
-0034430C 0000 0000 0A00 0660 0C80+                  dc.w    $0000, $0000, $0A00, $0660, $0C80, $0EC0, $006A, $0008
-0034431C 028A 00AE 004C 006E 0060+                  dc.w    $028A, $00AE, $004C, $006E, $0060, $0066, $00C0, $00CA
-0034432C 0000 0000 0CE2 0000 0480+                  dc.w    $0000, $0000, $0CE2, $0000, $0480, $0240, $0EEE, $04AC
-0034433C 006A 0026 0842 0620 0400+                  dc.w    $006A, $0026, $0842, $0620, $0400, $0000, $0000, $0000
-0034434C 0000 0000 0EEE 0ECA 0E86+                  dc.w    $0000, $0000, $0EEE, $0ECA, $0E86, $0E64, $0E42, $06AE
-0034435C 048A 0268 0246 0024 0888+                  dc.w    $048A, $0268, $0246, $0024, $0888, $0444, $000E, $0008
-0034436C 0000 0000 0A26 0C48 0E8C+                  dc.w    $0000, $0000, $0A26, $0C48, $0E8C, $00CE, $00C4, $0080
-0034437C 0C00 0000 0EEE 0EEA 0EC8+                  dc.w    $0C00, $0000, $0EEE, $0EEA, $0EC8, $006E, $004A, $0028
-0034438C 0000 0000 0048 006A 008E+                  dc.w    $0000, $0000, $0048, $006A, $008E, $00CE, $0EEE, $00E0
-0034439C 00A4 0082 0062 0808 0A4A+                  dc.w    $00A4, $0082, $0062, $0808, $0A4A, $0026, $0626, $0404
-003443AC 0000 0000 0EEE 0ECA 0E86+                  dc.w    $0000, $0000, $0EEE, $0ECA, $0E86, $0E64, $0E42, $06AE
-003443BC 048A 0268 0246 0024 0888+                  dc.w    $048A, $0268, $0246, $0024, $0888, $0444, $000E, $0008
-003443CC 0000 0000 0048 006A 008E+                  dc.w    $0000, $0000, $0048, $006A, $008E, $00CE, $0EEE, $00E0
-003443DC 00A4 0082 0062 0400 0E86+                  dc.w    $00A4, $0082, $0062, $0400, $0E86, $006E, $0E42, $0C00
-003443EC 0000 0000 0CE2 08C0 0480+                  dc.w    $0000, $0000, $0CE2, $08C0, $0480, $0240, $0EEE, $02AC
-003443FC 006A 0026 0AA6 0000 060A+                  dc.w    $006A, $0026, $0AA6, $0000, $060A, $0408, $0204, $0000
-0034440C 0000 0000 0C06 0C0A 0C6E+                  dc.w    $0000, $0000, $0C06, $0C0A, $0C6E, $0068, $008A, $0000
-0034441C 02CE 00EC 00AE 006E 0EEE+                  dc.w    $02CE, $00EC, $00AE, $006E, $0EEE, $0000, $000E, $00C4
-0034442C 0000 0000 0EEE 0AAA 0000+                  dc.w    $0000, $0000, $0EEE, $0AAA, $0000, $0666, $0444, $0E40
-0034443C 0C00 0800 00CE 028E 000E+                  dc.w    $0C00, $0800, $00CE, $028E, $000E, $0084, $0062, $0020
-0034444C 0000 0000 0004 0044 0084+                  dc.w    $0000, $0000, $0004, $0044, $0084, $0088, $00A8, $00AC
-0034445C 006C 002C 0028 0006 0666+                  dc.w    $006C, $002C, $0028, $0006, $0666, $0888, $0CCC, $0EEE
-0034446C 0000 0000 06CE 04AC 028A+                  dc.w    $0000, $0000, $06CE, $04AC, $028A, $0068, $0046, $00E8
-0034447C 00C4 0080 0040 0EEE 0C00+                  dc.w    $00C4, $0080, $0040, $0EEE, $0C00, $0EC0, $0860, $0000
-0034448C 0000 0000 0E64 0E86 0EA8+                  dc.w    $0000, $0000, $0E64, $0E86, $0EA8, $0ECA, $0EEE, $0000
-0034449C 00AE 006E 0E22 00E0 0000+                  dc.w    $00AE, $006E, $0E22, $00E0, $0000, $0000, $0000, $0000
-003444AC 0000 0E20 004E 006E 0048+                  dc.w    $0000, $0E20, $004E, $006E, $0048, $008C, $00CE, $08EE
-003444BC 0800 0400 0000 0EE8 0E80+                  dc.w    $0800, $0400, $0000, $0EE8, $0E80, $0E60, $0000, $0000
-003444CC 0000 0000 0A22 0C42 0000+                  dc.w    $0000, $0000, $0A22, $0C42, $0000, $0E66, $0EEE, $0AAA
-003444DC 0888 0444 08AE 046A 000E+                  dc.w    $0888, $0444, $08AE, $046A, $000E, $0000, $00EE, $0000
-003444EC 0000 0000 0A22 0C42 0000+                  dc.w    $0000, $0000, $0A22, $0C42, $0000, $0E66, $0EEE, $0AAA
-003444FC 0888 0444 08AE 046A 000E+                  dc.w    $0888, $0444, $08AE, $046A, $000E, $0000, $00EE, $0000
-0034450C                            ;-------------------------------------------------------------------------------  
-0034450C                            Menu_Icon_List: 
-0034450C 0000 000E 0E0E 0606 060B+                  dc.b    $00, $00, $00, $0E, $0E, $0E, $06, $06, $06, $0B, $0B, $0B, $0D, $0D, $0D, $09
-0034451C 0909 0410 0F11                             dc.b    $09, $09, $04, $10, $0F, $11
-00344522                            ;-------------------------------------------------------------------------------                 
-00344522                            Menu_Text_Highlight:                  
-00344522 0306 0324 0306 0424 0306+                  dc.w    $0306, $0324, $0306, $0424, $0306, $0524, $0706, $0724
-00344532 0706 0824 0706 0924 0B06+                  dc.w    $0706, $0824, $0706, $0924, $0B06, $0B24, $0B06, $0C24
-00344542 0B06 0D24 0F06 0F24 0F06+                  dc.w    $0B06, $0D24, $0F06, $0F24, $0F06, $1024, $0F06, $1124
-00344552 1306 1324 1306 1424 1306+                  dc.w    $1306, $1324, $1306, $1424, $1306, $1524, $032C, $034A
-00344562 032C 044A 032C 054A 072C+                  dc.w    $032C, $044A, $032C, $054A, $072C, $0000, $0B2C, $0000
-00344572 0F2C 0000 132C 134A                        dc.w    $0F2C, $0000, $132C, $134A
-0034457A                            ;-------------------------------------------------------------------------------                
-0034457A                            Menu_Text_Positions:                   
-0034457A 00F6 0236 0376 04B6 05F6+                  dc.w    $00F6, $0236, $0376, $04B6, $05F6, $011C, $025C, $039C
-0034458A 04DC 061C                                  dc.w    $04DC, $061C
-0034458E                            ;-------------------------------------------------------------------------------                          
-0034458E                            Menu_Level_Select_Text: 
-0034458E 0E31 322F 2100 0025 2629+                  dc.b    $0E, _T, _U, _R, _D, __, __, _H, _I, _L, _L, __, __, __, __, __
-0034459E 0E1F 2932 2200 0025 2629+                  dc.b    $0E, _B, _L, _U, _E, __, __, _H, _I, _L, _L, __, __, __, __, __
-003445AE 0E30 3230 0036 1E2F 2100+                  dc.b    $0E, _S, _U, _S, __, _Y, _A, _R, _D, __, _L, _O, _L, __, _X, _D
-003445BE 0E1F 2932 2200 002C 2022+                  dc.b    $0E, _B, _L, _U, _E, __, __, _O, _C, _E, _A, _N, __, __, __, __
-003445CE 0E2F 2C20 2836 002A 2C32+                  dc.b    $0E, _R, _O, _C, _K, _Y, __, _M, _O, _U, _N, _T, _I, _A, _N, __
-003445DE 0E30 202F 1E2D 001F 2F1E+                  dc.b    $0E, _S, _C, _R, _A, _P, __, _B, _R, _A, _I, _N, __, __, __, __
-003445EE 0E29 1E30 3100 0000 0000+                  dc.b    $0E, _L, _A, _S, _T, __, __, __, __, __, __, __, __, __, __, __   
-003445FE 0E30 2D22 2026 1E29 0030+                  dc.b    $0E, _S, _P, _E, _C, _I, _A, _L, __, _S, _T, _A, _G, _E, __, __
-0034460E 0E22 2B21 262B 2400 3022+                  dc.b    $0E, _E, _N, _D, _I, _N, _G, __, _S, _E, _Q, _U, _E, _N, _C, _E
-0034461E 0E30 2C32 2B21 0031 2230+                  dc.b    $0E, _S, _O, _U, _N, _D, __, _T, _E, _S, _T, __, __, _st,__, __                
-0034462E                            ;-------------------------------------------------------------------------------
-0034462E                            Wings_Mappings: 
-0034462E 6000 6000 6000 604D 604E+                  dc.w    $6000, $6000, $6000, $604D, $604E, $684E, $684D, $6000, $6000, $6000   
-00344642                            ;Wings_Line_1:                 
-00344642 604F 6050 6051 6052 6053+                  dc.w    $604F, $6050, $6051, $6052, $6053, $6853, $6852, $6851, $6850, $684F
-00344656                            ;Wings_Line_2:
-00344656 6054 6055 6056 6057 6057+                  dc.w    $6054, $6055, $6056, $6057, $6057, $6057, $6057, $6856, $6855, $6854
-0034466A                            ;Wings_Line_3:
-0034466A 6058 6059 605A 6057 6057+                  dc.w    $6058, $6059, $605A, $6057, $6057, $6057, $6057, $685A, $6859, $6858
-0034467E                            ;Wings_Line_4:
-0034467E 605B 605C 605D 6057 6057+                  dc.w    $605B, $605C, $605D, $6057, $6057, $6057, $6057, $685D, $685C, $685B
-00344692                            ;Wings_Line_5:
-00344692 6000 605E 605F 6060 6061+                  dc.w    $6000, $605E, $605F, $6060, $6061, $6062, $6063, $6064, $685E, $6000
-003446A6                            ;Wings_Line_6:
-003446A6 6000 6000 6065 6066 6067+                  dc.w    $6000, $6000, $6065, $6066, $6067, $6867, $6866, $6865, $6000, $6000 
-003446BA                            ;-------------------------------------------------------------------------------    
-003446BA                            Menu_Palette:
-003446BA                                            incbin  'data\menu\menu.pal'            
-0034473A                            Menu_ClearScreen:
-0034473A 4EF8 1002                                  jmp     ClearScreen
-0034473E                            Menu_ShowVDPGraphics:                
-0034473E 4EF8 11BA                                  jmp     ShowVDPGraphics                
-00344742                            Menu_NemesisDec: 
-00344742 4EF8 11DA                                  jmp     NemDec  
-00344746                            Menu_LoadPLC2:      
-00344746 4EF8 134C                                  jmp     LoadPLC2
-0034474A                            Menu_RunPLC:                    
-0034474A 4EF8 1386                                  jmp     RunPLC_RAM                           
-0034474E                            Menu_EnigmaDec
-0034474E 4EF8 14B8                                  jmp     EniDec
-00344752                            Menu_Pal_FadeTo:
-00344752 4EF8 1C08                                  jmp     Pal_FadeTo
-00344756                            Menu_Pal_FadeFrom:
-00344756 4EF8 1CAE                                  jmp     Pal_FadeFrom     
-0034475A                            Menu_Play_Music:
-0034475A 4EF8 10F8                                  jmp     PlaySound  
-0034475E                            Menu_PalLoad1:
-0034475E 4EF8 1F58                                  jmp     PalLoad1
-00344762                            Menu_DelayProgram:
-00344762 4EF8 301E                                  jmp     DelayProgram
-00344766                            ;-------------------------------------------------------------------------------
-00344766                            Menu_Font:
-00344766                                            incbin  'data\menu\menufont.nem' 
-00344CB8                            Level_Icons:
-00344CB8                                            incbin  'data\menu\levelico.nem'   
-00345FB2                            Menu_Mappings:
-00345FB2                                            incbin  'data\menu\menubg.eni'
-0034615E                            Icons_Mappings:
-0034615E                                            incbin  'data\menu\iconsmap.eni'
-00346174                            Sonic_Miles_Spr:                                         
-00346174                                            incbin  'data\menu\soncmils.dat'   
-00346674                            ;===============================================================================
-00346674                            ; Menu do Sonic 2 No Sonic 1 reprogramado por Esrael L. G. Neto
-00346674                            ; [ Fim ]
-00346674                            ;===============================================================================
-00346674                            ;===============================================================================
-00346674                                SHC2021:    incbin "SHC21_lite_Sonic12.bin"
-0034C8D6                                            even
-0034C8D6                            ; ==============================================================
-0034C8D6                            ; --------------------------------------------------------------
-0034C8D6                            ; Debugging modules
-0034C8D6                            ; --------------------------------------------------------------
-0034C8D6                            
-0034C8D6                               include   "ErrorHandler.asm"
-0034C8D6                            
-0034C8D6                            ; ===============================================================
-0034C8D6                            ; ---------------------------------------------------------------
-0034C8D6                            ; Error handling and debugging modules
-0034C8D6                            ; 2016-2017, Vladikcomper
-0034C8D6                            ; ---------------------------------------------------------------
-0034C8D6                            ; Error handler functions and calls
-0034C8D6                            ; ---------------------------------------------------------------
-0034C8D6                            
-0034C8D6                            ; ---------------------------------------------------------------
-0034C8D6                            ; Error handler control flags
-0034C8D6                            ; ---------------------------------------------------------------
-0034C8D6                            
-0034C8D6                            ; Screen appearence flags
-0034C8D6 =00000001                  _eh_address_error	equ	$01		; use for address and bus errors only (tells error handler to display additional "Address" field)
-0034C8D6 =00000002                  _eh_show_sr_usp		equ	$02		; displays SR and USP registers content on error screen
-0034C8D6                            
-0034C8D6                            ; Advanced execution flags
-0034C8D6                            ; WARNING! For experts only, DO NOT USES them unless you know what you're doing
-0034C8D6 =00000020                  _eh_return			equ	$20
-0034C8D6 =00000040                  _eh_enter_console	equ	$40
-0034C8D6 =00000080                  _eh_align_offset	equ	$80
-0034C8D6                            
-0034C8D6                            ; ---------------------------------------------------------------
-0034C8D6                            ; Errors vector table
-0034C8D6                            ; ---------------------------------------------------------------
-0034C8D6                            
-0034C8D6                            ; Default screen configuration
-0034C8D6 =00000000                  _eh_default			equ	0 ;_eh_show_sr_usp
-0034C8D6                            
-0034C8D6                            ; ---------------------------------------------------------------
-0034C8D6                            
-0034C8D6                            BusError:
-0034C8D6 4EB9 0000 0000 6675 636B+  	__ErrorMessage "fuck you game crashed", _eh_default|_eh_address_error
-0034C8F4                            
-0034C8F4                            AddressError:
-0034C8F4 4EB9 0000 0000 6F68 2066+  	__ErrorMessage "oh ffs game adress error", _eh_default|_eh_address_error
-0034C914                            
-0034C914                            IllegalInstr:
-0034C914 4EB9 0000 0000 746F 6F20+  	__ErrorMessage "too late!", _eh_default
-0034C926                            
-0034C926                            ZeroDivide:
-0034C926 4EB9 0000 0000 796F 7520+  	__ErrorMessage "you divided by 0", _eh_default
-0034C93E                            
-0034C93E                            ChkInstr:
-0034C93E 4EB9 0000 0000 746F 6F20+  	__ErrorMessage "too many glitches", _eh_default
-0034C958                            
-0034C958                            TrapvInstr:
-0034C958 4EB9 0000 0000 7365 6D65+  	__ErrorMessage "semen", _eh_default
-0034C966                            
-0034C966                            PrivilegeViol:
-0034C966 4EB9 0000 0000 6368 6563+  	__ErrorMessage "check your privelage", _eh_default
-0034C982                            
-0034C982                            Trace:
-0034C982 4EB9 0000 0000 6D61 7962+  	__ErrorMessage "maybe ill be tracer", _eh_default
-0034C99E                            
-0034C99E                            Line1010Emu:
-0034C99E 4EB9 0000 0000 6974 2069+  	__ErrorMessage "it is a serious crime to use kega fusion", _eh_default
-0034C9CE                            
-0034C9CE                            Line1111Emu:
-0034C9CE 4EB9 0000 0000 7069 7261+  	__ErrorMessage "piracy screen", _eh_default
-0034C9E4                            
-0034C9E4                            ErrorExcept:
-0034C9E4 4EB9 0000 0000 4552 524F+  	__ErrorMessage "ERROR LOL", _eh_default
-0034C9F6                            
-0034C9F6                            
-0034C9F6                            
-0034C9F6                            ; ---------------------------------------------------------------
-0034C9F6                            ; Import error handler global functions
-0034C9F6                            ; ---------------------------------------------------------------
-0034C9F6                            
-0034C9F6                            ErrorHandler.__global__error_initconsole equ ErrorHandler+$146
-0034C9F6                            ErrorHandler.__global__errorhandler_setupvdp equ ErrorHandler+$234
-0034C9F6                            ErrorHandler.__global__console_loadpalette equ ErrorHandler+$A1C
-0034C9F6                            ErrorHandler.__global__console_setposasxy_stack equ ErrorHandler+$A58
-0034C9F6                            ErrorHandler.__global__console_setposasxy equ ErrorHandler+$A5E
-0034C9F6                            ErrorHandler.__global__console_getposasxy equ ErrorHandler+$A8A
-0034C9F6                            ErrorHandler.__global__console_startnewline equ ErrorHandler+$AAC
-0034C9F6                            ErrorHandler.__global__console_setbasepattern equ ErrorHandler+$AD4
-0034C9F6                            ErrorHandler.__global__console_setwidth equ ErrorHandler+$AE8
-0034C9F6                            ErrorHandler.__global__console_writeline_withpattern equ ErrorHandler+$AFE
-0034C9F6                            ErrorHandler.__global__console_writeline equ ErrorHandler+$B00
-0034C9F6                            ErrorHandler.__global__console_write equ ErrorHandler+$B04
-0034C9F6                            ErrorHandler.__global__console_writeline_formatted equ ErrorHandler+$BB0
-0034C9F6                            ErrorHandler.__global__console_write_formatted equ ErrorHandler+$BB4
-0034C9F6                            
-0034C9F6                            
-0034C9F6                            ; ---------------------------------------------------------------
-0034C9F6                            ; Error handler external functions (compiled only when used)
-0034C9F6                            ; ---------------------------------------------------------------
-0034C9F6                            
-0034C9F6                            
-0034C9F6                            
-0034C9F6                            
-0034C9F6                            
-0034C9F6                            ; ---------------------------------------------------------------
-0034C9F6                            ; Include error handler binary module
-0034C9F6                            ; ---------------------------------------------------------------
-0034C9F6                            
-0034C9F6                            ErrorHandler:
-0034C9F6                            	incbin	ErrorHandler.bin
+0033980E                            		even
+0033980E                            Music92:	incbin	sound\music92.bin
+00339938                            		even
+00339938                            Music93:	incbin	sound\music93.bin
+00339A06                            		even
+00339A06                            Music94:	incbin	sound\music94.bin
+0033E318 00                         		even
+0033E318                            Music95:	incbin	sound\music95.bin
+0033E418 00                         		even
+0033E418                            Music96:	incbin	sound\music96.bin
+00340956 00                         		even
+00340956                            Music97:	incbin 	sound\music97.bin
+00342094                            		even
+00342094                            		
+00342094                            ; Music starting at E5
+00342094                            	
+00342094                            MusicE5:	incbin sound\ghz.bin
+003420F4                            		even
+003420F4                            ; ---------------------------------------------------------------------------
+003420F4                            ; Sound	effect pointers
+003420F4                            ; ---------------------------------------------------------------------------
+003420F4 0000 0000 0000 0000 0000+  SoundIndex:	dc.l SoundA0, SoundA1, SoundA2
+00342100 0000 0000 0000 0000 0000+  		dc.l SoundA3, SoundA4, SoundA5
+0034210C 0000 0000 0000 0000 0000+  		dc.l SoundA6, SoundA7, SoundA8
+00342118 0000 0000 0000 0000 0000+  		dc.l SoundA9, SoundAA, SoundAB
+00342124 0000 0000 0000 0000 0000+  		dc.l SoundAC, SoundAD, SoundAE
+00342130 0000 0000 0000 0000 0000+  		dc.l SoundAF, SoundB0, SoundB1
+0034213C 0000 0000 0000 0000 0000+  		dc.l SoundB2, SoundB3, SoundB4
+00342148 0000 0000 0000 0000 0000+  		dc.l SoundB5, SoundB6, SoundB7
+00342154 0000 0000 0000 0000 0000+  		dc.l SoundB8, SoundB9, SoundBA
+00342160 0000 0000 0000 0000 0000+  		dc.l SoundBB, SoundBC, SoundBD
+0034216C 0000 0000 0000 0000 0000+  		dc.l SoundBE, SoundBF, SoundC0
+00342178 0000 0000 0000 0000 0000+  		dc.l SoundC1, SoundC2, SoundC3
+00342184 0000 0000 0000 0000 0000+  		dc.l SoundC4, SoundC5, SoundC6
+00342190 0000 0000 0000 0000 0000+  		dc.l SoundC7, SoundC8, SoundC9
+0034219C 0000 0000 0000 0000 0000+  		dc.l SoundCA, SoundCB, SoundCC
+003421A8 0000 0000 0000 0000 0000+  		dc.l SoundCD, SoundCE, SoundCF
+003421B4 0000 0000                  SoundD0Index:	dc.l SoundD0
+003421B8                            SoundA0:	incbin	sound\soundA0.bin
+003421EC                            		even
+003421EC                            SoundA1:	incbin	sound\soundA1.bin
+00342216                            		even
+00342216                            SoundA2:	incbin	sound\soundA2.bin
+00342236                            		even
+00342236                            SoundA3:	incbin	sound\soundA3.bin
+00342268                            		even
+00342268                            SoundA4:	incbin	sound\soundA4.bin
+0034229E                            		even
+0034229E                            SoundA5:	incbin	sound\soundA5.bin
+003422CA                            		even
+003422CA                            SoundA6:	incbin	sound\soundA6.bin
+003422FA                            		even
+003422FA                            SoundA7:	incbin	sound\soundA7.bin
+0034232A                            		even
+0034232A                            SoundA8:	incbin	sound\soundA8.bin
+0034235E                            		even
+0034235E                            SoundA9:	incbin	sound\soundA9.bin
+00342370                            		even
+00342370                            SoundAA:	incbin	sound\soundAA.bin
+003423B2                            		even
+003423B2                            SoundAB:	incbin	sound\soundAB.bin
+003423D2                            		even
+003423D2                            SoundAC:	incbin	sound\soundAC.bin
+00342406                            		even
+00342406                            SoundAD:	incbin	sound\soundAD.bin
+0034243C                            		even
+0034243C                            SoundAE:	incbin	sound\soundAE.bin
+00342486                            		even
+00342486                            SoundAF:	incbin	sound\soundAF.bin
+003424B4                            		even
+003424B4                            SoundB0:	incbin	sound\soundB0.bin
+003424E6                            		even
+003424E6                            SoundB1:	incbin	sound\soundB1.bin
+00342512                            		even
+00342512                            SoundB2:	incbin	sound\soundB2.bin
+00342562                            		even
+00342562                            SoundB3:	incbin	sound\soundB3.bin
+003425AC                            		even
+003425AC                            SoundB4:	incbin	sound\soundB4.bin
+00342608                            		even
+00342608                            SoundB5:	incbin	sound\soundB5.bin
+00342636                            		even
+00342636                            SoundB6:	incbin	sound\soundB6.bin
+00342654                            		even
+00342654                            SoundB7:	incbin	sound\soundB7.bin
+00342690                            		even
+00342690                            SoundB8:	incbin	sound\soundB8.bin
+003426AE                            		even
+003426AE                            SoundB9:	incbin	sound\soundB9.bin
+00342712                            		even
+00342712                            SoundBA:	incbin	sound\soundBA.bin
+0034273A                            		even
+0034273A                            SoundBB:	incbin	sound\soundBB.bin
+00342766                            		even
+00342766                            SoundBC:	incbin	sound\soundBC.bin
+003427A8                            		even
+003427A8                            SoundBD:	incbin	sound\soundBD.bin
+003427FC                            		even
+003427FC                            SoundBE:	incbin	sound\soundBE.bin
+00342836                            		even
+00342836                            SoundBF:	incbin	sound\soundBF.bin
+003428A8                            		even
+003428A8                            SoundC0:	incbin	sound\soundC0.bin
+003428D6                            		even
+003428D6                            SoundC1:	incbin	sound\soundC1.bin
+00342910                            		even
+00342910                            SoundC2:	incbin	sound\soundC2.bin
+0034293A                            		even
+0034293A                            SoundC3:	incbin	sound\soundC3.bin
+003429B4                            		even
+003429B4                            SoundC4:	incbin	sound\soundC4.bin
+003429DC                            		even
+003429DC                            SoundC5:	incbin	sound\soundC5.bin
+00342A44                            		even
+00342A44                            SoundC6:	incbin	sound\soundC6.bin
+00342A86                            		even
+00342A86                            SoundC7:	incbin	sound\soundC7.bin
+00342AB4                            		even
+00342AB4                            SoundC8:	incbin	sound\soundC8.bin
+00342AC6                            		even
+00342AC6                            SoundC9:	incbin	sound\soundC9.bin
+00342AF4                            		even
+00342AF4                            SoundCA:	incbin	sound\soundCA.bin
+00342B22                            		even
+00342B22                            SoundCB:	incbin	sound\soundCB.bin
+00342B6E                            		even
+00342B6E                            SoundCC:	incbin	sound\soundCC.bin
+00342BA8                            		even
+00342BA8                            SoundCD:	incbin	sound\soundCD.bin
+00342BF0                            		even
+00342BF0                            SoundCE:	incbin	sound\soundCE.bin
+00342C1E                            		even
+00342C1E                            SoundCF:	incbin	sound\soundCF.bin
+00342C56                            		even
+00342C56                            SoundD0:	incbin	sound\soundD0.bin
+00342C90                            		even
+00342C90                            SegaPCM:	incbin	sound\segapcm.bin
+0034488C                            SegaPCM_end:	even
+0034488C                            	include	"s2_menu.asm"	; Sonic 2 level select
+0034488C                            ;===============================================================================
+0034488C                            ; Menu do Sonic 2 No Sonic 1 reprogramado por Esrael L. G. Neto
+0034488C                            ; [ Início ]
+0034488C                            ;
+0034488C                            ; O código deste menu foi desenvolvido para funcionar com
+0034488C                            ; o disassembly do Sonic 1 feito por -> drx (www.hacking-cult.org)
+0034488C                            ; 
+0034488C                            ; Se estiver usando um disassembly diferente modifique os jumps no final do 
+0034488C                            ; código para que aponte para as rotinas equivalentes.
+0034488C                            ; 
+0034488C                            ; Para pode utilizar este menu basta fazer a seguinte modificação no código 
+0034488C                            ; original:
+0034488C                            ; Localize o label  -> loc_3242 adicione -> jmp     Level_Select_Menu
+0034488C                            ; O código deve ficar como abaixo
+0034488C                            ;               ......................
+0034488C                            ; loc_3242:
+0034488C                            ;		tst.b	($FFFFFFE0).w
+0034488C                            ;		beq.w	PlayLevel	
+0034488C                            ;		btst	#6,($FFFFF604).w 
+0034488C                            ;		beq.w	PlayLevel	  		
+0034488C                            ;		jmp     Level_Select_Menu ; <- Carrega o Menu do Sonic 2	
+0034488C                            ;		moveq	#2,d0		
+0034488C                            ;		bsr.w	PalLoad		 
+0034488C                            ;               ...............
+0034488C                            ;
+0034488C                            ; Não esqueça de incluir este asm em seu código com a diretiva include:
+0034488C                            ;               include 's2_menu.asm'
+0034488C                            ;===============================================================================  
+0034488C =FFFFFFE1                  Slow_Motion_Flag      equ $FFFFFFE1
+0034488C =FFFFFFE2                  Debug_Mode_Flag       equ $FFFFFFE2
+0034488C                            
+0034488C =00000095                  Level_Select_Menu_snd   = $0095
+0034488C =00000093                  Emerald_Snd             = $0093
+0034488C =000000B5                  Ring_Snd                = $00B5
+0034488C =000000E0                  Volume_Down             = $00E0
+0034488C =000000E4                  Stop_Sound              = $00E4
+0034488C                            ;-------------------------------------------------------------------------------
+0034488C                            Level_Select_Menu:
+0034488C 103C 00E4                                  move.b  #Stop_Sound, D0
+00344890 6100 0000                                  bsr     Menu_Play_Music
+00344894 6100 0000                                  bsr     Menu_Pal_FadeFrom
+00344898 46FC 2700                                  move    #$2700, SR
+0034489C 3038 F60C                                  move.w  ($FFFFF60C).w, D0
+003448A0 0200 00BF                                  andi.b  #$BF, D0
+003448A4 33C0 00C0 0004                             move.w  D0, ($00C00004)
+003448AA 6100 0000                                  bsr     Menu_ClearScreen
+003448AE 4DF9 00C0 0004                             lea     ($00C00004), A6
+003448B4 3CBC 8004                                  move.w  #$8004, (A6)
+003448B8 3CBC 8230                                  move.w  #$8230, (A6)
+003448BC 3CBC 8407                                  move.w  #$8407, (A6)
+003448C0 3CBC 8230                                  move.w  #$8230, (A6)
+003448C4 3CBC 8700                                  move.w  #$8700, (A6)
+003448C8 3CBC 8C81                                  move.w  #$8C81, (A6)
+003448CC 3CBC 9001                                  move.w  #$9001, (A6)
+003448D0 43F8 AC00                                  lea     ($FFFFAC00).w, A1
+003448D4 7000                                       moveq   #$00, D0
+003448D6 323C 00FF                                  move.w  #$00FF, D1
+003448DA                            Offset_0x026ACA:
+003448DA 22C0                                       move.l  D0, (A1)+
+003448DC 51C9 FFFC                                  dbra    D1, Offset_0x026ACA
+003448E0 43F8 B000                                  lea     ($FFFFB000).w, A1
+003448E4 7000                                       moveq   #$00, D0
+003448E6 323C 07FF                                  move.w  #$07FF, D1
+003448EA                            Offset_0x026ADA:
+003448EA 22C0                                       move.l  D0, (A1)+
+003448EC 51C9 FFFC                                  dbra    D1, Offset_0x026ADA
+003448F0 4278 DC00                                  clr.w   ($FFFFDC00).w
+003448F4 21FC FFFF DC00 DCFC                        move.l  #$FFFFDC00, ($FFFFDCFC).w
+003448FC 23FC 4200 0000 00C0 0004                   move.l  #$42000000, ($00C00004)
+00344906 41F9 0000 0000                             lea     (Menu_Font), A0
+0034490C 6100 0000                                  bsr     Menu_NemesisDec
+00344910 23FC 5200 0000 00C0 0004                   move.l  #$52000000, ($00C00004)
+0034491A 41F9 0000 0000                             lea     (Level_Icons), A0
+00344920 4EB9 0000 0000                             jsr     Menu_NemesisDec
+00344926                            ;-------------------------------------------------------------------------------                
+00344926                            ; Carrega o Mapeamento do Fundo Sonic/Miles               
+00344926                            ;-------------------------------------------------------------------------------
+00344926 43F9 FFFF 0000                             lea     ($FFFF0000), A1
+0034492C 41F9 0000 0000                             lea     (Menu_Mappings), A0
+00344932 303C 6000                                  move.w  #$6000, D0
+00344936 6100 0000                                  bsr     Menu_EnigmaDec
+0034493A 43F9 FFFF 0000                             lea     ($FFFF0000), A1
+00344940 203C 6000 0003                             move.l  #$60000003, D0
+00344946 7227                                       moveq   #$27, D1
+00344948 741B                                       moveq   #$1B, D2
+0034494A 6100 0000                                  bsr     Menu_ShowVDPGraphics
+0034494E                            ;-------------------------------------------------------------------------------                
+0034494E                            ; Carrega o Texto do Menu de Sele??o de Fases               
+0034494E                            ;-------------------------------------------------------------------------------
+0034494E 47F9 FFFF 0000             		lea		($FFFF0000),a3
+00344954 323C 045F                  		move.w	#$045F,d1
+00344958                            
+00344958                            Offset_0x026B4E:
+00344958 36FC 0000                  		move.w	#$0000,(a3)+
+0034495C 51C9 FFFA                  		dbra	d1,Offset_0x026B4E
+00344960 47F9 FFFF 0000             		lea		($FFFF0000),a3
+00344966 43F9 0000 0000             		lea		(Menu_Level_Select_Text),a1
+0034496C 4BF9 0000 0000             		lea		(Menu_Text_Positions),a5
+00344972 7000                       		moveq	#$00,d0
+00344974 323C 0009                  		move.w	#$0009,d1	; Quantidade de textos a ser carregada e posi??o do Sound Test
+00344978                            
+00344978                            Menu_Loop_Load_Text:
+00344978 361D                       		move.w	(a5)+,d3
+0034497A 45F3 3000                  		lea		$00(a3,d3),a2
+0034497E 7400                       		moveq	#$00,d2
+00344980 1419                       		move.b	(a1)+,d2
+00344982 3602                       		move.w	d2,d3
+00344984                            
+00344984                            Offset_0x026B7A:
+00344984 1019                       		move.b	(a1)+,d0
+00344986 34C0                       		move.w	d0,(a2)+
+00344988 51CA FFFA                  		dbra	d2,Offset_0x026B7A
+0034498C 343C 000D                  		move.w	#$000D,d2
+00344990 9443                       		sub.w	d3,d2
+00344992 6500                       		bcs.s	Offset_0x026B92
+00344994                            
+00344994                            Offset_0x026B8A:
+00344994 34FC 0000                  		move.w	#$0000,(a2)+
+00344998 51CA FFFA                  		dbra	d2,Offset_0x026B8A
+0034499C                            
+0034499C                            Offset_0x026B92:
+0034499C 34BC 0011                  		move.w	#$0011,(a2) 	 	 	 ; Load "1"
+003449A0 45EA 0050                  		lea		$0050(a2),a2
+003449A4 34BC 0012                  		move.w	#$0012,(a2) 	 	 	 ; Load "2"
+003449A8 45EA 0050                  		lea		$0050(a2),a2
+003449AC 34BC 0013                  		move.w	#$0013,(a2) 	 	 	 ; Load "3"
+003449B0 51C9 FFC6                  		dbra	d1,Menu_Loop_Load_Text
+003449B4                            ;-------------------------------------------------------------------------------
+003449B4 720E                       		moveq	#$0E,d1
+003449B6 45EA FBA0                  		lea		$FFFFFBA0(a2),a2
+003449BA                            
+003449BA                            Menu_Clear_Act_x:						; Limpa os n?meros dos acts n?o usados e carrega o "*" do Sound Test
+003449BA 34BC 0000                  		move.w	#$0000,(a2)				; Load " "
+003449BE 45EA 0050                  		lea		$0050(a2),a2
+003449C2 51C9 FFF6                  		dbra	d1,Menu_Clear_Act_x
+003449C6                            ;		lea     $FF10(a2), a2
+003449C6                            ;		move.w  #$001A, (a2)          ; Load "*"
+003449C6                            ;-------------------------------------------------------------------------------
+003449C6                            ; Carrega o Mapeamento das Asas onde são mostrados os ícones
+003449C6                            ;------------------------------------------------------------------------------- 
+003449C6 41F9 0000 0000                             lea     (Wings_Mappings), A0
+003449CC 43F9 FFFF 0670                             lea     ($FFFF0670), A1
+003449D2 323C 0006                                  move     #$06, D1
+003449D6                            Menu_Loop_Next_Line:
+003449D6 303C 0009                                  move     #$09, D0
+003449DA                            Menu_Loop_Load_Wings:
+003449DA 32D8                                       move.w   (A0)+, (A1)+
+003449DC 51C8 FFFC                                  dbra     D0, Menu_Loop_Load_Wings
+003449E0 D2FC 003C                                  add.w    #$3C, A1
+003449E4 51C9 FFF0                                  dbra     D1, Menu_Loop_Next_Line
+003449E8                            ;-------------------------------------------------------------------------------                
+003449E8                            ; Carrega o Mapeamento dos ícones               
+003449E8                            ;-------------------------------------------------------------------------------                                    
+003449E8 43F9 FFFF 08C0                             lea     ($FFFF08C0), A1
+003449EE 41F9 0000 0000                             lea     (Icons_Mappings), A0
+003449F4 303C 0090                                  move.w  #$0090, D0
+003449F8 6100 0000                                  bsr     Menu_EnigmaDec
+003449FC 43F9 FFFF 0000                             lea     ($FFFF0000), A1
+00344A02 203C 4000 0003                             move.l  #$40000003, D0
+00344A08 7227                                       moveq   #$27, D1
+00344A0A 741B                                       moveq   #$1B, D2
+00344A0C 6100 0000                                  bsr     Menu_ShowVDPGraphics
+00344A10                            ;-------------------------------------------------------------------------------                
+00344A10 7600                                       moveq   #$00, D3
+00344A12 6100 0000                                  bsr     Offset_0x027040
+00344A16 4278 FF70                                  clr.w   ($FFFFFF70).w
+00344A1A 4278 FE40                                  clr.w   ($FFFFFE40).w
+00344A1E 4238 F711                                  clr.b   ($FFFFF711).w
+00344A22 4278 F7F0                                  clr.w   ($FFFFF7F0).w
+00344A26                            ;------------------------------------------------------------------------------- 
+00344A26 4EB9 0000 0000                             jsr     Dynamic_Menu           ; Chama a rotina de animação
+00344A2C                            ;-------------------------------------------------------------------------------
+00344A2C                            
+00344A2C 7014                                       moveq   #$14, D0
+00344A2E 6100 0000                                  bsr     Menu_PalLoad1
+00344A32 43F8 FB40                                  lea     ($FFFFFB40).w, A1
+00344A36 45F8 FBC0                                  lea     ($FFFFFBC0).w, A2
+00344A3A 7207                                       moveq   #$07, D1
+00344A3C                            Offset_0x026C26:
+00344A3C 24D1                                       move.l  (A1), (A2)+
+00344A3E 4299                                       clr.l   (A1)+
+00344A40 51C9 FFFA                                  dbra    D1, Offset_0x026C26
+00344A44 103C 0095                                  move.b  #Level_Select_Menu_snd, D0
+00344A48 6100 0000                                  bsr     Menu_Play_Music
+00344A4C 7000                                       moveq   #$00, D0
+00344A4E 4EB9 0000 0000                             jsr     Menu_LoadPLC2
+00344A54 31FC 0707 F614                             move.w  #$0707, ($FFFFF614).w
+00344A5A 4278 FFDC                                  clr.w   ($FFFFFFDC).w
+00344A5E 42B8 EE00                                  clr.l   ($FFFFEE00).w
+00344A62 42B8 EE04                                  clr.l   ($FFFFEE04).w
+00344A66 4278 FF0C                                  clr.w   ($FFFFFF0C).w
+00344A6A 4278 FF0E                                  clr.w   ($FFFFFF0E).w
+00344A6E 11FC 0018 F62A                             move.b  #$18, ($FFFFF62A).w
+00344A74 6100 0000                                  bsr     Menu_DelayProgram
+00344A78 3038 F60C                                  move.w  ($FFFFF60C).w, D0
+00344A7C 0000 0040                                  ori.b   #$40, D0
+00344A80 33C0 00C0 0004                             move.w  D0, ($00C00004)
+00344A86 6100 0000                                  bsr     Menu_Pal_FadeTo
+00344A8A                            Menu_Main_Loop:
+00344A8A 11FC 0018 F62A                             move.b  #$18, ($FFFFF62A).w
+00344A90 6100 0000                                  bsr     Menu_DelayProgram
+00344A94 46FC 2700                                  move    #$2700, SR
+00344A98 7600                                       moveq   #$00, D3
+00344A9A 6100 0000                                  bsr     Offset_0x026ED8
+00344A9E 6100 0000                                  bsr     Offset_0x026DEC
+00344AA2 363C 6000                                  move.w  #$6000, D3
+00344AA6 6100 0000                                  bsr     Offset_0x027048
+00344AAA 46FC 2300                                  move    #$2300, SR
+00344AAE 4EB9 0000 0000                             jsr     Dynamic_Menu
+00344AB4 6100 0000                                  bsr     Menu_RunPLC
+00344AB8 0838 0004 F604                             btst    #$04, ($FFFFF604).w
+00344ABE 6700                                       beq.s   Offset_0x026CC6
+00344AC0 31FC 0001 FFD8                             move.w  #$0001, ($FFFFFFD8).w
+00344AC6                            Offset_0x026CC6:
+00344AC6 1038 F605                                  move.b  ($FFFFF605).w, D0
+00344ACA 8038 F607                                  or.b    ($FFFFF607).w, D0
+00344ACE 0200 0080                                  andi.b  #$80, D0
+00344AD2 6600                                       bne.s   Offset_0x026CD8
+00344AD4 60B4                                       bra     Menu_Main_Loop
+00344AD6                            Offset_0x026CD8:
+00344AD6 3038 FF82                                  move.w  ($FFFFFF82).w, D0
+00344ADA D040                                       add.w   D0, D0
+00344ADC 303B 0000                                  move.w  Menu_Level_Select_Array(PC, D0), D0
+00344AE0 6B00 0000                                  bmi     Menu_Game_Reset
+00344AE4 0C40 0600                                  cmpi.w  #$0600, D0
+00344AE8 6700 0000                                  beq     Menu_Ending_Sequence
+00344AEC 0C40 5555                                  cmpi.w  #$5555, D0
+00344AF0 6798                                       beq     Menu_Main_Loop
+00344AF2 0C40 4000                                  cmpi.w  #$4000, D0
+00344AF6 6600 0000                                  bne     Menu_Load_Level
+00344AFA 11FC 0010 F600                             move.b  #$10, ($FFFFF600).w
+00344B00 4278 FE10                                  clr.w   ($FFFFFE10).w
+00344B04 11FC 0003 FE12                             move.b  #$03, ($FFFFFE12).w
+00344B0A 11FC 0003 FEC6                             move.b  #$03, ($FFFFFEC6).w
+00344B10 7000                                       moveq   #$00, D0
+00344B12 31C0 FE20                                  move.w  D0, ($FFFFFE20).w
+00344B16 21C0 FE22                                  move.l  D0, ($FFFFFE22).w
+00344B1A 21C0 FE26                                  move.l  D0, ($FFFFFE26).w
+00344B1E 31C0 FED0                                  move.w  D0, ($FFFFFED0).w
+00344B22 21C0 FED2                                  move.l  D0, ($FFFFFED2).w
+00344B26 21C0 FED6                                  move.l  D0, ($FFFFFED6).w
+00344B2A 21FC 0000 1388 FFC0                        move.l  #$00001388, ($FFFFFFC0).w
+00344B32 21FC 0000 1388 FFC4                        move.l  #$00001388, ($FFFFFFC4).w
+00344B3A 31F8 FF72 FF70                             move.w  ($FFFFFF72).w, ($FFFFFF70).w
+00344B40 4E75                                       rts
+00344B42                            Menu_Game_Reset:
+00344B42 11FC 0000 F600                             move.b  #$0000, ($FFFFF600).w
+00344B48 4E75                                       rts
+00344B4A                            Menu_Ending_Sequence:
+00344B4A 11FC 0018 F600                             move.b	#$0018,($FFFFF600).w
+00344B50 31FC 0600 FE10             		move.w	#$0600,($FFFFFE10).w
+00344B56 4E75                       		rts
+00344B58                            Menu_Level_Select_Array:
+00344B58 0000 0001 0002                             dc.w    $0000, $0001, $0002	;GHZ
+00344B5E 0200 0201 0202                             dc.w    $0200, $0201, $0202	;MZ
+00344B64 0400 0401 0402                             dc.w    $0400, $0401, $0402	;SYZ				
+00344B6A 0100 0101 0102                             dc.w    $0100, $0101, $0102 ;LZ
+00344B70 0300 0301 0302                             dc.w    $0300, $0301, $0302	;SLZ
+00344B76 0500 0501 0103                             dc.w    $0500, $0501, $0103	;SBZ
+00344B7C 0502 4000 0600                             dc.w    $0502, $4000, $0600	
+00344B82 FFFF                                       dc.w    $FFFF
+00344B84                            Menu_Load_Level:
+00344B84 0240 3FFF                                  andi.w  #$3FFF, D0
+00344B88 31C0 FE10                                  move.w  D0, ($FFFFFE10).w
+00344B8C 11FC 000C F600                             move.b  #$0C, ($FFFFF600).w
+00344B92 11FC 0003 FE12                             move.b  #$03, ($FFFFFE12).w
+00344B98 11FC 0003 FEC6                             move.b  #$03, ($FFFFFEC6).w
+00344B9E 7000                                       moveq   #$00, D0
+00344BA0 31C0 FE20                                  move.w  D0, ($FFFFFE20).w
+00344BA4 21C0 FE22                                  move.l  D0, ($FFFFFE22).w
+00344BA8 21C0 FE26                                  move.l  D0, ($FFFFFE26).w
+00344BAC 31C0 FED0                                  move.w  D0, ($FFFFFED0).w
+00344BB0 21C0 FED2                                  move.l  D0, ($FFFFFED2).w
+00344BB4 21C0 FED6                                  move.l  D0, ($FFFFFED6).w
+00344BB8 4E71                                       nop
+00344BBA 4E71                                       nop
+00344BBC 21FC 0000 1388 FFC0                        move.l  #$00001388, ($FFFFFFC0).w
+00344BC4 21FC 0000 1388 FFC4                        move.l  #$00001388, ($FFFFFFC4).w
+00344BCC 103C 00E0                                  move.b  #Volume_Down, D0
+00344BD0 6100 0000                                  bsr     Menu_Play_Music     
+00344BD4 7000                                       moveq   #$00, D0
+00344BD6 31C0 FF8A                                  move.w  D0, ($FFFFFF8A).w
+00344BDA 31C0 FFDC                                  move.w  D0, ($FFFFFFDC).w
+00344BDE 4E75                                       rts
+00344BE0                            Offset_0x026DEC:
+00344BE0 1238 F605                                  move.b  ($FFFFF605).w, D1
+00344BE4 0201 0003                                  andi.b  #$03, D1
+00344BE8 6600                                       bne.s   Offset_0x026DFC
+00344BEA 5378 FF80                                  subq.w  #$01, ($FFFFFF80).w
+00344BEE 6A00                                       bpl.s   Offset_0x026E32
+00344BF0                            Offset_0x026DFC:
+00344BF0 31FC 000B FF80                             move.w  #$000B, ($FFFFFF80).w
+00344BF6 1238 F604                                  move.b  ($FFFFF604).w, D1
+00344BFA 0201 0003                                  andi.b  #$03, D1
+00344BFE 6700                                       beq.s   Offset_0x026E32
+00344C00 3038 FF82                                  move.w  ($FFFFFF82).w, D0
+00344C04 0801 0000                                  btst    #$00, D1
+00344C08 6700                                       beq.s   Offset_0x026E1C
+00344C0A 5340                                       subq.w  #$01, D0
+00344C0C 6400                                       bcc.s   Offset_0x026E1C
+00344C0E 7015                                       moveq   #$15, D0     ; Último item após apertar para cima
+00344C10                            Offset_0x026E1C:
+00344C10 0801 0001                                  btst    #$01, D1
+00344C14 6700                                       beq.s   Offset_0x026E2C
+00344C16 5240                                       addq.w  #$01, D0
+00344C18 0C40 0016                                  cmpi.w  #$0016, D0   ; Verifica qual o último item da lista
+00344C1C 6500                                       bcs.s   Offset_0x026E2C
+00344C1E 7000                                       moveq   #$00, D0
+00344C20                            Offset_0x026E2C:
+00344C20 31C0 FF82                                  move.w  D0, ($FFFFFF82).w
+00344C24 4E75                                       rts
+00344C26                            Offset_0x026E32:
+00344C26 0C78 0015 FF82                             cmpi.w  #$0015, ($FFFFFF82).w ; se o item for igual muda as funções de esquerda e direita 
+00344C2C 6600                                       bne.s   Offset_0x026E9C
+00344C2E 3038 FF84                                  move.w  ($FFFFFF84).w, D0
+00344C32 1238 F605                                  move.b  ($FFFFF605).w, D1
+00344C36 0801 0002                                  btst    #$02, D1
+00344C3A 6700                                       beq.s   Offset_0x026E4E
+00344C3C 5300                                       subq.b  #$01, D0
+00344C3E 6400                                       bcc.s   Offset_0x026E4E
+00344C40 707F                                       moveq   #$7F, D0
+00344C42                            Offset_0x026E4E:
+00344C42 0801 0003                                  btst    #$03, D1
+00344C46 6700                                       beq.s   Offset_0x026E5E
+00344C48 5200                                       addq.b  #$01, D0
+00344C4A 0C40 0080                                  cmpi.w  #$0080, D0
+00344C4E 6500                                       bcs.s   Offset_0x026E5E
+00344C50 7000                                       moveq   #$00, D0
+00344C52                            Offset_0x026E5E:
+00344C52 0801 0006                                  btst    #$06, D1
+00344C56 6700                                       beq.s   Offset_0x026E6C
+00344C58 0600 0010                                  addi.b  #$10, D0
+00344C5C 0200 007F                                  andi.b  #$7F, D0
+00344C60                            Offset_0x026E6C:
+00344C60 31C0 FF84                                  move.w  D0, ($FFFFFF84).w
+00344C64 0241 0030                                  andi.w  #$0030, D1
+00344C68 6700                                       beq.s   Offset_0x026E9A
+00344C6A 3038 FF84                                  move.w  ($FFFFFF84).w, D0
+00344C6E 0640 0080                                  addi.w  #$0080, D0
+00344C72 6100 0000                                  bsr     Menu_Play_Music 
+00344C76 41F9 0000 0000                             lea     (Code_Debug_Mode), A0   
+00344C7C 45F9 0000 0000                             lea     (Code_All_Emeralds), A2 
+00344C82 43F8 FF0A                                  lea     ($FFFFFF0A).w, A1
+00344C86 7401                                       moveq   #$01, D2
+00344C88 6100 0000                                  bsr     Menu_Code_Test 
+00344C8C                            Offset_0x026E9A:
+00344C8C 4E75                                       rts
+00344C8E                            Offset_0x026E9C:
+00344C8E 1238 F605                                  move.b  ($FFFFF605).w, D1
+00344C92 0201 000C                                  andi.b  #$0C, D1
+00344C96 6700                                       beq.s   Offset_0x026EB2
+00344C98 3038 FF82                                  move.w  ($FFFFFF82).w, D0
+00344C9C 103B 0000                                  move.b  Menu_Left_Right_Select(PC, D0), D0
+00344CA0 31C0 FF82                                  move.w  D0, ($FFFFFF82).w
+00344CA4                            Offset_0x026EB2:
+00344CA4 4E75                                       rts
+00344CA6                            Menu_Left_Right_Select:                   
+00344CA6 0F10 1112 1212 1313 1314+                  dc.b    $0F, $10, $11, $12, $12, $12, $13, $13, $13, $14, $14, $14, $15, $15, $15
+00344CB5 0001 0203 0609 0C                          dc.b    $00, $01, $02, $03, $06, $09, $0C
+00344CBC                            Offset_0x026ED8:
+00344CBC 49F9 FFFF 0000                             lea     ($FFFF0000), A4
+00344CC2 4BF9 0000 0000                             lea     (Menu_Text_Highlight), A5
+00344CC8 4DF9 00C0 0000                             lea     ($00C00000), A6
+00344CCE 7000                                       moveq   #$00, D0
+00344CD0 3038 FF82                                  move.w  ($FFFFFF82).w, D0
+00344CD4 E548                                       lsl.w   #$02, D0
+00344CD6 47F5 0000                                  lea     $00(A5, D0), A3
+00344CDA 7000                                       moveq   #$00, D0
+00344CDC 1013                                       move.b  (A3), D0
+00344CDE C0FC 0050                                  mulu.w  #$0050, D0
+00344CE2 7200                                       moveq   #$00, D1
+00344CE4 122B 0001                                  move.b  $0001(A3), D1
+00344CE8 D041                                       add.w   D1, D0
+00344CEA 43F4 0000                                  lea     $00(A4, D0), A1
+00344CEE 7200                                       moveq   #$00, D1
+00344CF0 1213                                       move.b  (A3), D1
+00344CF2 EF49                                       lsl.w   #$07, D1
+00344CF4 D22B 0001                                  add.b   $0001(A3), D1
+00344CF8 0641 C000                                  addi.w  #$C000, D1
+00344CFC E589                                       lsl.l   #$02, D1
+00344CFE E449                                       lsr.w   #$02, D1
+00344D00 0041 4000                                  ori.w   #$4000, D1
+00344D04 4841                                       swap.w  D1
+00344D06 2D41 0004                                  move.l  D1, $0004(A6)
+00344D0A 740E                                       moveq   #$0E, D2    ; Quantidade de letras a selecionar (Highlight)
+00344D0C                            Offset_0x026F28:                
+00344D0C 3019                                       move.w  (A1)+, D0
+00344D0E D043                                       add.w   D3, D0
+00344D10 3C80                                       move.w  D0, (A6)
+00344D12 51CA FFF8                                  dbra    D2, Offset_0x026F28
+00344D16 544B                                       addq.w  #$02, A3
+00344D18 7000                                       moveq   #$00, D0
+00344D1A 1013                                       move.b  (A3), D0
+00344D1C 6700                                       beq.s   Offset_0x026F6C
+00344D1E C0FC 0050                                  mulu.w  #$0050, D0
+00344D22 7200                                       moveq   #$00, D1
+00344D24 122B 0001                                  move.b  $0001(A3), D1
+00344D28 D041                                       add.w   D1, D0
+00344D2A 43F4 0000                                  lea     $00(A4, D0), A1
+00344D2E 7200                                       moveq   #$00, D1
+00344D30 1213                                       move.b  (A3), D1
+00344D32 EF49                                       lsl.w   #$07, D1
+00344D34 D22B 0001                                  add.b   $0001(A3), D1
+00344D38 0641 C000                                  addi.w  #$C000, D1
+00344D3C E589                                       lsl.l   #$02, D1
+00344D3E E449                                       lsr.w   #$02, D1
+00344D40 0041 4000                                  ori.w   #$4000, D1
+00344D44 4841                                       swap.w  D1
+00344D46 2D41 0004                                  move.l  D1, $0004(A6)
+00344D4A 3019                                       move.w  (A1)+, D0
+00344D4C D043                                       add.w   D3, D0
+00344D4E 3C80                                       move.w  D0, (A6)
+00344D50                            Offset_0x026F6C:
+00344D50 0C78 0015 FF82                             cmpi.w  #$0015, ($FFFFFF82).w  ; Se for igual seleciona o número do Sound Test
+00344D56 6600                                       bne.s   Offset_0x026F78
+00344D58 6100 0000                                  bsr     Offset_0x026F7A
+00344D5C                            Offset_0x026F78:
+00344D5C 4E75                                       rts
+00344D5E                            Offset_0x026F7A:
+00344D5E 23FC 49C6 0003 00C0 0004                   move.l  #$49C60003, ($00C00004) ; Posição dos números do Sound Test
+00344D68 3038 FF84                                  move.w  ($FFFFFF84).w, D0
+00344D6C 1400                                       move.b  D0, D2
+00344D6E E808                                       lsr.b   #$04, D0
+00344D70 6100                                       bsr.s   Offset_0x026F90
+00344D72 1002                                       move.b  D2, D0
+00344D74                            Offset_0x026F90:
+00344D74 0240 000F                                  andi.w  #$000F, D0
+00344D78 0C00 000A                                  cmpi.b  #$0A, D0
+00344D7C 6500                                       bcs.s   Offset_0x026F9E
+00344D7E 5800                                       addi.b  #$04, D0
+00344D80                            Offset_0x026F9E:
+00344D80 0600 0010                                  addi.b  #$10, D0
+00344D84 D043                                       add.w   D3, D0
+00344D86 3C80                                       move.w  D0, (A6)
+00344D88 4E75                                       rts
+00344D8A                            ;-------------------------------------------------------------------------------                
+00344D8A                            Menu_Code_Test: 
+00344D8A 3038 FF0C                                  move.w  ($FFFFFF0C).w, D0
+00344D8E D0C0                                       adda.w  D0, A0
+00344D90 3038 FF84                                  move.w  ($FFFFFF84).w, D0
+00344D94 B010                                       cmp.b   (A0), D0
+00344D96 6600                                       bne.s   Menu_Reset_Debug_Mode_Code_Counter
+00344D98 5278 FF0C                                  addq.w  #$01, ($FFFFFF0C).w
+00344D9C 4A28 0001                                  tst.b   $0001(A0)
+00344DA0 6A00                                       bpl.s   Menu_All_Emeralds_Code_Test 
+00344DA2 32BC 0101                                  move.w  #$0101, (A1)
+00344DA6 6000 0000                                  bra     Menu_Set_Debug_Flag 
+00344DAA                            Menu_Reset_Debug_Mode_Code_Counter: 
+00344DAA 31FC 0000 FF0C                             move.w  #$0000, ($FFFFFF0C).w
+00344DB0                            Menu_All_Emeralds_Code_Test: 
+00344DB0 3038 FF0E                                  move.w  ($FFFFFF0E).w, D0
+00344DB4 D4C0                                       adda.w  D0, A2
+00344DB6 3038 FF84                                  move.w  ($FFFFFF84).w, D0
+00344DBA B012                                       cmp.b   (A2), D0
+00344DBC 6600                                       bne.s   Menu_Reset_All_Emerald_Code_Counter 
+00344DBE 5278 FF0E                                  addq.w  #$01, ($FFFFFF0E).w
+00344DC2 4A2A 0001                                  tst.b   $0001(A2)
+00344DC6 6A00                                       bpl.s   Menu_Code_Not_0xFF 
+00344DC8 4A42                                       tst.w   D2
+00344DCA 6600                                       bne.s   Menu_Set_All_Emeralds 
+00344DCC                            Menu_Set_Debug_Flag: 
+00344DCC 11FC 0001 FFE1                             move.b  #$01, (Slow_Motion_Flag).w
+00344DD2 11FC 0001 FFE2                             move.b  #$01, (Debug_Mode_Flag).w
+00344DD8 103C 00B5                                  move.b  #Ring_Snd, D0
+00344DDC 6100 0000                                  bsr     Menu_Play_Music 
+00344DE0 6000                                       bra.s   Menu_Reset_All_Emerald_Code_Counter 
+00344DE2                            Menu_Set_All_Emeralds: 
+00344DE2 31FC 0006 FE56                             move.w  #$0006, ($FFFFFE56).w
+00344DE8 103C 0093                                  move.b  #Emerald_Snd, D0
+00344DEC 6100 0000                                  bsr     Menu_Play_Music 
+00344DF0                            Menu_Reset_All_Emerald_Code_Counter: 
+00344DF0 31FC 0000 FF0E                             move.w  #$0000, ($FFFFFF0E).w
+00344DF6                            Menu_Code_Not_0xFF: 
+00344DF6 4E75                                       rts               
+00344DF8                            Code_Debug_Mode: 
+00344DF8 0200 0108 FF                               dc.b    $02, $00, $01, $08, $FF ; Among Us release year
+00344DFE 00                                         even
+00344DFE                            Code_All_Emeralds: 
+00344DFE 0609 0402 00FF                             dc.b    $06, $09, $04, $02, $00, $FF ; Haha funni numbers
+00344E04                                            even
+00344E04                            ;-------------------------------------------------------------------------------                 
+00344E04                            Offset_0x027040:
+00344E04 6100 FF58                                  bsr     Offset_0x026F7A
+00344E08 6000 0000                                  bra     Offset_0x027050
+00344E0C                            Offset_0x027048:
+00344E0C 6100 FEAE                                  bsr     Offset_0x026ED8
+00344E10 6000 0000                                  bra     Offset_0x027050
+00344E14                            Offset_0x027050:
+00344E14 3038 FF82                                  move.w  ($FFFFFF82).w, D0
+00344E18 47F9 0000 0000                             lea     (Menu_Icon_List), A3
+00344E1E 47F3 0000                                  lea     $00(A3, D0), A3
+00344E22 43F9 FFFF 08C0                             lea     ($FFFF08C0), A1
+00344E28 7000                                       moveq   #$00, D0
+00344E2A 1013                                       move.b  (A3), D0
+00344E2C E748                                       lsl.w   #$03, D0
+00344E2E 3200                                       move.w  D0, D1
+00344E30 D040                                       add.w   D0, D0
+00344E32 D041                                       add.w   D1, D0
+00344E34 43F1 0000                                  lea     $00(A1, D0), A1
+00344E38 203C 4B36 0003                             move.l  #$4B360003, D0        ; Posição Horizontal dos Ícones
+00344E3E 7203                                       moveq   #$03, D1
+00344E40 7402                                       moveq   #$02, D2
+00344E42 6100 0000                                  bsr     Menu_ShowVDPGraphics 
+00344E46 43F9 0000 0000                             lea     (Icon_Palettes), A1  
+00344E4C 7000                                       moveq   #$00, D0
+00344E4E 1013                                       move.b  (A3), D0
+00344E50 EB48                                       lsl.w   #$05, D0
+00344E52 43F1 0000                                  lea     $00(A1, D0), A1
+00344E56 45F8 FB40                                  lea     ($FFFFFB40).w, A2
+00344E5A 7207                                       moveq   #$07, D1
+00344E5C                            Offset_0x027098:                
+00344E5C 24D9                                       move.l  (A1)+, (A2)+
+00344E5E 51C9 FFFC                                  dbra    D1, Offset_0x027098
+00344E62 4E75                                       rts
+00344E64                            ;-------------------------------------------------------------------------------                            
+00344E64                            Dynamic_Menu:                           
+00344E64 5338 F7B9                                  subq.b  #$01, ($FFFFF7B9).w          ; Decrementa em 1 o Tempo
+00344E68 6A00                                       bpl.s   Exit_Dinamic_Menu            ; Se for maior ou igual a 0 sai da função
+00344E6A 11FC 0007 F7B9                             move.b  #$07, ($FFFFF7B9).w          ; Inicializa o tempo de duração de cada frame
+00344E70 1038 F7B8                                  move.b  ($FFFFF7B8).w, D0            ; Carrega o Id do Frame Atual em D0
+00344E74 5238 F7B8                                  addq.b  #$01, ($FFFFF7B8).w          ; Carrega o próximo frame em $FFFFFFB8
+00344E78 0240 001F                                  andi.w  #$001F, D0
+00344E7C 103B 0000                                  move.b  Sonic_Miles_Frame_Select(PC, D0), D0  ; Carrega o Id do frame em D0
+00344E80                                          ; muls.w  #$0140, D0                   ; Multiplica o Id pelo tamanho em bytes de cada frame
+00344E80 ED48                                       lsl.w   #$06, D0
+00344E82 4DF9 00C0 0000                             lea     ($00C00000), A6
+00344E88 2D7C 4020 0000 0004                        move.l  #$40200000, $0004(A6)
+00344E90 43F9 0000 0000                             lea     (Sonic_Miles_Spr), A1
+00344E96 43F1 0000                                  lea     $00(A1, D0), A1
+00344E9A 303C 0009                                  move.w  #$0009, D0                   ; Tiles-1 a serem carregados por vez 
+00344E9E                            Menu_Loop_Load_Tiles:
+00344E9E 2C99                                       move.l  (A1)+, (A6)
+00344EA0 2C99                                       move.l  (A1)+, (A6)     
+00344EA2 2C99                                       move.l  (A1)+, (A6)     
+00344EA4 2C99                                       move.l  (A1)+, (A6)     
+00344EA6 2C99                                       move.l  (A1)+, (A6)     
+00344EA8 2C99                                       move.l  (A1)+, (A6)
+00344EAA 2C99                                       move.l  (A1)+, (A6)
+00344EAC 2C99                                       move.l  (A1)+, (A6)
+00344EAE 51C8 FFEE                                  dbra    D0, Menu_Loop_Load_Tiles
+00344EB2                            Exit_Dinamic_Menu:                
+00344EB2 4E75                                       rts              
+00344EB4                            Sonic_Miles_Frame_Select:     
+00344EB4 0000 0000 0000 0000 0000+                  dc.b    $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+00344EC2 050A                                       dc.b    $05, $0A
+00344EC4 0F0F 0F0F 0F0F 0F0F 0F0F+                  dc.b    $0F, $0F, $0F, $0F, $0F, $0F, $0F, $0F, $0F, $0F, $0F, $0F, $0F, $0F
+00344ED2 0A05                                       dc.b    $0A, $05   
+00344ED4                                            ; 0 = 0000000000  ; 1 = 0101000000  ; 2 = 1010000000 ; 3 = 1111000000
+00344ED4                            ;------------------------------------------------------------------------------                  
+00344ED4 =00000000                  __ = $00
+00344ED4 =0000001E                  _A = $1E
+00344ED4 =0000001F                  _B = $1F
+00344ED4 =00000020                  _C = $20
+00344ED4 =00000021                  _D = $21
+00344ED4 =00000022                  _E = $22    
+00344ED4 =00000023                  _F = $23
+00344ED4 =00000024                  _G = $24
+00344ED4 =00000025                  _H = $25
+00344ED4 =00000026                  _I = $26
+00344ED4 =00000027                  _J = $27
+00344ED4 =00000028                  _K = $28
+00344ED4 =00000029                  _L = $29
+00344ED4 =0000002A                  _M = $2A
+00344ED4 =0000002B                  _N = $2B
+00344ED4 =0000002C                  _O = $2C
+00344ED4 =0000002D                  _P = $2D
+00344ED4 =0000002E                  _Q = $2E
+00344ED4 =0000002F                  _R = $2F
+00344ED4 =00000030                  _S = $30
+00344ED4 =00000031                  _T = $31
+00344ED4 =00000032                  _U = $32
+00344ED4 =00000033                  _V = $33
+00344ED4 =00000034                  _W = $34
+00344ED4 =00000035                  _X = $35
+00344ED4 =00000036                  _Y = $36
+00344ED4 =00000037                  _Z = $37
+00344ED4 =0000001A                  _st = $1A
+00344ED4                            ;-------------------------------------------------------------------------------  
+00344ED4                            Icon_Palettes: 
+00344ED4 0000 0000 0048 006A 008E+                  dc.w    $0000, $0000, $0048, $006A, $008E, $00CE, $0EEE, $00E0
+00344EE4 00A4 0082 0062 0000 0E86+                  dc.w    $00A4, $0082, $0062, $0000, $0E86, $0026, $0E42, $0C00
+00344EF4 0000 0000 0420 0820 0C00+                  dc.w    $0000, $0000, $0420, $0820, $0C00, $0E60, $0A00, $0000
+00344F04 0E00 0000 0000 0000 0444+                  dc.w    $0E00, $0000, $0000, $0000, $0444, $0666, $0AAA, $0EEE
+00344F14 0000 0204 0026 0248 046A+                  dc.w    $0000, $0204, $0026, $0248, $046A, $048C, $06CE, $0002
+00344F24 0000 0220 0040 0060 0080+                  dc.w    $0000, $0220, $0040, $0060, $0080, $02A0, $06E0, $0A0C
+00344F34 0000 0000 0A00 0660 0C80+                  dc.w    $0000, $0000, $0A00, $0660, $0C80, $0EC0, $006A, $0008
+00344F44 028A 00AE 004C 006E 0060+                  dc.w    $028A, $00AE, $004C, $006E, $0060, $0066, $00C0, $00CA
+00344F54 0000 0000 0CE2 0000 0480+                  dc.w    $0000, $0000, $0CE2, $0000, $0480, $0240, $0EEE, $04AC
+00344F64 006A 0026 0842 0620 0400+                  dc.w    $006A, $0026, $0842, $0620, $0400, $0000, $0000, $0000
+00344F74 0000 0000 0EEE 0ECA 0E86+                  dc.w    $0000, $0000, $0EEE, $0ECA, $0E86, $0E64, $0E42, $06AE
+00344F84 048A 0268 0246 0024 0888+                  dc.w    $048A, $0268, $0246, $0024, $0888, $0444, $000E, $0008
+00344F94 0000 0000 0A26 0C48 0E8C+                  dc.w    $0000, $0000, $0A26, $0C48, $0E8C, $00CE, $00C4, $0080
+00344FA4 0C00 0000 0EEE 0EEA 0EC8+                  dc.w    $0C00, $0000, $0EEE, $0EEA, $0EC8, $006E, $004A, $0028
+00344FB4 0000 0000 0048 006A 008E+                  dc.w    $0000, $0000, $0048, $006A, $008E, $00CE, $0EEE, $00E0
+00344FC4 00A4 0082 0062 0808 0A4A+                  dc.w    $00A4, $0082, $0062, $0808, $0A4A, $0026, $0626, $0404
+00344FD4 0000 0000 0EEE 0ECA 0E86+                  dc.w    $0000, $0000, $0EEE, $0ECA, $0E86, $0E64, $0E42, $06AE
+00344FE4 048A 0268 0246 0024 0888+                  dc.w    $048A, $0268, $0246, $0024, $0888, $0444, $000E, $0008
+00344FF4 0000 0000 0048 006A 008E+                  dc.w    $0000, $0000, $0048, $006A, $008E, $00CE, $0EEE, $00E0
+00345004 00A4 0082 0062 0400 0E86+                  dc.w    $00A4, $0082, $0062, $0400, $0E86, $006E, $0E42, $0C00
+00345014 0000 0000 0CE2 08C0 0480+                  dc.w    $0000, $0000, $0CE2, $08C0, $0480, $0240, $0EEE, $02AC
+00345024 006A 0026 0AA6 0000 060A+                  dc.w    $006A, $0026, $0AA6, $0000, $060A, $0408, $0204, $0000
+00345034 0000 0000 0C06 0C0A 0C6E+                  dc.w    $0000, $0000, $0C06, $0C0A, $0C6E, $0068, $008A, $0000
+00345044 02CE 00EC 00AE 006E 0EEE+                  dc.w    $02CE, $00EC, $00AE, $006E, $0EEE, $0000, $000E, $00C4
+00345054 0000 0000 0EEE 0AAA 0000+                  dc.w    $0000, $0000, $0EEE, $0AAA, $0000, $0666, $0444, $0E40
+00345064 0C00 0800 00CE 028E 000E+                  dc.w    $0C00, $0800, $00CE, $028E, $000E, $0084, $0062, $0020
+00345074 0000 0000 0004 0044 0084+                  dc.w    $0000, $0000, $0004, $0044, $0084, $0088, $00A8, $00AC
+00345084 006C 002C 0028 0006 0666+                  dc.w    $006C, $002C, $0028, $0006, $0666, $0888, $0CCC, $0EEE
+00345094 0000 0000 06CE 04AC 028A+                  dc.w    $0000, $0000, $06CE, $04AC, $028A, $0068, $0046, $00E8
+003450A4 00C4 0080 0040 0EEE 0C00+                  dc.w    $00C4, $0080, $0040, $0EEE, $0C00, $0EC0, $0860, $0000
+003450B4 0000 0000 0E64 0E86 0EA8+                  dc.w    $0000, $0000, $0E64, $0E86, $0EA8, $0ECA, $0EEE, $0000
+003450C4 00AE 006E 0E22 00E0 0000+                  dc.w    $00AE, $006E, $0E22, $00E0, $0000, $0000, $0000, $0000
+003450D4 0000 0E20 004E 006E 0048+                  dc.w    $0000, $0E20, $004E, $006E, $0048, $008C, $00CE, $08EE
+003450E4 0800 0400 0000 0EE8 0E80+                  dc.w    $0800, $0400, $0000, $0EE8, $0E80, $0E60, $0000, $0000
+003450F4 0000 0000 0A22 0C42 0000+                  dc.w    $0000, $0000, $0A22, $0C42, $0000, $0E66, $0EEE, $0AAA
+00345104 0888 0444 08AE 046A 000E+                  dc.w    $0888, $0444, $08AE, $046A, $000E, $0000, $00EE, $0000
+00345114 0000 0000 0A22 0C42 0000+                  dc.w    $0000, $0000, $0A22, $0C42, $0000, $0E66, $0EEE, $0AAA
+00345124 0888 0444 08AE 046A 000E+                  dc.w    $0888, $0444, $08AE, $046A, $000E, $0000, $00EE, $0000
+00345134                            ;-------------------------------------------------------------------------------  
+00345134                            Menu_Icon_List: 
+00345134 0000 000E 0E0E 0606 060B+                  dc.b    $00, $00, $00, $0E, $0E, $0E, $06, $06, $06, $0B, $0B, $0B, $0D, $0D, $0D, $09
+00345144 0909 0410 0F11                             dc.b    $09, $09, $04, $10, $0F, $11
+0034514A                            ;-------------------------------------------------------------------------------                 
+0034514A                            Menu_Text_Highlight:                  
+0034514A 0306 0324 0306 0424 0306+                  dc.w    $0306, $0324, $0306, $0424, $0306, $0524, $0706, $0724
+0034515A 0706 0824 0706 0924 0B06+                  dc.w    $0706, $0824, $0706, $0924, $0B06, $0B24, $0B06, $0C24
+0034516A 0B06 0D24 0F06 0F24 0F06+                  dc.w    $0B06, $0D24, $0F06, $0F24, $0F06, $1024, $0F06, $1124
+0034517A 1306 1324 1306 1424 1306+                  dc.w    $1306, $1324, $1306, $1424, $1306, $1524, $032C, $034A
+0034518A 032C 044A 032C 054A 072C+                  dc.w    $032C, $044A, $032C, $054A, $072C, $0000, $0B2C, $0000
+0034519A 0F2C 0000 132C 134A                        dc.w    $0F2C, $0000, $132C, $134A
+003451A2                            ;-------------------------------------------------------------------------------                
+003451A2                            Menu_Text_Positions:                   
+003451A2 00F6 0236 0376 04B6 05F6+                  dc.w    $00F6, $0236, $0376, $04B6, $05F6, $011C, $025C, $039C
+003451B2 04DC 061C                                  dc.w    $04DC, $061C
+003451B6                            ;-------------------------------------------------------------------------------                          
+003451B6                            Menu_Level_Select_Text: 
+003451B6 0E31 322F 2100 0025 2629+                  dc.b    $0E, _T, _U, _R, _D, __, __, _H, _I, _L, _L, __, __, __, __, __
+003451C6 0E1F 2932 2200 0025 2629+                  dc.b    $0E, _B, _L, _U, _E, __, __, _H, _I, _L, _L, __, __, __, __, __
+003451D6 0E30 3230 0036 1E2F 2100+                  dc.b    $0E, _S, _U, _S, __, _Y, _A, _R, _D, __, _L, _O, _L, __, _X, _D
+003451E6 0E1F 2932 2200 002C 2022+                  dc.b    $0E, _B, _L, _U, _E, __, __, _O, _C, _E, _A, _N, __, __, __, __
+003451F6 0E2F 2C20 2836 002A 2C32+                  dc.b    $0E, _R, _O, _C, _K, _Y, __, _M, _O, _U, _N, _T, _I, _A, _N, __
+00345206 0E30 202F 1E2D 001F 2F1E+                  dc.b    $0E, _S, _C, _R, _A, _P, __, _B, _R, _A, _I, _N, __, __, __, __
+00345216 0E29 1E30 3100 0000 0000+                  dc.b    $0E, _L, _A, _S, _T, __, __, __, __, __, __, __, __, __, __, __   
+00345226 0E30 2D22 2026 1E29 0030+                  dc.b    $0E, _S, _P, _E, _C, _I, _A, _L, __, _S, _T, _A, _G, _E, __, __
+00345236 0E22 2B21 262B 2400 3022+                  dc.b    $0E, _E, _N, _D, _I, _N, _G, __, _S, _E, _Q, _U, _E, _N, _C, _E
+00345246 0E30 2C32 2B21 0031 2230+                  dc.b    $0E, _S, _O, _U, _N, _D, __, _T, _E, _S, _T, __, __, _st,__, __                
+00345256                            ;-------------------------------------------------------------------------------
+00345256                            Wings_Mappings: 
+00345256 6000 6000 6000 604D 604E+                  dc.w    $6000, $6000, $6000, $604D, $604E, $684E, $684D, $6000, $6000, $6000   
+0034526A                            ;Wings_Line_1:                 
+0034526A 604F 6050 6051 6052 6053+                  dc.w    $604F, $6050, $6051, $6052, $6053, $6853, $6852, $6851, $6850, $684F
+0034527E                            ;Wings_Line_2:
+0034527E 6054 6055 6056 6057 6057+                  dc.w    $6054, $6055, $6056, $6057, $6057, $6057, $6057, $6856, $6855, $6854
+00345292                            ;Wings_Line_3:
+00345292 6058 6059 605A 6057 6057+                  dc.w    $6058, $6059, $605A, $6057, $6057, $6057, $6057, $685A, $6859, $6858
+003452A6                            ;Wings_Line_4:
+003452A6 605B 605C 605D 6057 6057+                  dc.w    $605B, $605C, $605D, $6057, $6057, $6057, $6057, $685D, $685C, $685B
+003452BA                            ;Wings_Line_5:
+003452BA 6000 605E 605F 6060 6061+                  dc.w    $6000, $605E, $605F, $6060, $6061, $6062, $6063, $6064, $685E, $6000
+003452CE                            ;Wings_Line_6:
+003452CE 6000 6000 6065 6066 6067+                  dc.w    $6000, $6000, $6065, $6066, $6067, $6867, $6866, $6865, $6000, $6000 
+003452E2                            ;-------------------------------------------------------------------------------    
+003452E2                            Menu_Palette:
+003452E2                                            incbin  'data\menu\menu.pal'            
+00345362                            Menu_ClearScreen:
+00345362 4EF8 1002                                  jmp     ClearScreen
+00345366                            Menu_ShowVDPGraphics:                
+00345366 4EF8 11BA                                  jmp     ShowVDPGraphics                
+0034536A                            Menu_NemesisDec: 
+0034536A 4EF8 11DA                                  jmp     NemDec  
+0034536E                            Menu_LoadPLC2:      
+0034536E 4EF8 134C                                  jmp     LoadPLC2
+00345372                            Menu_RunPLC:                    
+00345372 4EF8 1386                                  jmp     RunPLC_RAM                           
+00345376                            Menu_EnigmaDec
+00345376 4EF8 14B8                                  jmp     EniDec
+0034537A                            Menu_Pal_FadeTo:
+0034537A 4EF8 1C08                                  jmp     Pal_FadeTo
+0034537E                            Menu_Pal_FadeFrom:
+0034537E 4EF8 1CAE                                  jmp     Pal_FadeFrom     
+00345382                            Menu_Play_Music:
+00345382 4EF8 10F8                                  jmp     PlaySound  
+00345386                            Menu_PalLoad1:
+00345386 4EF8 1F58                                  jmp     PalLoad1
+0034538A                            Menu_DelayProgram:
+0034538A 4EF8 301E                                  jmp     DelayProgram
+0034538E                            ;-------------------------------------------------------------------------------
+0034538E                            Menu_Font:
+0034538E                                            incbin  'data\menu\menufont.nem' 
+003458E0                            Level_Icons:
+003458E0                                            incbin  'data\menu\levelico.nem'   
+00346BDA                            Menu_Mappings:
+00346BDA                                            incbin  'data\menu\menubg.eni'
+00346D86                            Icons_Mappings:
+00346D86                                            incbin  'data\menu\iconsmap.eni'
+00346D9C                            Sonic_Miles_Spr:                                         
+00346D9C                                            incbin  'data\menu\soncmils.dat'   
+0034729C                            ;===============================================================================
+0034729C                            ; Menu do Sonic 2 No Sonic 1 reprogramado por Esrael L. G. Neto
+0034729C                            ; [ Fim ]
+0034729C                            ;===============================================================================
+0034729C                            ;===============================================================================
+0034729C                                SHC2021:    incbin "SHC21_lite_Sonic12.bin"
+0034D4FE                                            even
+0034D4FE                            ; ==============================================================
+0034D4FE                            ; --------------------------------------------------------------
+0034D4FE                            ; Debugging modules
+0034D4FE                            ; --------------------------------------------------------------
+0034D4FE                            
+0034D4FE                               include   "ErrorHandler.asm"
+0034D4FE                            
+0034D4FE                            ; ===============================================================
+0034D4FE                            ; ---------------------------------------------------------------
+0034D4FE                            ; Error handling and debugging modules
+0034D4FE                            ; 2016-2017, Vladikcomper
+0034D4FE                            ; ---------------------------------------------------------------
+0034D4FE                            ; Error handler functions and calls
+0034D4FE                            ; ---------------------------------------------------------------
+0034D4FE                            
+0034D4FE                            ; ---------------------------------------------------------------
+0034D4FE                            ; Error handler control flags
+0034D4FE                            ; ---------------------------------------------------------------
+0034D4FE                            
+0034D4FE                            ; Screen appearence flags
+0034D4FE =00000001                  _eh_address_error	equ	$01		; use for address and bus errors only (tells error handler to display additional "Address" field)
+0034D4FE =00000002                  _eh_show_sr_usp		equ	$02		; displays SR and USP registers content on error screen
+0034D4FE                            
+0034D4FE                            ; Advanced execution flags
+0034D4FE                            ; WARNING! For experts only, DO NOT USES them unless you know what you're doing
+0034D4FE =00000020                  _eh_return			equ	$20
+0034D4FE =00000040                  _eh_enter_console	equ	$40
+0034D4FE =00000080                  _eh_align_offset	equ	$80
+0034D4FE                            
+0034D4FE                            ; ---------------------------------------------------------------
+0034D4FE                            ; Errors vector table
+0034D4FE                            ; ---------------------------------------------------------------
+0034D4FE                            
+0034D4FE                            ; Default screen configuration
+0034D4FE =00000000                  _eh_default			equ	0 ;_eh_show_sr_usp
+0034D4FE                            
+0034D4FE                            ; ---------------------------------------------------------------
+0034D4FE                            
+0034D4FE                            BusError:
+0034D4FE 4EB9 0000 0000 6675 636B+  	__ErrorMessage "fuck you game crashed", _eh_default|_eh_address_error
+0034D51C                            
+0034D51C                            AddressError:
+0034D51C 4EB9 0000 0000 6F68 2066+  	__ErrorMessage "oh ffs game adress error", _eh_default|_eh_address_error
+0034D53C                            
+0034D53C                            IllegalInstr:
+0034D53C 4EB9 0000 0000 746F 6F20+  	__ErrorMessage "too late!", _eh_default
+0034D54E                            
+0034D54E                            ZeroDivide:
+0034D54E 4EB9 0000 0000 796F 7520+  	__ErrorMessage "you divided by 0", _eh_default
+0034D566                            
+0034D566                            ChkInstr:
+0034D566 4EB9 0000 0000 746F 6F20+  	__ErrorMessage "too many glitches", _eh_default
+0034D580                            
+0034D580                            TrapvInstr:
+0034D580 4EB9 0000 0000 7365 6D65+  	__ErrorMessage "semen", _eh_default
+0034D58E                            
+0034D58E                            PrivilegeViol:
+0034D58E 4EB9 0000 0000 6368 6563+  	__ErrorMessage "check your privelage", _eh_default
+0034D5AA                            
+0034D5AA                            Trace:
+0034D5AA 4EB9 0000 0000 6D61 7962+  	__ErrorMessage "maybe ill be tracer", _eh_default
+0034D5C6                            
+0034D5C6                            Line1010Emu:
+0034D5C6 4EB9 0000 0000 6974 2069+  	__ErrorMessage "it is a serious crime to use kega fusion", _eh_default
 0034D5F6                            
-0034D5F6                            ; ---------------------------------------------------------------
-0034D5F6                            ; WARNING!
-0034D5F6                            ;	DO NOT put any data from now on! DO NOT use ROM padding!
-0034D5F6                            ;	Symbol data should be appended here after ROM is compiled
-0034D5F6                            ;	by ConvSym utility, otherwise debugger modules won't be able
-0034D5F6                            ;	to resolve symbol names.
-0034D5F6                            ; ---------------------------------------------------------------
-0034D5F6                            ; ---------------------------------------------------------------
-0034D5F6                            
-0034D5F6                            ; end of 'ROM'
-0034D5F6                            EndOfRom:
-0034D5F6                            
-0034D5F6                            
+0034D5F6                            Line1111Emu:
+0034D5F6 4EB9 0000 0000 7069 7261+  	__ErrorMessage "piracy screen", _eh_default
+0034D60C                            
+0034D60C                            ErrorExcept:
+0034D60C 4EB9 0000 0000 4552 524F+  	__ErrorMessage "ERROR LOL", _eh_default
+0034D61E                            
+0034D61E                            
+0034D61E                            
+0034D61E                            ; ---------------------------------------------------------------
+0034D61E                            ; Import error handler global functions
+0034D61E                            ; ---------------------------------------------------------------
+0034D61E                            
+0034D61E                            ErrorHandler.__global__error_initconsole equ ErrorHandler+$146
+0034D61E                            ErrorHandler.__global__errorhandler_setupvdp equ ErrorHandler+$234
+0034D61E                            ErrorHandler.__global__console_loadpalette equ ErrorHandler+$A1C
+0034D61E                            ErrorHandler.__global__console_setposasxy_stack equ ErrorHandler+$A58
+0034D61E                            ErrorHandler.__global__console_setposasxy equ ErrorHandler+$A5E
+0034D61E                            ErrorHandler.__global__console_getposasxy equ ErrorHandler+$A8A
+0034D61E                            ErrorHandler.__global__console_startnewline equ ErrorHandler+$AAC
+0034D61E                            ErrorHandler.__global__console_setbasepattern equ ErrorHandler+$AD4
+0034D61E                            ErrorHandler.__global__console_setwidth equ ErrorHandler+$AE8
+0034D61E                            ErrorHandler.__global__console_writeline_withpattern equ ErrorHandler+$AFE
+0034D61E                            ErrorHandler.__global__console_writeline equ ErrorHandler+$B00
+0034D61E                            ErrorHandler.__global__console_write equ ErrorHandler+$B04
+0034D61E                            ErrorHandler.__global__console_writeline_formatted equ ErrorHandler+$BB0
+0034D61E                            ErrorHandler.__global__console_write_formatted equ ErrorHandler+$BB4
+0034D61E                            
+0034D61E                            
+0034D61E                            ; ---------------------------------------------------------------
+0034D61E                            ; Error handler external functions (compiled only when used)
+0034D61E                            ; ---------------------------------------------------------------
+0034D61E                            
+0034D61E                            
+0034D61E                            
+0034D61E                            
+0034D61E                            
+0034D61E                            ; ---------------------------------------------------------------
+0034D61E                            ; Include error handler binary module
+0034D61E                            ; ---------------------------------------------------------------
+0034D61E                            
+0034D61E                            ErrorHandler:
+0034D61E                            	incbin	ErrorHandler.bin
+0034E21E                            
+0034E21E                            ; ---------------------------------------------------------------
+0034E21E                            ; WARNING!
+0034E21E                            ;	DO NOT put any data from now on! DO NOT use ROM padding!
+0034E21E                            ;	Symbol data should be appended here after ROM is compiled
+0034E21E                            ;	by ConvSym utility, otherwise debugger modules won't be able
+0034E21E                            ;	to resolve symbol names.
+0034E21E                            ; ---------------------------------------------------------------
+0034E21E                            ; ---------------------------------------------------------------
+0034E21E                            
+0034E21E                            ; end of 'ROM'
+0034E21E                            EndOfRom:
+0034E21E                            
+0034E21E                            
