@@ -66,7 +66,13 @@ MegaPCM:
 	DAC_Entry	$15, Timpani, dpcm		; $89	- Mid-Timpani
 	DAC_Entry	$1B, Timpani, dpcm		; $8A	- Mid-Low-Timpani
 	DAC_Entry	$1D, Timpani, dpcm		; $8B	- Low-Timpani
-
+    DAC_Entry    $01, sm64_mario_boing, pcm+pri        ; $8C - Sonic's voice (definitely by Roger Craig Smith and not Charles Martinet)  
+    DAC_Entry    $01, sm64_mario_falling, pcm+pri        ; $8D   
+    DAC_Entry    $01, sm64_mario_hoo, pcm+pri     ; $8E    
+    DAC_Entry    $01, sm64_mario_oof, pcm+pri     ; $8F
+    DAC_Entry    $01, sm64_mario_wah, pcm+pri        ; $90 
+    DAC_Entry    $01, MamaF_er, pcm+pri        ; $91 	
+    DAC_Entry    $01, sm64_mario_hoohoo, pcm+pri     ; $92    	
 MegaPCM_End:
 
 ; ---------------------------------------------------------------
@@ -79,5 +85,12 @@ MegaPCM_End:
 	IncludeDac	whoosh, wav
 	IncludeDac 	crack, wav
     IncludeDAC  menuscreenmusic, wav	
+	IncludeDac	sm64_mario_boing, wav
+	IncludeDac 	sm64_mario_falling, wav
+    IncludeDAC  sm64_mario_hoo, wav		
+	IncludeDac	sm64_mario_oof, wav
+	IncludeDac 	sm64_mario_wah, wav
+	IncludeDac	sm64_mario_hoohoo, wav
+    IncludeDAC  MamaF_er, wav		
 	even
 
