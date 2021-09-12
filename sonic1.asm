@@ -1275,7 +1275,32 @@ loc_1574:
 		dbf	d5,loc_1574
 		bra.s	loc_153A
 ; End of function NemDec4
+; ---------------------------------------------------------------------------
+; Subroutine to load the art for the animals for the current zone
+; ---------------------------------------------------------------------------
 
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
+
+
+LoadAnimalPLC:
+		moveq	#0,d0
+		move.b	($FFFFFE10).w,d0
+		cmpi.w	#7,d0
+		bhs.s	LoadAnimalPLC_New
+		addi.w	#$15,d0
+		bra.s	LoadPLC
+; ---------------------------------------------------------------------------
+
+LoadAnimalPLC_New:
+		subi.w	#7,d0
+		; multiply d0 by 3
+		move.w	d0,d1
+		add.w	d0,d0
+		add.w	d1,d0
+		; add $22 (this is the index of the animal PLC for the first added zone)
+		addi.w	#$22,d0
+		; bra.s	LoadPLC
+; End of function LoadAnimalPLC
 ; ---------------------------------------------------------------------------
 ; Subroutine to	load pattern load cues
 ; ---------------------------------------------------------------------------
@@ -2810,6 +2835,7 @@ Pal_SnorcSBZ3:	incbin	pallet\snorc_sbz3.bin	; Sonic (underwater in SBZ act 3) pa
 Pal_SpeResult:	incbin	pallet\ssresult.bin	; special stage results screen pallets
 Pal_SpeContinue:incbin	pallet\sscontin.bin	; special stage results screen continue pallet
 Pal_Ending:	incbin	pallet\ending.bin	; ending sequence pallets
+Pal_ABZ:	incbin	pallet\ghz.bin
 
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
@@ -3947,10 +3973,7 @@ Level_DelayLoop:
 Level_ClrCardArt:
 		moveq	#2,d0
 		jsr	(LoadPLC).l	; load explosion patterns
-		moveq	#0,d0
-		move.b	($FFFFFE10).w,d0
-		addi.w	#$15,d0
-		jsr	(LoadPLC).l	; load animal patterns (level no. + $15)
+		jsr	(LoadAnimalPLC).l ; load animal patterns)
 
 Level_StartGame:
 		bclr	#7,($FFFFF600).w ; subtract 80 from screen mode
@@ -12034,22 +12057,35 @@ Obj28_Index:	dc.w Obj28_Ending-Obj28_Index, loc_912A-Obj28_Index
 		dc.w loc_9314-Obj28_Index, loc_9370-Obj28_Index
 		dc.w loc_92D6-Obj28_Index
 
-Obj28_VarIndex:	dc.b 0,	5, 2, 3, 6, 3, 4, 5, 4,	1, 0, 1
+Obj28_VarIndex:	
+		dc.b 0, 5	; Pocky and Flicky in GHZ
+		dc.b 2, 3	; Pecky and Rocky in LZ
+		dc.b 6, 3	; Ricky and Rocky in MZ
+		dc.b 4, 5	; Picky and Flicky in SLZ
+		dc.b 4, 1	; Picky and Cucky in SYZ
+		dc.b 0, 1	; Pocky and Cucky in SBZ
+		dc.b 0, 5	; Pocky and Flicky in Ending (Unused)
+		dc.b 0, 5	; Pocky and Flicky in ABZ
 
-Obj28_Variables:dc.w $FE00, $FC00
+Obj28_Variables:
+		; horizontal speed, vertical speed
+		; mappings address
+		dc.w $FE00, $FC00	; Pocky and Flicky in GHZ
 		dc.l Map_obj28
-		dc.w $FE00, $FD00	; horizontal speed, vertical speed
-		dc.l Map_obj28a		; mappings address
-		dc.w $FE80, $FD00
+		dc.w $FE00, $FD00	; Pecky and Rocky in LZ
+		dc.l Map_obj28a
+		dc.w $FE80, $FD00	; Ricky and Rocky in MZ
 		dc.l Map_obj28
-		dc.w $FEC0, $FE80
+		dc.w $FEC0, $FE80	; Picky and Flicky in SLZ
 		dc.l Map_obj28a
-		dc.w $FE40, $FD00
+		dc.w $FE40, $FD00	; Picky and Cucky in SYZ
 		dc.l Map_obj28b
-		dc.w $FD00, $FC00
+		dc.w $FD00, $FC00	; Pocky and Cucky in SBZ
 		dc.l Map_obj28a
-		dc.w $FD80, $FC80
+		dc.w $FD80, $FC80	; Ending (Unused)
 		dc.l Map_obj28b
+		dc.w $FE00, $FC00	; Pocky and Flicky in ABZ
+		dc.l Map_obj28
 
 Obj28_EndSpeed:	dc.w $FBC0, $FC00, $FBC0, $FC00, $FBC0,	$FC00, $FD00, $FC00
 		dc.w $FD00, $FC00, $FE80, $FD00, $FE80,	$FD00, $FEC0, $FE80
@@ -16065,16 +16101,12 @@ Obj34_Move2:
 locret_C412:
 		rts	
 ; ===========================================================================
-
 Obj34_ChangeArt:			; XREF: Obj34_ChkPos2
 		cmpi.b	#4,$24(a0)
 		bne.s	Obj34_Delete
 		moveq	#2,d0
 		jsr	(LoadPLC).l	; load explosion patterns
-		moveq	#0,d0
-		move.b	($FFFFFE10).w,d0
-		addi.w	#$15,d0
-		jsr	(LoadPLC).l	; load animal patterns
+		jsr	(LoadAnimalPLC).l ; load animal patterns
 
 Obj34_Delete:
 		bra.w	DeleteObject
@@ -24632,11 +24664,7 @@ Obj01_Modes:	dc.w Obj01_MdNormal-Obj01_Modes
 		dc.w Obj01_MdJump-Obj01_Modes
 		dc.w Obj01_MdRoll-Obj01_Modes
 		dc.w Obj01_MdJump2-Obj01_Modes
-; ---------------------------------------------------------------------------
-; Music	to play	after invincibility wears off
-; ---------------------------------------------------------------------------
-MusicList2:	incbin	misc\muslist2.bin
-		even
+
 ; ===========================================================================
 
 Sonic_Display:				; XREF: loc_12C7E
@@ -24667,7 +24695,7 @@ Obj01_ChkInvin:
 		moveq	#5,d0		; play SBZ music
 
 Obj01_PlayMusic:
-		lea	(MusicList2).l,a1
+		lea	(MusicList1).l,a1
 		move.b	(a1,d0.w),d0
 		jsr	(PlaySound).l	; play normal music
 
@@ -37514,7 +37542,7 @@ AniArt_Pause:
 AniArt_Index:	dc.w AniArt_GHZ-AniArt_Index, AniArt_none-AniArt_Index
 		dc.w AniArt_MZ-AniArt_Index, AniArt_none-AniArt_Index
 		dc.w AniArt_none-AniArt_Index, AniArt_SBZ-AniArt_Index
-		dc.w AniArt_Ending-AniArt_Index
+		dc.w AniArt_Ending-AniArt_Index, AniArt_none-AniArt_Index
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
 ; Animated pattern routine - Green Hill
@@ -38957,7 +38985,11 @@ Debug_SBZ:
 ; ---------------------------------------------------------------------------
 Debug_Ending:
 	include "_inc\Debug list - Ending and SS.asm"
-
+; ---------------------------------------------------------------------------
+; Debug	list - Alpha Beta
+; ---------------------------------------------------------------------------
+Debug_MMZ:
+	include "_inc\Debug list - MMZ.asm"
 ; ---------------------------------------------------------------------------
 ; Main level load blocks
 ; ---------------------------------------------------------------------------
@@ -39530,6 +39562,10 @@ Level_Index:	dc.w Level_GHZ1-Level_Index, Level_GHZbg-Level_Index, byte_68D70-Le
 		dc.w Level_End-Level_Index, Level_GHZbg-Level_Index, byte_6A320-Level_Index
 		dc.w byte_6A320-Level_Index, byte_6A320-Level_Index, byte_6A320-Level_Index
 		dc.w byte_6A320-Level_Index, byte_6A320-Level_Index, byte_6A320-Level_Index
+		dc.w Level_MMZ1-Level_Index, Level_MMZbg-Level_Index, byte_6A320-Level_Index
+		dc.w Level_MMZ2-Level_Index, Level_MMZbg-Level_Index, byte_6A320-Level_Index
+		dc.w Level_MMZ3-Level_Index, Level_MMZbg-Level_Index, byte_6A320-Level_Index
+		dc.w byte_6A320-Level_Index, byte_6A320-Level_Index, byte_6A320-Level_Index
 
 Level_GHZ1:	incbin	levels\ghz1.bin
 		even
@@ -39611,6 +39647,14 @@ byte_6A2FC:	dc.b 0,	0, 0, 0
 Level_End:	incbin	levels\ending.bin
 		even
 byte_6A320:	dc.b 0,	0, 0, 0
+Level_ABZ1:	incbin	levels\abz1.bin
+		even
+Level_ABZ2:	incbin	levels\abz2.bin
+		even
+Level_ABZ3:	incbin	levels\abz3.bin
+		even
+Level_ABZbg:	incbin	levels\abzbg.bin
+		even
 
 ; ---------------------------------------------------------------------------
 ; Animated uncompressed giant ring graphics

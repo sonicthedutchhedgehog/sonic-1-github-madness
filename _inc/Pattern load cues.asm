@@ -17,6 +17,7 @@
 	dc.w PLC_SBZAnimals-ArtLoadCues, PLC_SpeStResult-ArtLoadCues
 	dc.w PLC_Ending-ArtLoadCues, PLC_TryAgain-ArtLoadCues
 	dc.w PLC_EggmanSBZ2-ArtLoadCues, PLC_FZBoss-ArtLoadCues
+	dc.w PLC_MMZ-ArtLoadCues, PLC_MMZ2-ArtLoadCues, PLC_MMZAnimals-ArtLoadCues
 ; ---------------------------------------------------------------------------
 ; Pattern load cues - standard block 1
 ; ---------------------------------------------------------------------------
@@ -306,6 +307,47 @@ PLC_SBZ2:	dc.w $C
 		dc.l Nem_VSpring	; vertical spring
 		dc.w $A660
 ; ---------------------------------------------------------------------------
+; Pattern load cues - Green Hill
+; ---------------------------------------------------------------------------
+PLC_MMZ:	dc.w $B
+		dc.l Nem_GHZ_1st	; GHZ main patterns
+		dc.w 0
+		dc.l Nem_GHZ_2nd	; GHZ secondary	patterns
+		dc.w $39A0
+		dc.l Nem_Stalk		; flower stalk
+		dc.w $6B00
+		dc.l Nem_PplRock	; purple rock
+		dc.w $7A00
+		dc.l Nem_Crabmeat	; crabmeat enemy
+		dc.w $8000
+		dc.l Nem_Buzz		; buzz bomber enemy
+		dc.w $8880
+		dc.l Nem_Chopper	; chopper enemy
+		dc.w $8F60
+		dc.l Nem_Newtron	; newtron enemy
+		dc.w $9360
+		dc.l Nem_Motobug	; motobug enemy
+		dc.w $9E00
+		dc.l Nem_Spikes		; spikes
+		dc.w $A360
+		dc.l Nem_HSpring	; horizontal spring
+		dc.w $A460
+		dc.l Nem_VSpring	; vertical spring
+		dc.w $A660
+PLC_MMZ2:	dc.w 5
+		dc.l Nem_Swing		; swinging platform
+		dc.w $7000
+		dc.l Nem_Bridge		; bridge
+		dc.w $71C0
+		dc.l Nem_SpikePole	; spiked pole
+		dc.w $7300
+		dc.l Nem_Ball		; giant	ball
+		dc.w $7540
+		dc.l Nem_GhzWall1	; breakable wall
+		dc.w $A1E0
+		dc.l Nem_GhzWall2	; normal wall
+		dc.w $6980
+; ---------------------------------------------------------------------------
 ; Pattern load cues - title card
 ; ---------------------------------------------------------------------------
 PLC_TitleCard:	dc.w 0
@@ -431,6 +473,14 @@ PLC_SYZAnimals:	dc.w 1
 ; Pattern load cues - SBZ animals
 ; ---------------------------------------------------------------------------
 PLC_SBZAnimals:	dc.w 1
+		dc.l Nem_Rabbit		; rabbit
+		dc.w $B000
+		dc.l Nem_Chicken	; chicken
+		dc.w $B240
+; ---------------------------------------------------------------------------
+; Pattern load cues - SBZ animals
+; ---------------------------------------------------------------------------
+PLC_MMZAnimals:	dc.w 1
 		dc.l Nem_Rabbit		; rabbit
 		dc.w $B000
 		dc.l Nem_Chicken	; chicken
