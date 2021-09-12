@@ -6834,7 +6834,7 @@ BgScroll_End:				; XREF: BgScroll_Index
 		rts
 ; ===========================================================================
 
-BgScroll_ABZ:				; XREF: BgScroll_Index
+BgScroll_MMZ:				; XREF: BgScroll_Index
 		rts
 ; ---------------------------------------------------------------------------
 ; Background layer deformation subroutines
@@ -9746,7 +9746,7 @@ Resize_Ending:				; XREF: Resize_Index
 ; Alpha Beta Zone sequence dynamic screen resizing (empty)
 ; ---------------------------------------------------------------------------
 
-Resize_ABZ:				; XREF: Resize_Index
+Resize_MMZ:				; XREF: Resize_Index
 		rts	
 ; ===========================================================================	
 ; ===========================================================================
@@ -24695,7 +24695,7 @@ Obj01_ChkInvin:
 		moveq	#5,d0		; play SBZ music
 
 Obj01_PlayMusic:
-		lea	(MusicList1).l,a1
+	;	lea	(MusicList2).l,a1
 		move.b	(a1,d0.w),d0
 		jsr	(PlaySound).l	; play normal music
 
@@ -39647,13 +39647,13 @@ byte_6A2FC:	dc.b 0,	0, 0, 0
 Level_End:	incbin	levels\ending.bin
 		even
 byte_6A320:	dc.b 0,	0, 0, 0
-Level_ABZ1:	incbin	levels\abz1.bin
+Level_MMZ1:	incbin	levels\abz1.bin
 		even
-Level_ABZ2:	incbin	levels\abz2.bin
+Level_MMZ2:	incbin	levels\abz2.bin
 		even
-Level_ABZ3:	incbin	levels\abz3.bin
+Level_MMZ3:	incbin	levels\abz3.bin
 		even
-Level_ABZbg:	incbin	levels\abzbg.bin
+Level_MMZbg:	incbin	levels\abzbg.bin
 		even
 
 ; ---------------------------------------------------------------------------
