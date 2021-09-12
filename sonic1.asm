@@ -6560,12 +6560,49 @@ LevelSizeLoad:				; XREF: TitleScreen; Level; EndingSequence
 ; ---------------------------------------------------------------------------
 ; Level size array and ending start location array
 ; ---------------------------------------------------------------------------
-LevelSizeArray:	incbin	misc\lvl_size.bin
-		even
+LevelSizeArray:        ; GHZ
+               dc.w $0004, $0000, $29B0, $0000, $0300, $0060 ; Act 1
+               dc.w $0004, $0000, $2D00, $0000, $0300, $0060 ; Act 2
+               dc.w $0004, $0000, $2960, $0000, $0300, $0060 ; Act 3
+               dc.w $0004, $0000, $2ABF, $0000, $0300, $0060 ; Act 4 (Unused)
+               ; LZ
+               dc.w $0004, $0000, $19BF, $0000, $0530, $0060 ; Act 1
+               dc.w $0004, $0000, $10AF, $0000, $0720, $0060 ; Act 2
+               dc.w $0004, $0000, $202F, $FF00, $0800, $0060 ; Act 3
+               dc.w $0004, $0000, $3EC0, $0000, $0720, $0060 ; Act 4 (Unused)
+               ; MZ
+               dc.w $0004, $0000, $2D00, $0000, $0300, $0060 ; Act 1
+               dc.w $0004, $0000, $17BF, $0000, $0520, $0060 ; Act 2
+               dc.w $0004, $0000, $1800, $0000, $0720, $0060 ; Act 3
+               dc.w $0004, $0000, $16BF, $0000, $0720, $0060 ; Act 4 (Unused)
+               ; SLZ
+               dc.w $0004, $0000, $1FBF, $0000, $0640, $0060 ; Act 1
+               dc.w $0004, $0000, $1FBF, $0000, $0640, $0060 ; Act 2
+               dc.w $0004, $0000, $2000, $0000, $06C0, $0060 ; Act 3
+               dc.w $0004, $0000, $3EC0, $0000, $0720, $0060 ; Act 4 (Unused)
+               ; SYZ
+               dc.w $0004, $0000, $22C0, $0000, $0420, $0060 ; Act 1
+               dc.w $0004, $0000, $28C0, $0000, $0520, $0060 ; Act 2
+               dc.w $0004, $0000, $2C00, $0000, $0620, $0060 ; Act 3
+               dc.w $0004, $0000, $2EC0, $0000, $0620, $0060 ; Act 4 (Unused)
+               ; SBZ
+               dc.w $0004, $0000, $21C0, $0000, $0720, $0060 ; Act 1
+               dc.w $0004, $0000, $1E40, $FF00, $0800, $0060 ; Act 2
+               dc.w $0004, $2080, $2460, $0510, $0510, $0060 ; Act 3 (Final Zone)
+               dc.w $0004, $0000, $3EC0, $0000, $0720, $0060 ; Act 4 (Scrap Brain Act 3)
+               dc.w $0004, $0000, $29B0, $0000, $0300, $0060 ; Act 1
+               ; MMZ
+               dc.w $0004, $0000, $2D00, $0000, $0300, $0060 ; Act 2
+               dc.w $0004, $0000, $2960, $0000, $0300, $0060 ; Act 3
+               dc.w $0004, $0000, $2ABF, $0000, $0300, $0060 ; Act 4 (Unused)
+               ; Ending
+EndingstLocArray: 
+               dc.w $0004, $0000, $0500, $0110, $0110, $0060 ; Act 1 (Good Ending)
+               dc.w $0004, $0000, $0DC0, $0110, $0110, $0060 ; Act 2 (Bad Ending)
+               dc.w $0004, $0000, $2FFF, $0000, $0320, $0060 ; Act 3 (Unused)
+               dc.w $0004, $0000, $2FFF, $0000, $0320, $0060 ; Act 4 (Unused)
+               even
 
-EndingStLocArray:
-		incbin	misc\sloc_end.bin
-		even
 
 ; ===========================================================================
 
@@ -6665,6 +6702,7 @@ dword_61B4:	dc.l $700100, $1000100
 		dc.l $8000100, $1000000
 		dc.l $8000100, $1000000
 		dc.l $700100, $1000100
+		dc.l $8000100, $1000000
 
 ; ---------------------------------------------------------------------------
 ; Subroutine to	set scroll speed of some backgrounds
@@ -6694,7 +6732,7 @@ loc_6206:
 BgScroll_Index:	dc.w BgScroll_GHZ-BgScroll_Index, BgScroll_LZ-BgScroll_Index
 		dc.w BgScroll_MZ-BgScroll_Index, BgScroll_SLZ-BgScroll_Index
 		dc.w BgScroll_SYZ-BgScroll_Index, BgScroll_SBZ-BgScroll_Index
-		dc.w BgScroll_End-BgScroll_Index
+		dc.w BgScroll_End-BgScroll_Index, BgScroll_MMZ-BgScroll_Index
 ; ===========================================================================
 
 BgScroll_GHZ:				; XREF: BgScroll_Index
@@ -6771,7 +6809,10 @@ BgScroll_End:				; XREF: BgScroll_Index
 		move.w	#-$40,($FFFFF710).w
 		move.w	#$1E,($FFFFF714).w
 		rts
+; ===========================================================================
 
+BgScroll_ABZ:				; XREF: BgScroll_Index
+		rts
 ; ---------------------------------------------------------------------------
 ; Background layer deformation subroutines
 ; ---------------------------------------------------------------------------
@@ -6813,7 +6854,7 @@ loc_628E:
 Deform_Index:	dc.w Deform_GHZ-Deform_Index, Deform_LZ-Deform_Index
 		dc.w Deform_MZ-Deform_Index, Deform_SLZ-Deform_Index
 		dc.w Deform_SYZ-Deform_Index, Deform_SBZ-Deform_Index
-		dc.w Deform_GHZ-Deform_Index
+		dc.w Deform_GHZ-Deform_Index, Deform_MMZ-Deform_Index
 ; ---------------------------------------------------------------------------
 ; Green	Hill Zone background layer deformation code
 ; ---------------------------------------------------------------------------
@@ -7432,6 +7473,111 @@ loc_3F1C:
                 dbf     d1,loc_3F1C
                 rts	
 ; End of function Deform_SBZ
+Deform_MMZ
+		jmp		Deform_LZ
+		rts
+		move.w	($FFFFF73A).w,d4
+		ext.l	d4
+		asl.l	#5,d4
+		move.l	d4,d1
+		asl.l	#1,d4
+		add.l	d1,d4
+		moveq	#0,d6
+		bsr.w	ScrollBlock6
+		move.w	($FFFFF73A).w,d4
+		ext.l	d4
+		asl.l	#7,d4
+		moveq	#0,d6
+		bsr.w	ScrollBlock5
+		lea	($FFFFCC00).w,a1
+		move.w	($FFFFF704).w,d0
+		andi.w	#$7FF,d0
+		lsr.w	#5,d0
+		neg.w	d0
+		addi.w	#$20,d0	; ' '
+		bpl.s	Deform_MMZ_1
+		moveq	#0,d0
+
+Deform_MMZ_1:				; XREF: Deform_GHZ
+		move.w	d0,d4
+		move.w	d0,($FFFFF618).w
+		move.w	($FFFFF700).w,d0
+		cmpi.b	#4,($FFFFF600).w
+		bne.s	Deform_MMZ_2
+		moveq	#0,d0
+
+Deform_MMZ_2:				; XREF: Deform_GHZ
+		neg.w	d0
+		swap	d0
+		lea	($FFFFA800).w,a2
+		addi.l	#$10000,(a2)+
+		addi.l	#$C000,(a2)+
+		addi.l	#$8000,(a2)+
+		move.w	($FFFFA800).w,d0
+		add.w	($FFFFF718).w,d0
+		neg.w	d0
+		move.w	#$1F,d1
+		sub.w	d4,d1
+		bcs.s	Deform_MMZ_4
+
+Deform_MMZ_3:				; XREF: Deform_GHZ
+		move.l	d0,(a1)+
+		dbf	d1,Deform_MMZ_3
+
+Deform_MMZ_4:				; XREF: Deform_GHZ
+		move.w	($FFFFA804).w,d0
+		add.w	($FFFFF718).w,d0
+		neg.w	d0
+		move.w	#$F,d1
+
+Deform_MMZ_5:				; XREF: Deform_GHZ
+		move.l	d0,(a1)+
+		dbf	d1,Deform_MMZ_5
+		move.w	($FFFFA808).w,d0
+		add.w	($FFFFF718).w,d0
+		neg.w	d0
+		move.w	#$F,d1
+
+Deform_MMZ_6:				; XREF: Deform_GHZ
+		move.l	d0,(a1)+
+		dbf	d1,Deform_MMZ_6
+		move.w	#$2F,d1	; '/'
+		move.w	($FFFFF718).w,d0
+		neg.w	d0
+
+Deform_MMZ_7:				; XREF: Deform_GHZ
+		move.l	d0,(a1)+
+		dbf	d1,Deform_MMZ_7
+		move.w	#$27,d1	; '''
+		move.w	($FFFFF710).w,d0
+		neg.w	d0
+
+Deform_MMZ_8:				; XREF: Deform_GHZ
+		move.l	d0,(a1)+
+		dbf	d1,Deform_MMZ_8
+		move.w	($FFFFF710).w,d0
+		move.w	($FFFFF700).w,d2
+		sub.w	d0,d2
+		ext.l	d2
+		asl.l	#8,d2
+		divs.w	#$68,d2	; 'h'
+		ext.l	d2
+		asl.l	#8,d2
+		moveq	#0,d3
+		move.w	d0,d3
+		move.w	#$47,d1	; 'G'
+		add.w	d4,d1
+
+Deform_MMZ_9:				; XREF: Deform_GHZ
+		move.w	d3,d0
+		neg.w	d0
+		move.l	d0,(a1)+
+		swap	d3
+		add.l	d2,d3
+		swap	d3
+		dbf	d1,Deform_MMZ_9
+		rts	
+; End of function Deform_GHZ
 
 ; ---------------------------------------------------------------------------
 ; Subroutine to	scroll the level horizontally as Sonic moves
@@ -8939,7 +9085,7 @@ loc_6DC4:
 Resize_Index:	dc.w Resize_GHZ-Resize_Index, Resize_LZ-Resize_Index
 		dc.w Resize_MZ-Resize_Index, Resize_SLZ-Resize_Index
 		dc.w Resize_SYZ-Resize_Index, Resize_SBZ-Resize_Index
-		dc.w Resize_Ending-Resize_Index
+		dc.w Resize_Ending-Resize_Index, Resize_MMZ-Resize_Index
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
 ; Green	Hill Zone dynamic screen resizing
@@ -9572,7 +9718,14 @@ Resize_FZend2:
 ; ---------------------------------------------------------------------------
 
 Resize_Ending:				; XREF: Resize_Index
+		rts
+; ---------------------------------------------------------------------------
+; Alpha Beta Zone sequence dynamic screen resizing (empty)
+; ---------------------------------------------------------------------------
+
+Resize_ABZ:				; XREF: Resize_Index
 		rts	
+; ===========================================================================	
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
 ; Object 11 - GHZ bridge
@@ -15814,9 +15967,14 @@ Obj34_CheckSBZ3:			; XREF: Obj34_Index
 Obj34_CheckFZ:
 		move.w	d0,d2
 		cmpi.w	#$502,($FFFFFE10).w ; check if level is	FZ
-		bne.s	Obj34_LoadConfig
+		bne.s	Obj34_CheckNew
 		moveq	#6,d0		; load title card number 6 (FZ)
 		moveq	#$B,d2		; use "FINAL" mappings
+
+Obj34_CheckNew:
+		cmpi.b	#7,($FFFFFE10).w ; check if level is in the new zones
+		blo.s	Obj34_LoadConfig
+		addq.b	#$C-7,d2	; use correct mappings
 
 Obj34_LoadConfig:
 		lea	(Obj34_ConData).l,a3
@@ -15942,6 +16100,7 @@ Obj34_ConData:	dc.w 0,	$120, $FEFC, $13C, $414, $154, $214, $154 ; GHZ
 		dc.w 0,	$120, $FF04, $144, $41C, $15C, $21C, $15C ; SYZ
 		dc.w 0,	$120, $FF04, $144, $41C, $15C, $21C, $15C ; SBZ
 		dc.w 0,	$120, $FEE4, $124, $3EC, $3EC, $1EC, $12C ; FZ
+		dc.w 0,	$120, $FF04, $144, $41C, $15C, $21C, $15C ; ABZ
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
 ; Object 39 - "GAME OVER" and "TIME OVER"
@@ -16485,6 +16644,7 @@ Map_obj34:	dc.w byte_C9FE-Map_obj34
 		dc.w byte_CB3C-Map_obj34
 		dc.w byte_CB47-Map_obj34
 		dc.w byte_CB8A-Map_obj34
+		dc.w TitleCard_ABZ-Map_obj34
 byte_C9FE:	dc.b 8   		; TURD HILL
 		dc.b $F8, 5, 0,	$42, $C4
 		dc.b $F8, 5, 0,	$46, $D4
@@ -16589,6 +16749,16 @@ byte_CB8A:	dc.b 4	;  FINAL | LAST
 		dc.b $F8, 5, 0, $3E, $A0	; S
 		dc.b $F8, 5, 0, $42, $B0	; T
 		even
+TitleCard_ABZ:	dc.b 9
+		dc.b $F8, 5, 0, 0, $B0		; A
+		dc.b $F8, 5, 0,	$26, $C0	; L
+		dc.b $F8, 5, 0, $36, $D0	; P
+		dc.b $F8, 5, 0, $1C, $E0	; H
+		dc.b $F8, 5, 0, 0, $F0		; A
+		dc.b $F8, 5, 0, 4, $10		; B
+		dc.b $F8, 5, 0, $10, $20	; E
+		dc.b $F8, 5, 0, $42, $30	; T
+		dc.b $F8, 5, 0, 0, $40		; A
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - "GAME OVER"	and "TIME OVER"
 ; ---------------------------------------------------------------------------
