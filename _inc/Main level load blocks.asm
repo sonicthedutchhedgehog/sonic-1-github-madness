@@ -35,8 +35,4 @@
 	dc.l Blk16_GHZ
 	dc.l Blk256_GHZ
 	dc.b 0,	$86, $13, $13
-	dc.l Nem_GHZ_2nd+$4000000
-	dc.l Blk16_GHZ+$5000000
-	dc.l Blk256_GHZ
-	dc.b 0,	$8C, $14, $14
 	even

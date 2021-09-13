@@ -64,6 +64,3 @@
 	dc.l Menu_Palette; pallet address
 	dc.w $FB00	; RAM address
 	dc.w $1F	; (pallet length / 2) - 1
-	dc.l Pal_ABZ
-	dc.w $FB20
-	dc.w $17
