@@ -15935,13 +15935,13 @@ Obj34_ItemData:	dc.w $D0	; y-axis position
 ; 4 bytes per item (YYYY XXXX)
 ; 4 items per level (GREEN HILL, ZONE, ACT X, oval)
 ; ---------------------------------------------------------------------------
-Obj34_ConData:	dc.w 0,	$120, $FEFC, $13C, $414, $154, $214, $154 ; GHZ
-		dc.w 0,	$120, $FEF4, $134, $40C, $14C, $20C, $14C ; LZ
-		dc.w 0,	$120, $FEE0, $120, $3F8, $138, $1F8, $138 ; MZ
-		dc.w 0,	$120, $FEFC, $13C, $414, $154, $214, $154 ; SLZ
-		dc.w 0,	$120, $FF04, $144, $41C, $15C, $21C, $15C ; SYZ
-		dc.w 0,	$120, $FF04, $144, $41C, $15C, $21C, $15C ; SBZ
-		dc.w 0,	$120, $FEE4, $124, $3EC, $3EC, $1EC, $12C ; FZ
+Obj34_ConData:	incbin	"mapbin\ttlcards_cfg_0.bin"
+		incbin	"mapbin\ttlcards_cfg_1.bin"
+		incbin	"mapbin\ttlcards_cfg_2.bin"
+		incbin	"mapbin\ttlcards_cfg_3.bin"
+		incbin	"mapbin\ttlcards_cfg_4.bin"
+		incbin	"mapbin\ttlcards_cfg_5.bin"
+		incbin	"mapbin\ttlcards_cfg_6.bin"
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
 ; Object 39 - "GAME OVER" and "TIME OVER"
@@ -30829,7 +30829,35 @@ Obj8A_Display:				; XREF: Obj8A_Index
 ; Sprite mappings - "SONIC TEAM	PRESENTS" and credits
 ; ---------------------------------------------------------------------------
 Map_obj8A:
-	include "_maps\obj8A.asm"
+		dc.w byte_172F8-Map_obj8A, byte_1733F-Map_obj8A
+		dc.w byte_17390-Map_obj8A, byte_173C3-Map_obj8A
+		dc.w byte_1743C-Map_obj8A, byte_174A1-Map_obj8A
+		dc.w byte_17524-Map_obj8A, byte_17598-Map_obj8A
+		dc.w byte_17634-Map_obj8A, byte_17680-Map_obj8A
+		dc.w byte_176A9-Map_obj8A
+byte_172F8:	incbin "mapbin\credits_map_1.bin"
+		even
+byte_1733F:	incbin "mapbin\credits_map_2.bin"
+		even
+byte_17390:	incbin "mapbin\credits_map_3.bin"
+		even
+byte_173C3:	incbin "mapbin\credits_map_4.bin"
+		even
+byte_1743C:	incbin "mapbin\credits_map_5.bin"
+		even
+byte_174A1:	incbin "mapbin\credits_map_6.bin"
+		even
+byte_17524:	incbin "mapbin\credits_map_7.bin"
+		even
+byte_17598:	incbin "mapbin\credits_map_8.bin"
+		even
+byte_17634:	incbin "mapbin\credits_map_9.bin"
+		even
+byte_17680:	incbin "mapbin\credits_map_10.bin"
+		even
+byte_176A9:	incbin "mapbin\credits_map_0.bin"
+		even
+
 
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
