@@ -11,7 +11,7 @@
 ; This file should be compiled with "as	-M"
 ; the hell disasm s
     include   "Debugger.asm"
-
+    include "_smps2asm_inc.asm" ; just for labyrinth zone ok
 ; ===========================================================================
 Current_Character   equ $FFFFFFF9    ; whatever the character you are using is
 
@@ -41924,7 +41924,7 @@ Music01:	incbin	sound\fartd.bin
 
 Music81:	incbin	sound\music81.bin
 		even
-Music82:	incbin	sound\music82.bin
+Music82:	include sound\cleveland.asm
 		even
 Music83:	incbin	sound\music83.bin
 		even
