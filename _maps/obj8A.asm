@@ -123,7 +123,7 @@ byte_1733F:	dc.b $37	;  GAME PLAN CAROL YAS | SHIT BY  SIRFLOOFTH JAYKURIN FIREF
 		dc.b $38, 5, 0, $12, $18	; P
 		dc.b $38, 1, 0, $46, $28	; I
 		dc.b $38, 5, 0, $1E, $30	; C
-byte_17390:	dc.b $35	;  PROGRAM YU 2 | SHIT BY  CHOBOCODA MCTRAVISYT RIVETDEV DELTAWOOLO FOO KNEE
+byte_17390:	dc.b $36	;  PROGRAM YU 2 | SHIT BY  CHOBOCODA MCTRAVISYT RIVETDEV DELTAWOOLOO FOO KNEE
 		dc.b $90, 5, 0, $2E, $90	; S
 		dc.b $90, 5, 0, $3A, $A0	; H
 		dc.b $90, 1, 0, $46, $B0	; I
@@ -173,6 +173,7 @@ byte_17390:	dc.b $35	;  PROGRAM YU 2 | SHIT BY  CHOBOCODA MCTRAVISYT RIVETDEV DE
 		dc.b $18, 5, 0, $26, $30	; O
 		dc.b $18, 5, 0, $16, $40	; L
 		dc.b $18, 5, 0, $26, $50	; O
+		dc.b $18, 5, 0, $26, $60	; O		
 
 		dc.b $38, 5, 0, $5C, $C0	; F
 		dc.b $38, 5, 0, $26, $D0	; O

@@ -41944,7 +41944,7 @@ Music8A:	incbin	sound\music8A.bin
 		even
 Music8B:	incbin	sound\music8B.bin
 		even
-Music8C:	incbin	sound\music8C.bin
+Music8C:	include	sound\GayEggman.asm
 		even
 Music8D:	incbin	sound\music8D.bin
 		even
