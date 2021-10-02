@@ -55,8 +55,8 @@ MegaPCM:
 ; DAC Samples Table
 ; ---------------------------------------------------------------
 
-	DAC_Entry	$07, Kick, dpcm			; $81	- Kick
-	DAC_Entry	$0A, Snare, dpcm		; $82	- Snare
+	DAC_Entry	$07, Kick, pcm			; $81	- Kick
+	DAC_Entry	$0A, Snare, pcm		; $82	- Snare
 	DAC_Entry	$1B, Timpani, dpcm		; $83	- Timpani
 	DAC_Entry	$04, whoosh, pcm		; $84	- Amogus Whoosh SFX
 	DAC_Entry	$03, crack, pcm			; $85	- Amogus Crack SFX
@@ -79,8 +79,8 @@ MegaPCM_End:
 ; DAC Samples Files
 ; ---------------------------------------------------------------
 
-	IncludeDAC	Kick, bin
-	IncludeDAC	Snare, bin
+	IncludeDAC	Kick, wav
+	IncludeDAC	Snare, wav
 	IncludeDAC	Timpani, bin
 	IncludeDac	whoosh, wav
 	IncludeDac 	crack, wav
