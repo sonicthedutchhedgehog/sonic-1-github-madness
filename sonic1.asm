@@ -3103,7 +3103,6 @@ TitleScreen:				; XREF: GameModeArray
 		move.w	#$8720,(a6)
 		clr.b	($FFFFF64E).w
 		bsr.w	ClearScreen
-        jsr SHC2021     
 		lea	($FFFFD000).w,a1
 		moveq	#0,d0
 		move.w	#$7FF,d1
