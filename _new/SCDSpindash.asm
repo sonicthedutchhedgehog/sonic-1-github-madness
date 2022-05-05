@@ -13,7 +13,8 @@ SCDSpindash:
 		andi.b	#%01110000,d0
 		beq.w	@return
 		move.w	#0,$3A(a0)
-		move.w	#$A5,d0
+		move.w	#$BE,d0
+        move.b	#2,($FFFFD1DC).w
 		jsr		(PlaySound_Special).l 	; Play spindash charge sound
 	;	sfx 	sfx_PeeloutCharge 		; These are if you use AMPS
 		addq.l	#4,sp
