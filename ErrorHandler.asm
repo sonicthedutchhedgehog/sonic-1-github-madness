@@ -37,7 +37,7 @@ AddressError:
 	__ErrorMessage "oh ffs game adress error", _eh_default|_eh_address_error
 
 IllegalInstr:
-	__ErrorMessage "the famus iligal hah", _eh_default
+	__ErrorMessage "too late!", _eh_default
 
 ZeroDivide:
 	__ErrorMessage "you divided by 0", _eh_default
@@ -55,7 +55,7 @@ Trace:
 	__ErrorMessage "maybe ill be tracer", _eh_default
 
 Line1010Emu:
-	__ErrorMessage "didnt use kega? fuck you", _eh_default
+	__ErrorMessage "it is a serious crime to use kega fusion", _eh_default
 
 Line1111Emu:
 	__ErrorMessage "piracy screen", _eh_default

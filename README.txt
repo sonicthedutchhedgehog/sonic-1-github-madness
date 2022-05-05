@@ -10,3 +10,5 @@ also this is the hivebrain disasm
 
 
 floof was here
+cyanmonitor wasn't here, who he is btw? I only heard of Monitor
+min3r can't be here

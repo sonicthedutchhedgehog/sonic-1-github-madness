@@ -55,28 +55,42 @@ MegaPCM:
 ; DAC Samples Table
 ; ---------------------------------------------------------------
 
-	DAC_Entry	$07, Kick, dpcm			; $81	- Kick
-	DAC_Entry	$0A, Snare, dpcm		; $82	- Snare
+	DAC_Entry	$07, Kick, pcm			; $81	- Kick
+	DAC_Entry	$0A, Snare, pcm		; $82	- Snare
 	DAC_Entry	$1B, Timpani, dpcm		; $83	- Timpani
 	DAC_Entry	$04, whoosh, pcm		; $84	- Amogus Whoosh SFX
 	DAC_Entry	$03, crack, pcm			; $85	- Amogus Crack SFX
-	dc.l	0,0					; $86	- <Free>
+    DAC_Entry    $01, menuscreenmusic, pcm+pri+loop        ; $86    - UHOH!	
 	dc.l	0,0					; $87	- <Free>
 	DAC_Entry	$12, Timpani, dpcm		; $88	- Hi-Timpani
 	DAC_Entry	$15, Timpani, dpcm		; $89	- Mid-Timpani
 	DAC_Entry	$1B, Timpani, dpcm		; $8A	- Mid-Low-Timpani
 	DAC_Entry	$1D, Timpani, dpcm		; $8B	- Low-Timpani
-
+    DAC_Entry    $01, sm64_mario_boing, pcm+pri        ; $8C - Sonic's voice (definitely by Roger Craig Smith and not Charles Martinet)  
+    DAC_Entry    $01, sm64_mario_falling, pcm+pri        ; $8D   
+    DAC_Entry    $01, sm64_mario_hoo, pcm+pri     ; $8E    
+    DAC_Entry    $01, sm64_mario_oof, pcm+pri     ; $8F
+    DAC_Entry    $01, sm64_mario_wah, pcm+pri        ; $90 
+    DAC_Entry    $01, MamaF_er, pcm+pri        ; $91 	
+    DAC_Entry    $01, sm64_mario_hoohoo, pcm+pri     ; $92    	
 MegaPCM_End:
 
 ; ---------------------------------------------------------------
 ; DAC Samples Files
 ; ---------------------------------------------------------------
 
-	IncludeDAC	Kick, bin
-	IncludeDAC	Snare, bin
+	IncludeDAC	Kick, wav
+	IncludeDAC	Snare, wav
 	IncludeDAC	Timpani, bin
 	IncludeDac	whoosh, wav
 	IncludeDac 	crack, wav
+    IncludeDAC  menuscreenmusic, wav	
+	IncludeDac	sm64_mario_boing, wav
+	IncludeDac 	sm64_mario_falling, wav
+    IncludeDAC  sm64_mario_hoo, wav		
+	IncludeDac	sm64_mario_oof, wav
+	IncludeDac 	sm64_mario_wah, wav
+	IncludeDac	sm64_mario_hoohoo, wav
+    IncludeDAC  MamaF_er, wav		
 	even
 
