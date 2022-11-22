@@ -1,6 +1,6 @@
-
 *.log
 Sonic 1 - Text Code Generator.exe
-SonLVL/SonLVL.exe
-SonLVL/SonLVL.ini
-SonLVL/SonLVL.ini
+SonLVL/*
+s1built.bin
+sonic1.lst
+s1built.sym
