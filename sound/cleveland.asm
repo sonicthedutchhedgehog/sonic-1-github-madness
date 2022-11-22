@@ -10,9 +10,9 @@ smpsHeaderStartSong = 1
 	smpsHeaderFM        cleveland_FM3,	$00, $10
 	smpsHeaderFM        cleveland_FM4,	$00, $1A
 	smpsHeaderFM        cleveland_FM5,	$00, $10
-	smpsHeaderPSG       cleveland_PSG1,	$00, $05, $00, $00
-	smpsHeaderPSG       cleveland_PSG2,	$00, $05, $00, $00
-	smpsHeaderPSG       cleveland_PSG3,	$00, $08, $00, $00
+	smpsHeaderPSG       cleveland_PSG1,	$00, $02, $00, fTone_09
+	smpsHeaderPSG       cleveland_PSG2,	$00, $02, $00, fTone_09
+	smpsHeaderPSG       cleveland_PSG3,	$00, $02, $00, fTone_02
 
 ; DAC Data
 cleveland_DAC:
@@ -38,7 +38,6 @@ cleveland_Loop02:
 ; FM1 Data
 cleveland_FM1:
 	smpsPan             panCenter, $00
-	smpsAlterNote       $00
 	smpsSetvoice        $00
 	dc.b	nRst, $1E, nE4, $06, nG4, nE4
 
@@ -81,7 +80,6 @@ cleveland_Loop09:
 ; FM2 Data
 cleveland_FM2:
 	smpsPan             panCenter, $00
-	smpsAlterNote       $00
 	smpsSetvoice        $01
 	dc.b	nRst, $12, nD2, $0C, nG2, $03, nRst, nG2, nRst, $09
 
@@ -109,15 +107,11 @@ cleveland_Loop05:
 
 ; FM3 Data
 cleveland_FM3:
-	smpsModSet          $00, $01, $00, $04
-	smpsModSet          $00, $01, $00, $04
 	smpsPan             panLeft, $00
-	smpsAlterNote       $00
 	smpsSetvoice        $03
-	smpsModSet          $00, $01, $00, $04
+	smpsModSet          $01, $01, $01, $04
 	dc.b	nA5, $06, nF5, nD5, nG5, $0A, nRst, $02, nG5, $03, nRst, nG5
 	dc.b	nRst, $09
-	smpsModSet          $00, $01, $00, $04
 
 cleveland_Jump02:
 	dc.b	nRst, $7F, $7F, $7F, $63, nE5, $48, nF5, $0C, nG5, nC5, $30
@@ -126,16 +120,13 @@ cleveland_Jump02:
 
 ; FM4 Data
 cleveland_FM4:
-	smpsModSet          $00, $01, $01, $04
-	smpsModSet          $00, $01, $01, $04
 	smpsPan             panRight, $00
 	smpsAlterVol        $FC
 	smpsAlterNote       $02
 	smpsSetvoice        $03
-	smpsModSet          $00, $01, $01, $04
+	smpsModSet          $02, $01, $02, $04
 	dc.b	nA5, $06, nF5, nD5, nG5, $0A, nRst, $02, nG5, $03, nRst, nG5
 	dc.b	nRst, $09
-	smpsModSet          $00, $01, $01, $04
 
 cleveland_Jump01:
 	dc.b	nRst, $7F, $7F, $7F, $63, nE5, $48, nF5, $0C, nG5, nC5, $30
@@ -145,7 +136,6 @@ cleveland_Jump01:
 ; FM5 Data
 cleveland_FM5:
 	smpsPan             panCenter, $00
-	smpsAlterNote       $00
 	smpsSetvoice        $02
 	dc.b	nC5, $06, nA4, nF4, nC5, $09, nRst, $03, nC5, nRst, nC5, nRst
 	dc.b	$09
@@ -171,8 +161,6 @@ cleveland_Loop03:
 
 ; PSG1 Data
 cleveland_PSG1:
-	smpsAlterNote       $00
-	smpsPSGvoice        $00
 	dc.b	nA2, $02, nRst, $01, nA2, $02, nRst, $01, nF2, $02, nRst, $01
 	dc.b	nF2, $02, nRst, $01, nD2, $02, nRst, $01, nD2, $20, nRst, $01
 
@@ -216,8 +204,6 @@ cleveland_Loop13:
 
 ; PSG2 Data
 cleveland_PSG2:
-	smpsAlterNote       $00
-	smpsPSGvoice        $00
 	dc.b	nC3, $02, nRst, $01, nC3, $02, nRst, $01, nA2, $02, nRst, $01
 	dc.b	nA2, $02, nRst, $01, nF2, $02, nRst, $01, nF2, $20, nRst, $01
 
@@ -262,10 +248,7 @@ cleveland_Loop10:
 ; PSG3 Data
 cleveland_PSG3:
 	smpsPSGform         $E7
-	smpsAlterNote       $00
-	smpsPSGvoice        $00
 	dc.b	nRst, $12
-	smpsPSGvoice        fTone_02
 	dc.b	nMaxPSG, $0C, $06, $0C
 
 cleveland_Jump04:

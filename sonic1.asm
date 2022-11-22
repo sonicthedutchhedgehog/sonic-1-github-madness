@@ -16,9 +16,7 @@
 Current_Character   equ $FFFFFFF9    ; whatever the character you are using is
 
 
-align macro
-	cnop 0,\1
-	endm
+		include	"Macros.asm"
 	
 StartOfRom:
 Vectors:	dc.l $FFFE00, EntryPoint, BusError, AddressError
@@ -53,13 +51,14 @@ SRAMSupport:	dc.l $20202020		; change to $5241E020 to create	SRAM
 		dc.l $20202020		; SRAM end
 Notes:		dc.b 'ARE SLIME GIRLS MAGICAL?                            '
 Region:		dc.b 'JU              ' ; Region
-
+		incbin	"canon lore.txt"
+		even
 ; ===========================================================================
 
 ErrorTrap:
 		nop	
 		nop	
-		bra.s	ErrorTrap
+		nop
 ; ===========================================================================
 
 EntryPoint:
@@ -173,19 +172,40 @@ GameProgram:
 		cmpi.l	#'init',($FFFFFFFC).w ; has checksum routine already run?
 		beq.w	GameInit	; if yes, branch
 
-CheckSumCheck:
-		movea.l	#ErrorTrap,a0	; start	checking bytes after the header	($200)
-		movea.l	#RomEndLoc,a1	; stop at end of ROM
-		move.l	(a1),d0
-		moveq	#0,d1
+; disabled since picodrive/genesis plus gx (retroarch) fail to start the game with the checksum check
+; using MarkeyJesters code here just so I don't feel like the games dead each time its turned on
+CheckSumCheck:	
+		;movea.w #$0200,a0 ; prepare start address
+		;move.l (RomEndLoc).w,d7 ; load size
+		;sub.l a0,d7 ; minus start address
+		;move.b d7,d5 ; copy end nybble
+		;andi.w #$000F,d5 ; get only the remaining nybble
+		;lsr.l #$04,d7 ; divide the size by 20
+		;move.w d7,d6 ; load lower word size
+		;swap d7 ; get upper word size
+		;moveq #$00,d0 ; clear d0
 
-loc_32C:
-		add.w	(a0)+,d1
-		cmp.l	a0,d0
-		bcc.s	loc_32C
-		movea.l	#Checksum,a1	; read the checksum
-		cmp.w	(a1),d1		; compare correct checksum to the one in ROM
-		bne.w	CheckSumError	; if they don't match, branch
+CS_MainBlock:
+		;add.w (a0)+,d0 ; modular checksum (8 words)
+		;add.w (a0)+,d0 ; ''
+		;add.w (a0)+,d0 ; ''
+		;add.w (a0)+,d0 ; ''
+		;add.w (a0)+,d0 ; ''
+		;add.w (a0)+,d0 ; ''
+		;add.w (a0)+,d0 ; ''
+		;add.w (a0)+,d0 ; ''
+		;dbf d6,CS_MainBlock ; repeat until all main block sections are done
+		;dbf d7,CS_MainBlock ; ''
+		;subq.w #$01,d5 ; decrease remaining nybble for dbf
+		;bpl.s CS_Finish ; if there is no remaining nybble, branch
+
+CS_Remains:
+		;add.w (a0)+,d0 ; add remaining words
+		;dbf d5,CS_Remains ; repeat until the remaining words are done
+
+CS_Finish:
+		;cmp.w (Checksum).w,d0 ; does the checksum match?
+		;bne.w CheckSumError ; if not, branch
 		lea	($FFFFFE00).w,a6
 		moveq	#0,d7
 		move.w	#$7F,d6
@@ -243,15 +263,16 @@ GameModeArray:
 
 CheckSumError:
 		bsr.w	VDPSetupGame
-		move.l	#$C0000000,($C00004).l ; set VDP to CRAM write
+		lea	($C00000).l,a0
+		moveq	#$E,d0
+
+		move.l	#$C0000000,4(a0) ; set VDP to CRAM write
 		moveq	#$3F,d7
 
 CheckSum_Red:
-		move.w	#$E,($C00000).l	; fill screen with colour red
+		move.w	d0,(a0)	; fill screen with colour red
 		dbf	d7,CheckSum_Red	; repeat $3F more times
-
-CheckSum_Loop:
-		bra.s	CheckSum_Loop
+		bra.s	*
 ; ===========================================================================
 
 
@@ -272,9 +293,7 @@ loc_B10:				; XREF: Vectors
 		btst	#6,($FFFFFFF8).w
 		beq.s	loc_B42
 		move.w	#$700,d0
-
-loc_B3E:
-		dbf	d0,loc_B3E
+		dbf	d0,*
 
 loc_B42:
 		move.b	($FFFFF62A).w,d0
@@ -314,17 +333,10 @@ loc_B9A:
 		btst	#6,($FFFFFFF8).w
 		beq.s	loc_BBA
 		move.w	#$700,d0
-
-loc_BB6:
-		dbf	d0,loc_BB6
+		dbf	d0,*
 
 loc_BBA:
 		move.w	#1,($FFFFF644).w
-		move.w	#$100,($A11100).l
-
-loc_BC8:
-		btst	#0,($A11100).l
-		bne.s	loc_BC8
 		tst.b	($FFFFF64E).w
 		bne.s	loc_BFE
 		lea	($C00004).l,a5
@@ -348,7 +360,6 @@ loc_BFE:				; XREF: loc_BC8
 
 loc_C22:				; XREF: loc_BC8
 		move.w	($FFFFF624).w,(a5)
-		move.w	#0,($A11100).l
 		bra.w	loc_B5E
 ; ===========================================================================
 
@@ -357,7 +368,7 @@ loc_C32:				; XREF: off_B6E
 
 loc_C36:				; XREF: off_B6E
 		tst.w	($FFFFF614).w
-		beq.w	locret_C42
+		beq.s	locret_C42
 		subq.w	#1,($FFFFF614).w
 
 locret_C42:
@@ -369,7 +380,7 @@ loc_C44:				; XREF: off_B6E
 		bsr.w	sub_6886
 		bsr.w	sub_1642
 		tst.w	($FFFFF614).w
-		beq.w	locret_C5C
+		beq.s	locret_C5C
 		subq.w	#1,($FFFFF614).w
 
 locret_C5C:
@@ -377,8 +388,7 @@ locret_C5C:
 ; ===========================================================================
 
 loc_C5E:				; XREF: off_B6E
-		bsr.w	sub_106E
-		rts	
+		bra.w	sub_106E	
 ; ===========================================================================
 
 loc_C64:				; XREF: off_B6E
@@ -386,11 +396,6 @@ loc_C64:				; XREF: off_B6E
 		beq.w	loc_DA6		; if yes, branch
 
 loc_C6E:				; XREF: off_B6E
-		move.w	#$100,($A11100).l ; stop the Z80
-
-loc_C76:
-		btst	#0,($A11100).l	; has Z80 stopped?
-		bne.s	loc_C76		; if not, branch
 		bsr.w	ReadJoypads
 		tst.b	($FFFFF64E).w
 		bne.s	loc_CB0
@@ -432,7 +437,6 @@ loc_CD4:				; XREF: loc_C76
 		jsr (ProcessDMAQueue).l
 
 loc_D50:
-		move.w	#0,($A11100).l
 		movem.l	($FFFFF700).w,d0-d7
 		movem.l	d0-d7,($FFFFFF10).w
 		movem.l	($FFFFF754).w,d0-d1
@@ -456,7 +460,7 @@ Demo_Time:				; XREF: loc_D50; PalToCRAM
 		jsr	HudUpdate
 		bsr.w	sub_165E
 		tst.w	($FFFFF614).w	; is there time	left on	the demo?
-		beq.w	Demo_TimeEnd	; if not, branch
+		beq.s	Demo_TimeEnd	; if not, branch
 		subq.w	#1,($FFFFF614).w ; subtract 1 from time	left
 
 Demo_TimeEnd:
@@ -466,11 +470,6 @@ Demo_TimeEnd:
 ; ===========================================================================
 
 loc_DA6:				; XREF: off_B6E
-		move.w	#$100,($A11100).l ; stop the Z80
-
-loc_DAE:
-		btst	#0,($A11100).l	; has Z80 stopped?
-		bne.s	loc_DAE		; if not, branch
 		bsr.w	ReadJoypads
 		lea	($C00004).l,a5
 		move.l	#$94009340,(a5)
@@ -493,13 +492,12 @@ loc_DAE:
 		move.w	#$7C00,(a5)
 		move.w	#$83,($FFFFF640).w
 		move.w	($FFFFF640).w,(a5)
-		move.w	#0,($A11100).l
 		bsr.w	PalCycle_SS
 		jsr (ProcessDMAQueue).l
 
 loc_E64:
 		tst.w	($FFFFF614).w
-		beq.w	locret_E70
+		beq.s	locret_E70
 		subq.w	#1,($FFFFF614).w
 
 locret_E70:
@@ -507,11 +505,6 @@ locret_E70:
 ; ===========================================================================
 
 loc_E72:				; XREF: off_B6E
-		move.w	#$100,($A11100).l ; stop the Z80
-
-loc_E7A:
-		btst	#0,($A11100).l	; has Z80 stopped?
-		bne.s	loc_E7A		; if not, branch
 		bsr.w	ReadJoypads
 		tst.b	($FFFFF64E).w
 		bne.s	loc_EB4
@@ -555,7 +548,6 @@ loc_EEE:
 		jsr (ProcessDMAQueue).l
 
 loc_F54:
-		move.w	#0,($A11100).l	; start	the Z80
 		movem.l	($FFFFF700).w,d0-d7
 		movem.l	d0-d7,($FFFFFF10).w
 		movem.l	($FFFFF754).w,d0-d1
@@ -563,8 +555,7 @@ loc_F54:
 		bsr.w	LoadTilesAsYouMove
 		jsr	AniArt_Load
 		jsr	HudUpdate
-		bsr.w	sub_1642
-		rts	
+		bra.w	sub_1642	
 ; ===========================================================================
 
 loc_F8A:				; XREF: off_B6E
@@ -581,11 +572,6 @@ loc_F9A:				; XREF: off_B6E
 ; ===========================================================================
 
 loc_FA6:				; XREF: off_B6E
-		move.w	#$100,($A11100).l ; stop the Z80
-
-loc_FAE:
-		btst	#0,($A11100).l	; has Z80 stopped?
-		bne.s	loc_FAE		; if not, branch
 		bsr.w	ReadJoypads
 		lea	($C00004).l,a5
 		move.l	#$94009340,(a5)
@@ -608,12 +594,11 @@ loc_FAE:
 		move.w	#$7C00,(a5)
 		move.w	#$83,($FFFFF640).w
 		move.w	($FFFFF640).w,(a5)
-		move.w	#0,($A11100).l	; start	the Z80
 		jsr (ProcessDMAQueue).l
 
 loc_1060:
 		tst.w	($FFFFF614).w
-		beq.w	locret_106C
+		beq.s	locret_106C
 		subq.w	#1,($FFFFF614).w
 
 locret_106C:
@@ -623,11 +608,6 @@ locret_106C:
 
 
 sub_106E:				; XREF: loc_C32; et al
-		move.w	#$100,($A11100).l ; stop the Z80
-
-loc_1076:
-		btst	#0,($A11100).l	; has Z80 stopped?
-		bne.s	loc_1076	; if not, branch
 		bsr.w	ReadJoypads
 		tst.b	($FFFFF64E).w
 		bne.s	loc_10B0
@@ -665,7 +645,6 @@ loc_10D4:				; XREF: sub_106E
 		move.w	#$7C00,(a5)
 		move.w	#$83,($FFFFF640).w
 		move.w	($FFFFF640).w,(a5)
-		move.w	#0,($A11100).l	; start	the Z80
 		rts	
 ; End of function sub_106E
 
@@ -744,10 +723,6 @@ loc_119E:				; XREF: PalToCRAM
 
 JoypadInit:				; XREF: GameClrRAM
 		move.w	#$100,($A11100).l ; stop the Z80
-
-Joypad_WaitZ80:
-		btst	#0,($A11100).l	; has the Z80 stopped?
-		bne.s	Joypad_WaitZ80	; if not, branch
 		moveq	#$40,d0
 		move.b	d0,($A10009).l	; init port 1 (joypad 1)
 		move.b	d0,($A1000B).l	; init port 2 (joypad 2)
@@ -796,20 +771,19 @@ Joypad_Read:
 
 
 VDPSetupGame:				; XREF: GameClrRAM; ChecksumError
-		lea	($C00004).l,a0
 		lea	($C00000).l,a1
 		lea	(VDPSetupArray).l,a2
 		moveq	#$12,d7
 
 VDP_Loop:
-		move.w	(a2)+,(a0)
+		move.w	(a2)+,4(a1)
 		dbf	d7,VDP_Loop	; set the VDP registers
 
 		move.w	(VDPSetupArray+2).l,d0
 		move.w	d0,($FFFFF60C).w
 		move.w	#$8ADF,($FFFFF624).w
 		moveq	#0,d0
-		move.l	#$C0000000,($C00004).l ; set VDP to CRAM write
+		move.l	#$C0000000,4(a1) ; set VDP to CRAM write
 		move.w	#$3F,d7
 
 VDP_ClrCRAM:
@@ -819,19 +793,18 @@ VDP_ClrCRAM:
 		clr.l	($FFFFF616).w
 		clr.l	($FFFFF61A).w
 		move.l	d1,-(sp)
-		lea	($C00004).l,a5
-		move.w	#$8F01,(a5)
-		move.l	#$94FF93FF,(a5)
-		move.w	#$9780,(a5)
-		move.l	#$40000080,(a5)
-		move.w	#0,($C00000).l	; clear	the screen
+		move.w	#$8F01,4(a1)
+		move.l	#$94FF93FF,4(a1)
+		move.w	#$9780,4(a1)
+		move.l	#$40000080,4(a1)
+		move.w	#0,(a1)	; clear	the screen
 
 loc_128E:
-		move.w	(a5),d1
+		move.w	4(a1),d1
 		btst	#1,d1
 		bne.s	loc_128E
 
-		move.w	#$8F02,(a5)
+		move.w	#$8F02,4(a1)
 		move.l	(sp)+,d1
 		rts	
 ; End of function VDPSetupGame
@@ -851,34 +824,34 @@ VDPSetupArray:	dc.w $8004, $8134, $8230, $8328	; XREF: VDPSetupGame
 
 
 ClearScreen:
-		lea	($C00004).l,a5
-		move.w	#$8F01,(a5)
-		move.l	#$940F93FF,(a5)
-		move.w	#$9780,(a5)
-		move.l	#$40000083,(a5)
-		move.w	#0,($C00000).l
+		lea	($C00000).l,a5
+		move.w	#$8F01,4(a5)
+		move.l	#$940F93FF,4(a5)
+		move.w	#$9780,4(a5)
+		move.l	#$40000083,4(a5)
+		move.w	#0,(a5)
 
 loc_12E6:
-		move.w	(a5),d1
+		move.w	4(a5),d1
 		btst	#1,d1
 		bne.s	loc_12E6
 
-		move.w	#$8F02,(a5)
-		lea	($C00004).l,a5
-		move.w	#$8F01,(a5)
-		move.l	#$940F93FF,(a5)
-		move.w	#$9780,(a5)
-		move.l	#$60000083,(a5)
-		move.w	#0,($C00000).l
+		move.w	#$8F01,4(a5)
+		move.l	#$940F93FF,4(a5)
+		move.w	#$9780,4(a5)
+		move.l	#$60000083,4(a5)
+		move.w	#0,(a5)
 
 loc_1314:
-		move.w	(a5),d1
+		move.w	4(a5),d1
 		btst	#1,d1
 		bne.s	loc_1314
 
-		move.w	#$8F02,(a5)
-		move.l	#0,($FFFFF616).w
-		move.l	#0,($FFFFF61A).w
+		move.w	#$8F02,4(a5)
+
+		clr.l	($FFFFF616).w
+		clr.l	($FFFFF61A).w
+		
 		lea	($FFFFF800).w,a1
 		moveq	#0,d0
 		move.w	#$A0,d1
@@ -931,12 +904,10 @@ SoundDriverLoad:            ; XREF: GameClrRAM; TitleScreen
 ; ---------------------------------------------------------------------------
  
 PlaySample:
-    move.w    #$100,($A11100).l    ; stop the Z80
-@0    btst    #0,($A11100).l
-    bne.s    @0
-    move.b    d0,$A01FFF
-    move.w    #0,($A11100).l
-    rts
+	stopZ80
+	move.b	d0,$A01FFF
+	startZ80
+	rts
 
 ; ---------------------------------------------------------------------------
 ; Subroutine to	play a sound or	music track
@@ -948,11 +919,11 @@ PlaySample:
 PlaySound:
 		cmpi.b  #$7F,d0
 		ble.s   ChkSounds00to7F
-		jmp	 NormalSoundRequest
+		bra.s	 NormalSoundRequest
 ChkSounds00to7F:
 		cmpi.b  #$01,d0
 		bge.s   LoadSlots00to7F
-		jmp	 NormalSoundRequest
+		bra.s	 NormalSoundRequest
 LoadSlots00to7F:
 		add.b   #$80,d0; Add $80 to get slot to starts at $81			
 		move.b  #$01,($FFFFFFFC).w; Move $01 to $FFFFFC to make sound driver to load the secound index
@@ -977,12 +948,12 @@ NormalSoundRequest:
 PlaySound_Special:
 		cmpi.b  #$7F,d0
 		ble.s   ChkSounds00to7F_Special
-		jmp	 NormalSoundRequest_Special
+		bra.s	 NormalSoundRequest_Special
 ChkSounds00to7F_Special:
 
 		cmpi.b  #$01,d0
 		bge.s   LoadSlots00to7F_Special
-		jmp	 NormalSoundRequest_Special
+		bra.s	 NormalSoundRequest_Special
 LoadSlots00to7F_Special:
 		add.b   #$80,d0; Add $80 to get slot to starts at $81			
 		move.b  #$01,($FFFFFFFC).w; Move $01 to $FFFFFC to make the sound driver to load the secound index
@@ -1008,16 +979,15 @@ PlaySound_Unk:
 
 
 PauseGame:				; XREF: Level_MainLoop; et al
-		nop	
 		tst.b	($FFFFFE12).w	; do you have any lives	left?
 		beq.s	Unpause		; if not, branch
-		tst.w	($FFFFF63A).w	; is game already paused?
+		tst.b	($FFFFF63A).w	; is game already paused?
 		bne.s	loc_13BE	; if yes, branch
 		btst	#7,($FFFFF605).w ; is Start button pressed?
 		beq.s	Pause_DoNothing	; if not, branch
 
 loc_13BE:
-		move.w	#1,($FFFFF63A).w ; freeze time
+		st.b	($FFFFF63A).w ; freeze time
 
 
 loc_13CA:
@@ -1026,9 +996,15 @@ loc_13CA:
 
 		btst	#6,($FFFFF605).w ; is button A pressed?
 		beq.s	Pause_ChkBC	; if not, branch
+		;tst.b	($FFFFFFFA).w
+		;bne.w	Pause_BackToLevelSelect
                 jmp     Level
-		nop	
 		bra.s	loc_1404
+; ===========================================================================
+Pause_BackToLevelSelect:			; not me thinking this'd work lmao
+		bsr.s	loc_1404
+		move.b	#4,($FFFFF600).w
+		jmp	Level_Select_Menu
 ; ===========================================================================
 
 Pause_ChkBC:				; XREF: PauseGame
@@ -1045,14 +1021,14 @@ loc_1404:				; XREF: PauseGame
 		move.b	#$80,($FFFFF003).w
 
 Unpause:				; XREF: PauseGame
-		move.w	#0,($FFFFF63A).w ; unpause the game
+		clr.w	($FFFFF63A).w ; unpause the game
 
 Pause_DoNothing:			; XREF: PauseGame
 		rts	
 ; ===========================================================================
 
 Pause_SlowMo:				; XREF: PauseGame
-		move.w	#1,($FFFFF63A).w
+		st.b	($FFFFF63A).w
 		move.b	#$80,($FFFFF003).w
 		rts	
 ; End of function PauseGame
@@ -1876,7 +1852,7 @@ PalCycle_Title:				; XREF: TitleScreen
 PalCycle_GHZ:				; XREF: PalCycle
 				jmp	PalCycle_SYZ
 				rts
-				tst.w	($FFFFF63A).w	; is game paused?
+				tst.b	($FFFFF63A).w	; is game paused?
 				bne.s	Offset_0x00221A	; if yes, branch
                 subq.w  #5,($FFFFF79C).w
                 bpl.s   Offset_0x00221A
@@ -2651,26 +2627,26 @@ Pal_Sega2:	incbin	pallet\sega2.bin
 
 
 PalLoad1:
-		move.b ($FFFFFE11),d1
-		lea (PalPointers).l,a1
-		cmp.b #0,d1
-		beq.w PalLoad1_Continue
-		lea (PalPointers2).l,a1
-		cmp.b #1,d1
-		beq.w PalLoad1_Continue
-		lea (PalPointers3).l,a1
+		move.b	($FFFFFE11),d1
+		lea	(PalPointers).l,a1
+		cmp.b	#0,d1
+		beq.w	PalLoad1_Continue
+		lea	(PalPointers2).l,a1
+		cmp.b	#1,d1
+		beq.w	PalLoad1_Continue
+		lea	(PalPointers3).l,a1
 
 PalLoad1_Continue:
-		lsl.w #3,d0
-		adda.w d0,a1
-		movea.l (a1)+,a2
-		movea.w (a1)+,a3
-		adda.w #$80,a3
-		move.w (a1)+,d7
+		lsl.w	#3,d0
+		adda.w	d0,a1
+		movea.l	(a1)+,a2
+		movea.w	(a1)+,a3
+		lea	$80(a3),a3
+		move.w	(a1)+,d7
 
 loc_2110:
-		move.l (a2)+,(a3)+
-		dbf d7,loc_2110
+		move.l	(a2)+,(a3)+
+		dbf	d7,loc_2110
 		rts
  ; End of function PalLoad1
 
@@ -2678,26 +2654,26 @@ loc_2110:
 ; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
 
 PalLoad2:
-		move.b ($FFFFFE11),d1
-		lea (PalPointers).l,a1
-		cmp.b #0,d1
-		beq.w PalLoad2_Continue
-		lea (PalPointers2).l,a1
-		cmp.b #1,d1
-		beq.w PalLoad2_Continue
-		lea (PalPointers3).l,a1
+		move.b	($FFFFFE11),d1
+		lea	(PalPointers).l,a1
+		cmp.b	#0,d1
+		beq.w	PalLoad2_Continue
+		lea	(PalPointers2).l,a1
+		cmp.b	#1,d1
+		beq.w	PalLoad2_Continue
+		lea	(PalPointers3).l,a1
 
 
 PalLoad2_Continue:
-		lsl.w #3,d0
-		adda.w d0,a1
-		movea.l (a1)+,a2
-		movea.w (a1)+,a3
-		move.w (a1)+,d7
+		lsl.w	#3,d0
+		adda.w	d0,a1
+		movea.l	(a1)+,a2
+		movea.w	(a1)+,a3
+		move.w	(a1)+,d7
 
 loc_2128:
-		move.l (a2)+,(a3)+
-		dbf d7,loc_2128
+		move.l	(a2)+,(a3)+
+		dbf	d7,loc_2128
 		rts
 ; End of function PalLoad2
 
@@ -2709,26 +2685,26 @@ loc_2128:
 ; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
 
 PalLoad3_Water:
-		move.b ($FFFFFE11),d1
-		lea (PalPointers).l,a1
-		cmp.b #0,d1
-		beq.w PalLoad3_Continue
-		lea (PalPointers2).l,a1
-		cmp.b #1,d1
-		beq.w PalLoad3_Continue
-		lea (PalPointers3).l,a1
+		move.b	($FFFFFE11),d1
+		lea	(PalPointers).l,a1
+		cmp.b	#0,d1
+		beq.w	PalLoad3_Continue
+		lea	(PalPointers2).l,a1
+		cmp.b	#1,d1
+		beq.w	PalLoad3_Continue
+		lea	(PalPointers3).l,a1
 
 PalLoad3_Continue:
-		lsl.w #3,d0
-		adda.w d0,a1
-		movea.l (a1)+,a2
-		movea.w (a1)+,a3
-		suba.w #$80,a3
-		move.w (a1)+,d7
+		lsl.w	#3,d0
+		adda.w	d0,a1
+		movea.l	(a1)+,a2
+		movea.w	(a1)+,a3
+		lea	-$80(a3),a3
+		move.w	(a1)+,d7
 
 loc_2144:
-		move.l (a2)+,(a3)+
-		dbf d7,loc_2144
+		move.l	(a2)+,(a3)+
+		dbf	d7,loc_2144
 		rts
 ; End of function PalLoad3_Water
 
@@ -2737,25 +2713,25 @@ loc_2144:
 
 
 PalLoad4_Water:
-		move.b ($FFFFFE11),d1
-		lea (PalPointers).l,a1
-		cmp.b #0,d1
-		beq.w PalLoad4_Continue
-		lea (PalPointers2).l,a1
-		cmp.b #1,d1
-		beq.w PalLoad4_Continue
-		lea (PalPointers3).l,a1
+		move.b	($FFFFFE11),d1
+		lea	(PalPointers).l,a1
+		cmp.b	#0,d1
+		beq.s	PalLoad4_Continue
+		lea	(PalPointers2).l,a1
+		cmp.b	#1,d1
+		beq.s	PalLoad4_Continue
+		lea	(PalPointers3).l,a1
 
 PalLoad4_Continue:
-		lsl.w #3,d0
-		adda.w d0,a1
-		movea.l (a1)+,a2
-		movea.w (a1)+,a3
-		suba.w #$100,a3
-		move.w (a1)+,d7
+		lsl.w	#3,d0
+		adda.w	d0,a1
+		movea.l	(a1)+,a2
+		movea.w	(a1)+,a3
+		lea	-$100(a3),a3
+		move.w	(a1)+,d7
 loc_2160:
-		move.l (a2)+,(a3)+
-		dbf d7,loc_2160
+		move.l	(a2)+,(a3)+
+		dbf	d7,loc_2160
 		rts
  ; End of function PalLoad4_Water
 ; ===========================================================================
@@ -2763,11 +2739,11 @@ loc_2160:
 ; Pallet pointers
 ; ---------------------------------------------------------------------------
 PalPointers:
-	include "_inc\Pallet pointers.asm"
+		include	"_inc\Pallet pointers.asm"
 PalPointers2:
-		include "_inc\Pallet pointers2.asm"
+		include	"_inc\Pallet pointers2.asm"
 PalPointers3:
-		include "_inc\Pallet pointers3.asm"
+		include	"_inc\Pallet pointers3.asm"
 ; ---------------------------------------------------------------------------
 ; Pallet data
 ; ---------------------------------------------------------------------------
@@ -2777,7 +2753,7 @@ Pal_LevelSel:	incbin	pallet\levelsel.bin
 Pal_Sonic:	incbin	pallet\sonic.bin
 Pal_SonicS3:	incbin	pallet\sonics3.bin
 Pal_Snorc:	incbin	pallet\snorc.bin
-Pal_DG:	incbin	pallet\dg.bin
+Pal_DG:		incbin	pallet\dg.bin
 Pal_GHZ:	incbin	pallet\ghz.bin
 Pal_GHZ2:	incbin	pallet\ghz2.bin
 Pal_GHZ3:	incbin	pallet\ghz3.bin
@@ -2810,38 +2786,39 @@ Pal_SnorcSBZ3:	incbin	pallet\snorc_sbz3.bin	; Sonic (underwater in SBZ act 3) pa
 Pal_SpeResult:	incbin	pallet\ssresult.bin	; special stage results screen pallets
 Pal_SpeContinue:incbin	pallet\sscontin.bin	; special stage results screen continue pallet
 Pal_Ending:	incbin	pallet\ending.bin	; ending sequence pallets
+		even
 
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
 ; Subroutine to load correct player pallets
 ; ---------------------------------------------------------------------------
  
-CharPalList:        dc.l Pal_Sonic, Pal_Snorc, Pal_Snorc, Pal_DG, Pal_SonicS3
-CharPalListLZ:      dc.l Pal_LZSonWater, Pal_SnorcLZ, Pal_SnorcLZ, Pal_SnorcLZ, Pal_SonicS3
-CharPalListSBZ3:    dc.l Pal_SBZ3SonWat, Pal_SnorcSBZ3, Pal_SnorcSBZ3, Pal_SnorcSBZ3, Pal_SonicS3
+CharPalList:	dc.l Pal_Sonic, Pal_Snorc, Pal_Snorc, Pal_DG, Pal_SonicS3
+CharPalListLZ:	dc.l Pal_LZSonWater, Pal_SnorcLZ, Pal_SnorcLZ, Pal_SnorcLZ, Pal_SonicS3
+CharPalListSBZ3:	dc.l Pal_SBZ3SonWat, Pal_SnorcSBZ3, Pal_SnorcSBZ3, Pal_SnorcSBZ3, Pal_SonicS3
  
 LoadPlayerPalettes:
-        moveq   #0,d1
-        move.b  Current_Character.w,d1      ; get character ID
-        move.l  CharPalList(pc,d1.w),a1     ; get normal palette to a1
- 
-        moveq   #7,d0               ; 16 palette entries
-        bsr.s   Loc_Pal             ; load palettes to RAM
-        cmpi.b  #1,$FFFFFE10.w          ; is LZ?
-        bne.s   LPP_rts             ; if not, branch
- 
-        move.l  CharPalListLZ(pc,d1.w),a1   ; get underwater palette to a1
-        cmpi.b  #3,$FFFFFE11.w          ; is act number 3?
-        bne.s   LPP_UWPal           ; if not, branch
-                move.l  CharPalListSBZ3(pc,d1.w),a1 ; get SBZ3 underwater palette to a1
- 
+		moveq	#0,d1
+		move.b	Current_Character.w,d1		; get character ID
+		move.l	CharPalList(pc,d1.w),a1		; get normal palette to a1
+	
+		moveq	#7,d0				; 16 palette entries
+		bsr.s	Loc_Pal				; load palettes to RAM
+		cmpi.b	#1,$FFFFFE10.w			; is LZ?
+		bne.s	LPP_rts				; if not, branch
+	
+		move.l	CharPalListLZ(pc,d1.w),a1	; get underwater palette to a1
+		cmpi.b	#3,$FFFFFE11.w			; is act number 3?
+		bne.s	LPP_UWPal			; if not, branch
+		move.l  CharPalListSBZ3(pc,d1.w),a1	; get SBZ3 underwater palette to a1
+	
 LPP_UWPal:
-        moveq   #7,d0               ; 16 palette entries
-        lea (a3),a2             ; put water palette to a2
-        bsr.s   Loc_Pal             ; load to RAM
- 
+		moveq	#7,d0				; 16 palette entries
+		lea	(a3),a2				; put water palette to a2
+		bsr.s	Loc_Pal				; load to RAM
+	
 LPP_rts:
-        rts                 ; return
+		rts					; return
  
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
@@ -2849,9 +2826,9 @@ LPP_rts:
 ; ---------------------------------------------------------------------------
  
 loc_Pal:
-        move.l  (a1)+,(a2)+     ; process next 2 palette entries
-        dbf d0,loc_Pal      ; keep looping until d0 is 0
-        rts             ; return
+		move.l	(a1)+,(a2)+	; process next 2 palette entries
+		dbf	d0,loc_Pal	; keep looping until d0 is 0
+		rts			; return
 
 ; ---------------------------------------------------------------------------
 ; Subroutine to	delay the program by ($FFFFF62A) frames
@@ -2915,33 +2892,7 @@ CalcSine:				; XREF: SS_BGAnimate; et al
 Sine_Data:	incbin	misc\sinewave.bin	; values for a 360º sine wave
 
 ; ===========================================================================
-		movem.l	d1-d2,-(sp)
-		move.w	d0,d1
-		swap	d1
-		moveq	#0,d0
-		move.w	d0,d1
-		moveq	#7,d2
 
-loc_2C80:
-		rol.l	#2,d1
-		add.w	d0,d0
-		addq.w	#1,d0
-		sub.w	d0,d1
-		bcc.s	loc_2C9A
-		add.w	d0,d1
-		subq.w	#1,d0
-		dbf	d2,loc_2C80
-		lsr.w	#1,d0
-		movem.l	(sp)+,d1-d2
-		rts	
-; ===========================================================================
-
-loc_2C9A:
-		addq.w	#1,d0
-		dbf	d2,loc_2C80
-		lsr.w	#1,d0
-		movem.l	(sp)+,d1-d2
-		rts	
 
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
@@ -3130,9 +3081,6 @@ Title_ClrObjRam:
 Title_ClrPallet:
 		move.l	d0,(a1)+
 
-        lea $FFFFFB80,a2        ; normal target palette
-        lea $FFFFFA00,a3        ; underwater target palette
-        bsr LoadPlayerPalettes  ; load palette for current character
                 moveq	#$E,d0		; load Sonic's pallet
 		bsr.w	PalLoad1
 		jsr	ObjectsLoad
@@ -3148,14 +3096,6 @@ Title_ClrPallet:
 		move.l	#$62000002,($C00004).l
 		lea	(Nem_TitleTM).l,a0 ; load "TM" patterns
 		bsr.w	NemDec
-		lea	($C00000).l,a6
-		move.l	#$50000003,4(a6)
-		lea	(Art_Text).l,a5
-		move.w	#$28F,d1
-
-Title_LoadText:
-		move.w	(a5)+,(a6)
-		dbf	d1,Title_LoadText ; load uncompressed text patterns
 
 		move.b	#0,($FFFFFE30).w ; clear lamppost counter
 		move.w	#0,($FFFFFE08).w ; disable debug item placement	mode
@@ -3196,13 +3136,14 @@ Title_LoadText:
 		bsr.w	NemDec
 		moveq	#4,d0		; load title screen pallet
 		bsr.w	PalLoad1
-        moveq    #$FFFFFF86,d0
-        jsr    PlaySample
+		move.b	#$86,d0
+		jsr	PlaySample
 		move.b	#0,($FFFFFFFA).w ; disable debug mode
 		move.w	#$FFFF,($FFFFF614).w ; run title	screen for $178	frames
+
 		lea	($FFFFD080).w,a1
 		moveq	#0,d0
-		move.w	#$F,d1	; ($40 / 4) - 1
+		moveq	#$F,d1	; ($40 / 4) - 1
 
 Title_ClrObjRam2:
 		move.l	d0,(a1)+
@@ -3235,7 +3176,7 @@ loc_317C:
 		bsr.w	PalCycle_Title
 		bsr.w	RunPLC_RAM
 		move.w	($FFFFD008).w,d0
-		addq.w	#2,d0
+		addq.w	#1,d0
 		move.w	d0,($FFFFD008).w ; move	Sonic to the right
 		cmpi.w	#$1C00,d0	; has Sonic object passed x-position $1C00?
 		bcs.s	Title_ChkRegion	; if not, branch
@@ -3279,138 +3220,61 @@ Title_PlayRing:
 		bsr.w	PlaySound_Special
 		bra.s	Title_CountC
 ; ===========================================================================
+; ---------------------------------------------------------------------------
+; Level	select codes
+; ---------------------------------------------------------------------------
+LevelSelectCode_J:
+		incbin	misc\ls_jcode.bin
+		even
+
+LevelSelectCode_US:
+		incbin	misc\ls_ucode.bin
+		even
+; ===========================================================================
 
 loc_3210:				; XREF: Title_EnterCheat
 		tst.b	d0
 		beq.s	Title_CheckForB
 		cmpi.w	#9,($FFFFFFE4).w
 		beq.s	Title_CheckForB
-		move.w	#0,($FFFFFFE4).w
+		clr.w	($FFFFFFE4).w
 
 Title_CountC:
-		move.b	($FFFFF605).w,d0
-		andi.b	#$20,d0		; is C button pressed?
-		beq.s	loc_3230	; if not, branch
-		add.b	#1,(Current_Character).w ; increment C counter
+		;move.b	($FFFFF605).w,d0
+		;andi.b	#$20,d0		; is C button pressed?
+		;beq.s	loc_3230	; if not, branch
+		;add.b	#1,(Current_Character).w ; increment C counter
 
 
 loc_3230:
 		tst.w	($FFFFF614).w
 		beq.w	Demo
 Title_CheckForB:
-		cmpi.b	#$10, ($FFFFF605).w	; has B been pressed?
-		bne.s	StartCheck		; if not, branch
+		cmpi.b	#$10,($FFFFF605).w		; has B been pressed?
+		bne.s	StartCheck			; if not, branch
 Title_SecondCharacter:
-		cmpi.b  #$0C, ($FFFFFFF9).w ; are we dg
-		beq.b	Title_BackTo0		; if so, switch to sos
-		addi.b	#$04, ($FFFFFFF9).w	; switch character
-		jmp 	Title_SFX	; jump to StartCheck so i dont get back into Title_Switcheroo FUCK.
+		cmpi.b  #$0C,(Current_Character).w	; are we dg
+		beq.b	Title_BackTo0			; if so, switch to sos
+		addi.b	#$04,(Current_Character).w	; switch character
+		bra.s 	Title_SFX			; jump to StartCheck so i dont get back into Title_Switcheroo FUCK.
 Title_BackTo0:
-		move.b #$00, ($FFFFFFF9).w ;back to 0
+		clr.b	(Current_Character).w		;back to 0
 Title_SFX:
-		move.b	#$CD,d0			; put value of death sound into d0
-		bsr.w	PlaySound_Special	; jump to the subroutine that plays the sound currently in d0 ($A3, at the moment)
+		move.b	#$CD,d0				; put value of death sound into d0
+		bsr.w	PlaySound_Special		; jump to the subroutine that plays the sound currently in d0 ($A3, at the moment)
 
 StartCheck:
 		andi.b	#$80,($FFFFF605).w ; check if Start is pressed
 		beq.w	loc_317C	; if not, branch
 
 Title_ChkLevSel:
+		move.b	#$E4,d0
+		bsr.w	PlaySound ; fade out music
 		tst.b	($FFFFFFE0).w		; check	if level select	code is	on
-		beq.w	PlayLevel		; if not, play level
+		beq.s	PlayLevel		; if not, play level
 		btst	#6,($FFFFF604).w ; check if A is pressed
-		beq.w	PlayLevel		; if not, play level
-		jmp	Level_Select_Menu	; if yes, goto Sonic 2 level select	
-		moveq	#2,d0
-		lea	($FFFFCC00).w,a1
-		moveq	#0,d0
-		move.w	#$DF,d1
-
-Title_ClrScroll:
-		move.l	d0,(a1)+
-		dbf	d1,Title_ClrScroll ; fill scroll data with 0
-
-		move.l	d0,($FFFFF616).w
-		move	#$2700,sr
-		lea	($C00000).l,a6
-		move.l	#$60000003,($C00004).l
-		move.w	#$3FF,d1
-
-Title_ClrVram:
-		move.l	d0,(a6)
-		dbf	d1,Title_ClrVram ; fill	VRAM with 0
-
-		bsr.w	LevSelTextLoad
-
-; ---------------------------------------------------------------------------
-; Level	Select
-; ---------------------------------------------------------------------------
-
-LevelSelect:
-		move.b	#4,($FFFFF62A).w
-		bsr.w	DelayProgram
-		bsr.w	LevSelControls
-		bsr.w	RunPLC_RAM
-		tst.l	($FFFFF680).w
-		bne.s	LevelSelect
-		andi.b	#$F0,($FFFFF605).w ; is	A, B, C, or Start pressed?
-		beq.s	LevelSelect	; if not, branch
-		move.w	($FFFFFF82).w,d0
-		cmpi.w	#$14,d0		; have you selected item $14 (sound test)?
-		bne.s	LevSel_Level_SS	; if not, go to	Level/SS subroutine
-		move.w	($FFFFFF84).w,d0
-		addi.w	#$80,d0
-		tst.b	($FFFFFFE3).w	; is Japanese Credits cheat on?
-		beq.s	LevSel_NoCheat	; if not, branch
-		cmpi.w	#$9F,d0		; is sound $9F being played?
-		beq.s	LevSel_Ending	; if yes, branch
-		cmpi.w	#$9E,d0		; is sound $9E being played?
-		beq.s	LevSel_Credits	; if yes, branch
-
-LevSel_NoCheat:
-		cmpi.w	#$94,d0		; is sound $80-$94 being played?
-		bcs.s	LevSel_PlaySnd	; if yes, branch
-		cmpi.w	#$A0,d0		; is sound $95-$A0 being played?
-		bcs.s	LevelSelect	; if yes, branch
-
-LevSel_PlaySnd:
-		bsr.w	PlaySound_Special
-		bra.s	LevelSelect
-; ===========================================================================
-
-LevSel_Ending:				; XREF: LevelSelect
-		move.b	#$18,($FFFFF600).w ; set screen	mode to	$18 (Ending)
-		move.w	#$600,($FFFFFE10).w ; set level	to 0600	(Ending)
-		rts	
-; ===========================================================================
-
-LevSel_Credits:				; XREF: LevelSelect
-		move.b	#$1C,($FFFFF600).w ; set screen	mode to	$1C (Credits)
-		move.b	#$91,d0
-		bsr.w	PlaySound_Special ; play credits music
-		move.w	#0,($FFFFFFF4).w
-		rts	
-; ===========================================================================
-
-LevSel_Level_SS:			; XREF: LevelSelect
-		add.w	d0,d0
-		move.w	LSelectPointers(pc,d0.w),d0 ; load level number
-		bmi.w	LevelSelect
-		cmpi.w	#$700,d0	; check	if level is 0700 (Special Stage)
-		bne.s	LevSel_Level	; if not, branch
-		move.b	#$10,($FFFFF600).w ; set screen	mode to	$10 (Special Stage)
-		clr.w	($FFFFFE10).w	; clear	level
-		move.b	#3,($FFFFFE12).w ; set lives to	3
-		moveq	#0,d0
-		move.w	d0,($FFFFFE20).w ; clear rings
-		move.l	d0,($FFFFFE22).w ; clear time
-		move.l	d0,($FFFFFE26).w ; clear score
-		rts	
-; ===========================================================================
-
-LevSel_Level:				; XREF: LevSel_Level_SS
-		andi.w	#$3FFF,d0
-		move.w	d0,($FFFFFE10).w ; set level number
+		beq.s	PlayLevel		; if not, play level
+		jmp	Level_Select_Menu.l	; if yes, goto Sonic 2 level select	
 
 PlayLevel:				; XREF: ROM:00003246j ...
 		move.b	#$C,($FFFFF600).w ; set	screen mode to $0C (level)
@@ -3424,27 +3288,7 @@ PlayLevel:				; XREF: ROM:00003246j ...
 		move.l	d0,($FFFFFE58).w ; clear emeralds
 		move.l	d0,($FFFFFE5C).w ; clear emeralds
 		move.b	d0,($FFFFFE18).w ; clear continues
-		move.b	#$E4,d0
-		bsr.w	PlaySound_Special ; fade out music
-		rts	
-; ===========================================================================
-; ---------------------------------------------------------------------------
-; Level	select - level pointers
-; ---------------------------------------------------------------------------
-LSelectPointers:
-		incbin	misc\ls_point.bin
-		even
-; ---------------------------------------------------------------------------
-; Level	select codes
-; ---------------------------------------------------------------------------
-LevelSelectCode_J:
-		incbin	misc\ls_jcode.bin
-		even
-
-LevelSelectCode_US:
-		incbin	misc\ls_ucode.bin
-		even
-; ===========================================================================
+		rts
 
 ; ---------------------------------------------------------------------------
 ; Demo mode
@@ -3507,173 +3351,6 @@ Demo_Level:
 ; ---------------------------------------------------------------------------
 Demo_Levels:	incbin	misc\dm_ord1.bin
 		even
-
-; ---------------------------------------------------------------------------
-; Subroutine to	change what you're selecting in the level select
-; ---------------------------------------------------------------------------
-
-; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
-
-
-LevSelControls:				; XREF: LevelSelect
-		move.b	($FFFFF605).w,d1
-		andi.b	#3,d1		; is up/down pressed and held?
-		bne.s	LevSel_UpDown	; if yes, branch
-		subq.w	#1,($FFFFFF80).w ; subtract 1 from time	to next	move
-		bpl.s	LevSel_SndTest	; if time remains, branch
-
-LevSel_UpDown:
-		move.w	#$B,($FFFFFF80).w ; reset time delay
-		move.b	($FFFFF604).w,d1
-		andi.b	#3,d1		; is up/down pressed?
-		beq.s	LevSel_SndTest	; if not, branch
-		move.w	($FFFFFF82).w,d0
-		btst	#0,d1		; is up	pressed?
-		beq.s	LevSel_Down	; if not, branch
-		subq.w	#1,d0		; move up 1 selection
-		bcc.s	LevSel_Down
-		moveq	#$14,d0		; if selection moves below 0, jump to selection	$14
-
-LevSel_Down:
-		btst	#1,d1		; is down pressed?
-		beq.s	LevSel_Refresh	; if not, branch
-		addq.w	#1,d0		; move down 1 selection
-		cmpi.w	#$15,d0
-		bcs.s	LevSel_Refresh
-		moveq	#0,d0		; if selection moves above $14,	jump to	selection 0
-
-LevSel_Refresh:
-		move.w	d0,($FFFFFF82).w ; set new selection
-		bsr.w	LevSelTextLoad	; refresh text
-		rts	
-; ===========================================================================
-
-LevSel_SndTest:				; XREF: LevSelControls
-		cmpi.w	#$14,($FFFFFF82).w ; is	item $14 selected?
-		bne.s	LevSel_NoMove	; if not, branch
-		move.b	($FFFFF605).w,d1
-		andi.b	#$C,d1		; is left/right	pressed?
-		beq.s	LevSel_NoMove	; if not, branch
-		move.w	($FFFFFF84).w,d0
-		btst	#2,d1		; is left pressed?
-		beq.s	LevSel_Right	; if not, branch
-		subq.w	#1,d0		; subtract 1 from sound	test
-		bcc.s	LevSel_Right
-		moveq	#$4F,d0		; if sound test	moves below 0, set to $4F
-
-LevSel_Right:
-		btst	#3,d1		; is right pressed?
-		beq.s	LevSel_Refresh2	; if not, branch
-		addq.w	#1,d0		; add 1	to sound test
-		cmpi.w	#$50,d0
-		bcs.s	LevSel_Refresh2
-		moveq	#0,d0		; if sound test	moves above $4F, set to	0
-
-LevSel_Refresh2:
-		move.w	d0,($FFFFFF84).w ; set sound test number
-		bsr.w	LevSelTextLoad	; refresh text
-
-LevSel_NoMove:
-		rts	
-; End of function LevSelControls
-
-; ---------------------------------------------------------------------------
-; Subroutine to load level select text
-; ---------------------------------------------------------------------------
-
-; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
-
-
-LevSelTextLoad:				; XREF: TitleScreen
-		lea	(LevelMenuText).l,a1
-		lea	($C00000).l,a6
-		move.l	#$62100003,d4	; screen position (text)
-		move.w	#$E680,d3	; VRAM setting
-		moveq	#$14,d1		; number of lines of text
-
-loc_34FE:				; XREF: LevSelTextLoad+26j
-		move.l	d4,4(a6)
-		bsr.w	LevSel_ChgLine
-		addi.l	#$800000,d4
-		dbf	d1,loc_34FE
-		moveq	#0,d0
-		move.w	($FFFFFF82).w,d0
-		move.w	d0,d1
-		move.l	#$62100003,d4
-		lsl.w	#7,d0
-		swap	d0
-		add.l	d0,d4
-		lea	(LevelMenuText).l,a1
-		lsl.w	#3,d1
-		move.w	d1,d0
-		add.w	d1,d1
-		add.w	d0,d1
-		adda.w	d1,a1
-		move.w	#$C680,d3
-		move.l	d4,4(a6)
-		bsr.w	LevSel_ChgLine
-		move.w	#$E680,d3
-		cmpi.w	#$14,($FFFFFF82).w
-		bne.s	loc_3550
-		move.w	#$C680,d3
-
-loc_3550:
-		move.l	#$6C300003,($C00004).l ; screen	position (sound	test)
-		move.w	($FFFFFF84).w,d0
-		addi.w	#$80,d0
-		move.b	d0,d2
-		lsr.b	#4,d0
-		bsr.w	LevSel_ChgSnd
-		move.b	d2,d0
-		bsr.w	LevSel_ChgSnd
-		rts	
-; End of function LevSelTextLoad
-
-
-; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
-
-
-LevSel_ChgSnd:				; XREF: LevSelTextLoad
-		andi.w	#$F,d0
-		cmpi.b	#$A,d0
-		bcs.s	loc_3580
-		addi.b	#7,d0
-
-loc_3580:
-		add.w	d3,d0
-		move.w	d0,(a6)
-		rts	
-; End of function LevSel_ChgSnd
-
-
-; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
-
-
-LevSel_ChgLine:				; XREF: LevSelTextLoad
-		moveq	#$17,d2		; number of characters per line
-
-loc_3588:
-		moveq	#0,d0
-		move.b	(a1)+,d0
-		bpl.s	loc_3598
-		move.w	#0,(a6)
-		dbf	d2,loc_3588
-		rts	
-; ===========================================================================
-
-loc_3598:				; XREF: LevSel_ChgLine
-		add.w	d3,d0
-		move.w	d0,(a6)
-		dbf	d2,loc_3588
-		rts	
-; End of function LevSel_ChgLine
-
-; ===========================================================================
-; ---------------------------------------------------------------------------
-; Level	select menu text
-; ---------------------------------------------------------------------------
-LevelMenuText:	incbin	misc\menutext.bin
-		even
 ; ---------------------------------------------------------------------------
 ; Music	playlist
 ; ---------------------------------------------------------------------------
@@ -3689,7 +3366,7 @@ Level:					; XREF: GameModeArray
 		bset	#7,($FFFFF600).w ; add $80 to screen mode (for pre level sequence)
 		tst.w	($FFFFFFF0).w
 		bmi.s	loc_37B6
-		move.b	#$E4,d0
+		move.b	#$E0,d0
 		bsr.w	PlaySound_Special ; fade out music
 
 loc_37B6:
@@ -3781,15 +3458,16 @@ Level_ClrVars3:
 Level_LoadPal:
 		move.w	#$1E,($FFFFFE14).w
 		move	#$2300,sr
-        lea $FFFFFB00,a2        ; normal palette
-        lea $FFFFFA80,a3        ; underwater palette
-        bsr LoadPlayerPalettes  ; load palette for current character
- 
-        cmpi.b  #1,$FFFFFE10.w      ; is level LZ?
-        bne.s   Level_GetBgm        ; if not, branch
-        tst.b   $FFFFFE30.w     ; has lamppost been hit?
-        beq.s   Level_GetBgm        ; if not, branch
-        move.b  $FFFFFE53.w,$FFFFF64E.w ; copy water direction to lamppost RAM
+
+		lea	$FFFFFB00.w,a2		; normal palette
+		lea	$FFFFFA80.w,a3		; underwater palette
+		bsr.w	LoadPlayerPalettes	; load palette for current character
+	
+		cmpi.b	#1,$FFFFFE10.w		; is level LZ?
+		bne.s	Level_GetBgm		; if not, branch
+		tst.b	$FFFFFE30.w		; has lamppost been hit?
+		beq.s	Level_GetBgm		; if not, branch
+		move.b	$FFFFFE53.w,$FFFFF64E.w	; copy water direction to lamppost RAM
 
 Level_GetBgm:
 		tst.w	($FFFFFFF0).w
@@ -3811,6 +3489,7 @@ Level_BgmNotLZ4:
 Level_PlayBgm:
 		lea	(MusicList).l,a1 ; load	music playlist
 		move.b	(a1,d0.w),d0	; add d0 to a1
+		move.b	d0,($FFFFFF90).w
 		bsr.w	PlaySound	; play music
 		move.b	#$34,($FFFFD080).w ; load title	card object
 ;Level_rmz:
@@ -3831,15 +3510,15 @@ Level_TtlCard:
 		jsr	Hud_Base
 
 loc_3946:
-        lea $FFFFFB80,a2        ; normal target palette
-        lea $FFFFFA00,a3        ; underwater target palette
-        bsr LoadPlayerPalettes  ; load palette for current character
+		lea	$FFFFFB80.w,a2		; normal target palette
+		lea	$FFFFFA00.w,a3		; underwater target palette
+		bsr.w	LoadPlayerPalettes	; load palette for current character
+
 		bsr.w	LevelSizeLoad
 		bsr.w	DeformBgLayer
 		bset	#2,($FFFFF754).w
 		bsr.w	MainLoadBlockLoad ; load block mappings	and pallets
 		bsr.w	LoadTilesFromStart
-		jsr	FloorLog_Unk
 		bsr.w	ColIndexLoad
 		bsr.w	LZWaterEffects
 		move.b	#1,($FFFFD000).w ; load	Sonic object
@@ -3965,6 +3644,8 @@ Level_MainLoop:
 		addq.w	#1,($FFFFFE04).w ; add 1 to level timer
 		bsr.w	MoveSonicInDemo
 		bsr.w	LZWaterEffects
+		tst.w	($FFFFFE02).w	; is the level set to restart?
+		bne.w	Level		; if yes, branch
 		jsr	ObjectsLoad
 		tst.w	($FFFFFE08).w
 		bne.s	loc_3B10
@@ -3984,8 +3665,6 @@ loc_3B14:
 		bsr.w	SignpostArtLoad
 		cmpi.b	#8,($FFFFF600).w
 		beq.s	Level_ChkDemo	; if screen mode is 08 (demo), branch
-		tst.w	($FFFFFE02).w	; is the level set to restart?
-		bne.w	Level		; if yes, branch
 		cmpi.b	#$C,($FFFFF600).w
 		beq.w	Level_MainLoop	; if screen mode is $0C	(level), branch
 		rts	
@@ -5151,7 +4830,7 @@ ProcessDMAQueue_Done:
 
 
 PalCycle_SS:				; XREF: loc_DA6; SpecialStage
-		tst.w	($FFFFF63A).w
+		tst.b	($FFFFF63A).w
 		bne.s	locret_49E6
 		subq.w	#1,($FFFFF79C).w
 		bpl.s	locret_49E6
@@ -5715,9 +5394,11 @@ End_LoadData:
 		lea	(Kos_EndFlowers).l,a0 ;	load extra flower patterns
 		lea	($FFFF9400).w,a1 ; RAM address to buffer the patterns
 		bsr.w	KosDec
-        lea $FFFFFB80,a2        ; normal target palette
-        lea $FFFFFA00,a3        ; underwater target palette
-        bsr LoadPlayerPalettes  ; load palette for current character
+
+		lea	$FFFFFB80.w,a2		; normal target palette
+		lea	$FFFFFA00.w,a3		; underwater target palette
+		bsr.w	LoadPlayerPalettes	; load palette for current character
+
 		move.w	#$8B,d0
 		bsr.w	PlaySound	; play ending sequence music
 		btst	#6,($FFFFF604).w ; is button A pressed?
@@ -6165,9 +5846,10 @@ Cred_ClrPallet:
 		move.l	d0,(a1)+
 		dbf	d1,Cred_ClrPallet ; fill pallet	with black ($0000)
 
-        lea $FFFFFB80,a2        ; normal target palette
-        lea $FFFFFA00,a3        ; underwater target palette
-        bsr LoadPlayerPalettes  ; load palette for current character
+		lea	$FFFFFB80.w,a2		; normal target palette
+		lea	$FFFFFA00.w,a3		; underwater target palette
+		bsr.w	LoadPlayerPalettes	; load palette for current character
+
 		move.b	#$8A,($FFFFD080).w ; load credits object
 		jsr	ObjectsLoad
 		jsr	BuildSprites
@@ -6559,7 +6241,35 @@ LevelSizeLoad:				; XREF: TitleScreen; Level; EndingSequence
 ; ---------------------------------------------------------------------------
 ; Level size array and ending start location array
 ; ---------------------------------------------------------------------------
-LevelSizeArray:	incbin	misc\lvl_size.bin
+LevelSizeArray:	; now in ASM form
+		dc.w     4,     0, $24BF,     0,  $300,   $60	; GHZ1
+		dc.w     4,     0, $1EBF,     0,  $300,   $60	; GHZ2
+		dc.w     4,     0, $2960,     0,  $300,   $60	; GHZ3
+		dc.w     4,     0, $2ABF,     0,  $300,   $60	; GHZ4
+		dc.w     4,     0, $19BF,     0,  $530,   $60	; LZ1
+		dc.w     4,     0, $10AF,     0,  $720,   $60	; LZ2
+		dc.w     4,     0, $202F, $FF00,  $800,   $60	; LZ3
+		dc.w     4,     0, $20BF,     0,  $720,   $60	; LZ4/SBZ3
+		dc.w     4,     0, $17BF,     0,  $1D0,   $60	; MZ1
+		dc.w     4,     0, $17BF,     0,  $520,   $60	; MZ2
+		dc.w     4,     0, $1800,     0,  $720,   $60	; MZ3
+		dc.w     4,     0, $16BF,     0,  $720,   $60	; MZ4
+		dc.w     4,     0, $F00,     0,  $640,   $60	; SLZ1
+		dc.w     4,     0, $C00,     0,  $640,   $60	; SLZ2
+		dc.w     4,     0, $2000,     0,  $6C0,   $60	; SLZ3
+		dc.w     4,     0, $3EC0,     0,  $720,   $60	; SLZ4
+		dc.w     4,     0, $22C0,     0,  $420,   $60	; SYZ1
+		dc.w     4,     0, $28C0,     0,  $520,   $60	; SYZ2
+		dc.w     4,     0, $2C00,     0,  $620,   $60	; SYZ3
+		dc.w     4,     0, $2EC0,     0,  $620,   $60	; SYZ4
+		dc.w     4,     0, $21C0,     0,  $720,   $60	; SBZ1
+		dc.w     4,     0, $1E40, $FF00,  $800,   $60	; SBZ2
+		dc.w     4, $2080, $2460,  $510,  $510,   $60	; SBZ3
+		dc.w     4,     0, $3EC0,     0,  $720,   $60	; SBZ4
+		dc.w     4,     0,  $500,  $110,  $110,   $60	; Ending
+		dc.w     4,     0,  $DC0,  $110,  $110,   $60	; Ending
+		dc.w     4,     0, $2FFF,     0,  $320,   $60	; Ending
+		dc.w     4,     0, $2FFF,     0,  $320,   $60	; Ending
 		even
 
 EndingStLocArray:
@@ -6821,8 +6531,8 @@ Deform_Index:	dc.w Deform_GHZ-Deform_Index, Deform_LZ-Deform_Index
 
 
 Deform_GHZ:
-		jmp		Deform_LZ
-		rts
+		;jmp		Deform_LZ
+		;rts
 		move.w	($FFFFF73A).w,d4
 		ext.l	d4
 		asl.l	#5,d4
@@ -6995,9 +6705,7 @@ Deform_LZ:
 @DeformWater_2:
         subq.w  #1,d6
         lea (Obj0A_WobbleData).l,a2 ; a2 = Water Deformation Data for Plane B
-        lea LZ_Wave_Data(pc),a3 ; a3 = Water Deformation Data for Plane A
-        lea (Obj0A_WobbleData),a2 ; a2 = Water Deformation Data for Plane A	
-;        lea (Obj0A_WobbleData).l,a1 ; a2 = Water Deformation Data for Plane A			
+        lea LZ_Wave_Data(pc),a3 ; a3 = Water Deformation Data for Plane A		
         add.w   d2,a2           ; load array from position of water line
         add.w   d3,a3           ;
  
@@ -7013,38 +6721,7 @@ Deform_LZ:
         rts
  
 ; ===========================================================================
-LZ_Wave_Data:   dc.b   9,  9,  8,  8,  7,  7,  7,  7,  8,  8,  9,  9,  0,  0,  0,  0
-        dc.b   9,  9,  8,  8,  7,  7,  7,  7,  8,  8,  9,  9,  0,  0,  0,  0
-        dc.b   9,  9,  8,  8,  7,  7,  7,  7,  8,  8,  9,  9,  0,  0,  0,  0
-        dc.b   9,  9,  8,  8,  7,  7,  7,  7,  8,  8,  9,  9,  0,  0,  0,  0
-        dc.b   9,  9,  8,  8,  7,  7,  7,  7,  8,  8,  9,  9,  0,  0,  0,  0
-        dc.b   9,  9,  8,  8,  7,  7,  7,  7,  8,  8,  9,  9,  0,  0,  0,  0
-        dc.b   9,  9,  8,  8,  7,  7,  7,  7,  8,  8,  9,  9,  0,  0,  0,  0
-        dc.b   9,  9,  8,  8,  7,  7,  7,  7,  8,  8,  9,  9,  0,  0,  0,  0
-        dc.b   9,  9,  8,  8,  7,  7,  7,  7,  8,  8,  9,  9,  0,  0,  0,  0
-        dc.b   9,  9,  8,  8,  7,  7,  7,  7,  8,  8,  9,  9,  0,  0,  0,  0
-        dc.b   9,  9,  8,  8,  7,  7,  7,  7,  8,  8,  9,  9,  0,  0,  0,  0
-        dc.b   9,  9,  8,  8,  7,  7,  7,  7,  8,  8,  9,  9,  0,  0,  0,  0
-        dc.b   9,  9,  8,  8,  7,  7,  7,  7,  8,  8,  9,  9,  0,  0,  0,  0
-        dc.b   9,  9,  8,  8,  7,  7,  7,  7,  8,  8,  9,  9,  0,  0,  0,  0
-        dc.b   9,  9,  8,  8,  7,  7,  7,  7,  8,  8,  9,  9,  0,  0,  0,  0
-        dc.b   9,  9,  8,  8,  7,  7,  7,  7,  8,  8,  9,  9,  0,  0,  0,  0
-        dc.b   9,  9,  8,  8,  7,  7,  7,  7,  8,  8,  9,  9,  0,  0,  0,  0
-        dc.b   9,  9,  8,  8,  7,  7,  7,  7,  8,  8,  9,  9,  0,  0,  0,  0
-        dc.b   9,  9,  8,  8,  7,  7,  7,  7,  8,  8,  9,  9,  0,  0,  0,  0
-        dc.b   9,  9,  8,  8,  7,  7,  7,  7,  8,  8,  9,  9,  0,  0,  0,  0
-        dc.b   9,  9,  8,  8,  7,  7,  7,  7,  8,  8,  9,  9,  0,  0,  0,  0
-        dc.b   9,  9,  8,  8,  7,  7,  7,  7,  8,  8,  9,  9,  0,  0,  0,  0
-        dc.b   9,  9,  8,  8,  7,  7,  7,  7,  8,  8,  9,  9,  0,  0,  0,  0
-        dc.b   9,  9,  8,  8,  7,  7,  7,  7,  8,  8,  9,  9,  0,  0,  0,  0
-        dc.b   9,  9,  8,  8,  7,  7,  7,  7,  8,  8,  9,  9,  0,  0,  0,  0
-        dc.b   9,  9,  8,  8,  7,  7,  7,  7,  8,  8,  9,  9,  0,  0,  0,  0
-        dc.b   9,  9,  8,  8,  7,  7,  7,  7,  8,  8,  9,  9,  0,  0,  0,  0
-        dc.b   9,  9,  8,  8,  7,  7,  7,  7,  8,  8,  9,  9,  0,  0,  0,  0
-        dc.b   9,  9,  8,  8,  7,  7,  7,  7,  8,  8,  9,  9,  0,  0,  0,  0
-        dc.b   9,  9,  8,  8,  7,  7,  7,  7,  8,  8,  9,  9,  0,  0,  0,  0
-        dc.b   9,  9,  8,  8,  7,  7,  7,  7,  8,  8,  9,  9,  0,  0,  0,  0
-        dc.b   9,  9,  8,  8,  7,  7,  7,  7,  8,  8,  9,  9,  0,  0,  0,  0
+LZ_Wave_Data:
  
 
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
@@ -11803,8 +11480,8 @@ Obj3F_Main:				; XREF: Obj3F_Index
 		move.b	#$C,$19(a0)
 		move.b	#7,$1E(a0)
 		move.b	#0,$1A(a0)
-        moveq    #$FFFFFF8F,d0
-        JMP    PlaySample				
+		move.b	#$8F,d0
+		jmp	PlaySample				
 ; ===========================================================================
 Ani_obj1E:
 	include "_anim\obj1E.asm"
@@ -12864,11 +12541,11 @@ loc_9C0E:
 
 Obj25_Animate:				; XREF: Obj25_Index
 		
-		add.w	#3, $26(a0)				;Make this bigger to make the bounce faster
+		addq.w	#3, $26(a0)				;Make this bigger to make the bounce faster
 		move.w	$26(a0), d0
-		jsr		CalcSine
+		jsr	CalcSine
 		asr.w	#2, d0					;Make this bigger (up to 8) to make the arc smaller
-		bpl		@Skip
+		bpl.s	@Skip
 		move.w	#0, $26(a0)
 	@Skip:
 		neg.w	d0
@@ -12927,7 +12604,6 @@ CollectRing:				; XREF: Obj25_Collect
 loc_9CA4:
 		addq.b	#1,($FFFFFE12).w ; add 1 to the	number of lives	you have
 		addq.b	#1,($FFFFFE1C).w ; add 1 to the	lives counter
-		move.w	#$B5,d0		; play extra life music
 
 Obj25_PlaySnd:
 		jmp	(PlaySound_Special).l
@@ -13464,11 +13140,10 @@ ExtraLife:
 Obj2E_ChkShoes:
 		cmpi.b	#3,d0		; does monitor contain speed shoes?
 		bne.s	Obj2E_ChkShield
-		move.b	#1,($FFFFFE2E).w ; speed up the	BG music
+		st.b	($FFFFFE2E).w ; speed up the	BG music
 		move.w	#$4B0,($FFFFD034).w ; time limit for the power-up
-		move.w	#$C00,($FFFFF760).w ; change Sonic's top speed
-		move.w	#$18,($FFFFF762).w
-		move.w	#$80,($FFFFF764).w
+		lea	($FFFFF760).w,a2	; Load Sonic_top_speed into a2
+		jsr	ApplySpeedSettings	; Fetch Speed settings
 		move.w	#$E2,d0
 		jmp	(PlaySound).l	; Speed	up the music
 ; ===========================================================================
@@ -13476,7 +13151,7 @@ Obj2E_ChkShoes:
 Obj2E_ChkShield:
 		cmpi.b	#4,d0		; does monitor contain a shield?
 		bne.s	Obj2E_ChkInvinc
-		move.b	#1,($FFFFFE2C).w ; give	Sonic a	shield
+		st.b	($FFFFFE2C).w ; give	Sonic a	shield
 		move.b	#$38,($FFFFD180).w ; load shield object	($38)
 		move.w	#$AF,d0
 		jmp	(PlaySound).l	; play shield sound
@@ -13485,7 +13160,7 @@ Obj2E_ChkShield:
 Obj2E_ChkInvinc:
 		cmpi.b	#5,d0		; does monitor contain invincibility?
 		bne.s	Obj2E_ChkRings
-		move.b	#1,($FFFFFE2D).w ; make	Sonic invincible
+		st.b	($FFFFFE2D).w ; make	Sonic invincible
 		move.w	#$4B0,($FFFFD032).w ; time limit for the power-up
 		move.b	#$38,($FFFFD200).w ; load stars	object ($3801)
 		move.b	#1,($FFFFD21C).w
@@ -13539,7 +13214,7 @@ Obj2E_ChkS:
 		move.b	#2,$24(a2)
 		move.w	#$CC,d0
 		jsr	(PlaySound_Special).l ;	play spring sound
-        rts
+		rts
 
 Obj2E_ChkGoggles:	
 		cmpi.b	#8,d0		; does monitor contain Goggles?
@@ -16018,6 +15693,7 @@ Obj39_ChgMode:				; XREF: Obj39_Wait
 ; ===========================================================================
 
 Obj39_ResetLvl:				; XREF: Obj39_ChgMode
+		clr.l	($FFFFFE38).w
 		move.w	#1,($FFFFFE02).w ; restart level
 
 Obj39_Display:				; XREF: Obj39_ChgMode
@@ -16113,10 +15789,8 @@ loc_C61A:				; XREF: Obj3A_ChkPos
 
 Obj3A_Wait:				; XREF: Obj3A_Index
 		subq.w	#1,$1E(a0)	; subtract 1 from time delay
-		bne.s	Obj3A_Display
+		bne.w	DisplaySprite
 		addq.b	#2,$24(a0)
-
-Obj3A_Display:
 		bra.w	DisplaySprite
 ; ===========================================================================
 
@@ -16138,8 +15812,8 @@ Obj3A_RingBonus:
 Obj3A_ChkBonus:
 		tst.w	d0		; is there any bonus?
 		bne.s	Obj3A_AddBonus	; if yes, branch
-		move.w	#$C5,d0
-		jsr	(PlaySound_Special).l ;	play "ker-ching" sound
+		move.w	#$CD,d0
+		jsr	(PlaySound_Special).l ;	play "blip" sound
 		addq.b	#2,$24(a0)
 		cmpi.w	#$501,($FFFFFE10).w
 		bne.s	Obj3A_SetDelay
@@ -16154,9 +15828,9 @@ locret_C692:
 
 Obj3A_AddBonus:				; XREF: Obj3A_ChkBonus
 		jsr	AddPoints
-		move.b	($FFFFFE0F).w,d0
-		andi.b	#3,d0
-		bne.s	locret_C692
+		;move.b	($FFFFFE0F).w,d0
+		;andi.b	#3,d0
+		;bne.s	locret_C692
 		move.w	#$CD,d0
 		jmp	(PlaySound_Special).l ;	play "blip" sound
 ; ===========================================================================
@@ -16174,7 +15848,7 @@ Obj3A_NextLevel:			; XREF: Obj3A_Index
 		tst.w	d0
 		bne.s	Obj3A_ChkSS
 		move.b	#0,($FFFFF600).w ; set game mode to level (00)
-		bra.s	Obj3A_Display2
+		bra.w	DisplaySprite
 ; ===========================================================================
 
 Obj3A_ChkSS:				; XREF: Obj3A_NextLevel
@@ -16182,13 +15856,11 @@ Obj3A_ChkSS:				; XREF: Obj3A_NextLevel
 		tst.b	($FFFFF7CD).w	; has Sonic jumped into	a giant	ring?
 		beq.s	loc_C6EA	; if not, branch
 		move.b	#$10,($FFFFF600).w ; set game mode to Special Stage (10)
-		bra.s	Obj3A_Display2
+		bra.w	DisplaySprite
 ; ===========================================================================
 
 loc_C6EA:				; XREF: Obj3A_ChkSS
 		move.w	#1,($FFFFFE02).w ; restart level
-
-Obj3A_Display2:				; XREF: Obj3A_NextLevel, Obj3A_ChkSS
 		bra.w	DisplaySprite
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
@@ -17223,19 +16895,15 @@ Obj_Index:
 
 
 ObjectFall:
-		move.l	8(a0),d2
-		move.l	$C(a0),d3
 		move.w	$10(a0),d0
 		ext.l	d0
-		asl.l	#8,d0
-		add.l	d0,d2
+		lsl.l	#8,d0
+		add.l	d0,8(a0)
 		move.w	$12(a0),d0
 		addi.w	#$38,$12(a0)	; increase vertical speed
 		ext.l	d0
-		asl.l	#8,d0
-		add.l	d0,d3
-		move.l	d2,8(a0)
-		move.l	d3,$C(a0)
+		lsl.l	#8,d0
+		add.l	d0,$C(a0)
 		rts	
 ; End of function ObjectFall
 
@@ -17247,18 +16915,14 @@ ObjectFall:
 
 
 SpeedToPos:
-		move.l	8(a0),d2
-		move.l	$C(a0),d3
 		move.w	$10(a0),d0	; load horizontal speed
 		ext.l	d0
-		asl.l	#8,d0		; multiply speed by $100
-		add.l	d0,d2		; add to x-axis	position
+		lsl.l	#8,d0		; multiply speed by $100
+		add.l	d0,8(a0)	; add to x-axis	position
 		move.w	$12(a0),d0	; load vertical	speed
 		ext.l	d0
-		asl.l	#8,d0		; multiply by $100
-		add.l	d0,d3		; add to y-axis	position
-		move.l	d2,8(a0)	; update x-axis	position
-		move.l	d3,$C(a0)	; update y-axis	position
+		lsl.l	#8,d0		; multiply by $100
+		add.l	d0,$C(a0)	; add to y-axis	position
 		rts	
 ; End of function SpeedToPos
 
@@ -18027,8 +17691,8 @@ Obj41_BounceUp:				; XREF: Obj41_Up
 		clr.b	$25(a0)
 		move.w	#$CC,d0
 		jsr	(PlaySound_Special).l ;	play spring sound
-        moveq    #$FFFFFF8C,d0
-        jsr    PlaySample		
+		move.b	#$8C,d0
+		jsr	PlaySample		
 
 Obj41_AniUp:				; XREF: Obj41_Index
 		lea	(Ani_obj41).l,a1
@@ -18079,8 +17743,8 @@ loc_DC56:
 		bclr	#5,$22(a1)
 		move.w	#$CC,d0
 		jsr	(PlaySound_Special).l ;	play spring sound
-        moveq    #$FFFFFF8C,d0
-        jsr    PlaySample		
+		move.b	#$8C,d0
+		jsr	PlaySample		
 
 Obj41_AniLR:				; XREF: Obj41_Index
 		lea	(Ani_obj41).l,a1
@@ -18125,8 +17789,8 @@ Obj41_BounceDwn:			; XREF: Obj41_Dwn
 		clr.b	$25(a0)
 		move.w	#$CC,d0
 		jsr	(PlaySound_Special).l ;	play spring sound
-        moveq    #$FFFFFF8C,d0
-        jsr    PlaySample		
+		move.b	#$8C,d0
+		jsr	PlaySample		
 
 Obj41_AniDwn:				; XREF: Obj41_Index
 		lea	(Ani_obj41).l,a1
@@ -19150,11 +18814,14 @@ Obj0D_Touch:				; XREF: Obj0D_Index
 		move.w	($FFFFD008).w,d0
 		sub.w	8(a0),d0
 		bcs.s	locret_EBBA
-		cmpi.w	#$1,d0		; is Sonic within $20 pixels of	the signpost?
+		cmpi.w	#$20,d0		; is Sonic within $20 pixels of	the signpost?
 		bcc.s	locret_EBBA	; if not, branch
 		move.b  #1,($FFFFF7AA).w ; Lock the screen
 		move.w	#$CF,d0
 		jsr	(PlaySound).l	; play signpost	sound
+
+		move.b	#$95,d0
+		jsr	(PlaySample).l	; play signpost	sound
 
 		addq.b	#2,$24(a0)
 
@@ -19886,7 +19553,7 @@ Map_obj40:
 ; ---------------------------------------------------------------------------
 
 Obj4F:					; XREF: Obj_Index
-		move.b	#$14,($FFFFF600).w ; go to title screen
+		rts
 
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
@@ -22282,7 +21949,7 @@ loc_11114:
 ; ===========================================================================
 
 Obj1B_Animate:				; XREF: loc_11114
-		tst.w	($FFFFF63A).w	; is the game paused?
+		tst.b	($FFFFF63A).w	; is the game paused?
 		bne.s	Obj1B_Display	; if yes, branch
 		move.b	#0,$32(a0)	; resume animation
 		subq.b	#3,$1A(a0)	; use normal frames
@@ -24395,20 +24062,9 @@ Obj01_Main:				; XREF: Obj01_Index
 		move.b	#2,$18(a0)
 		move.b	#$18,$19(a0)
 		move.b	#4,1(a0)
-		
-		cmpi.b  #$00, ($FFFFFFF9).w ; are we snorc
-		bne.b	Default_Vars 	; if so, become snorc
-		
-Sos_Vars:
-		move.w	#$FFF,($FFFFF760).w ; Sonic's top speed
-		move.w	#$FA,($FFFFF762).w ; Sonic's acceleration
-		move.w	#$0,($FFFFF764).w ; Sonic's deceleration
-		jmp Obj01_Control		; Jump to control routine so we dont overwrite our variables with Snorc's
-		
-Default_Vars:
-		move.w	#$600,($FFFFF760).w ; Snorc's top speed
-		move.w	#$C,($FFFFF762).w ; Snorc's Acceleration
-		move.w	#$80,($FFFFF764).w ; Snorc's Decelleration
+
+		lea	($FFFFF760).w,a2	; Load Sonic_top_speed into a2
+		bsr.w	ApplySpeedSettings	; Fetch Speed settings
 
 Obj01_Control:				; XREF: Obj01_Index
 		tst.w	($FFFFFFFA).w	; is debug cheat enabled?
@@ -24461,11 +24117,6 @@ Obj01_Modes:	dc.w Obj01_MdNormal-Obj01_Modes
 		dc.w Obj01_MdJump-Obj01_Modes
 		dc.w Obj01_MdRoll-Obj01_Modes
 		dc.w Obj01_MdJump2-Obj01_Modes
-; ---------------------------------------------------------------------------
-; Music	to play	after invincibility wears off
-; ---------------------------------------------------------------------------
-MusicList2:	incbin	misc\muslist2.bin
-		even
 ; ===========================================================================
 
 Sonic_Display:				; XREF: loc_12C7E
@@ -24490,18 +24141,13 @@ Obj01_ChkInvin:
 		cmpi.w	#$C,($FFFFFE14).w
 		bcs.s	Obj01_RmvInvin
 		moveq	#0,d0
-		move.b	($FFFFFE10).w,d0
-		cmpi.w	#$103,($FFFFFE10).w ; check if level is	SBZ3
-		bne.s	Obj01_PlayMusic
-		moveq	#5,d0		; play SBZ music
-
-Obj01_PlayMusic:
-		lea	(MusicList2).l,a1
-		move.b	(a1,d0.w),d0
+		move.b	($FFFFFF90).w,d0
 		jsr	(PlaySound).l	; play normal music
 
 Obj01_RmvInvin:
-		move.b	#0,($FFFFFE2D).w ; cancel invincibility
+		clr.b	($FFFFFE2D).w ; cancel invincibility
+		subq.b	#2,$24(a0)
+		move.w	#$78,$30(a0)
 
 Obj01_ChkShoes:
 		tst.b	($FFFFFE2E).w	; does Sonic have speed	shoes?
@@ -24510,29 +24156,12 @@ Obj01_ChkShoes:
 		beq.s	Obj01_ExitChk
 		subq.w	#1,$34(a0)	; subtract 1 from time
 		bne.s	Obj01_ExitChk
-		move.w	#$600,($FFFFF760).w ; restore Sonic's speed
-		cmpi.b  #$04, ($FFFFFFF9).w ; are we snorc
-		beq.b	Snorc_After_Speed 	; if so, become snorc
-		cmpi.b  #$08, ($FFFFFFF9).w ; are we snorc
-		beq.b	Sphere_After_Speed 	; if so, become snorc
-		
-Sos_After_Speed:
-		move.w	#$FFF,($FFFFF760).w ; Sonic's top speed
-		move.w	#$FF,($FFFFF762).w ; Sonic's acceleration
-		move.w	#$0,($FFFFF764).w ; Sonic's deceleration
-		jmp	Obj01_ShoesOver
 
-Snorc_After_Speed:
-		move.w	#$C,($FFFFF762).w ; restore Sonic's acceleration
-		move.w	#$80,($FFFFF764).w ; restore Sonic's deceleration
-		jmp	Obj01_ShoesOver
-		
-Sphere_After_Speed:
-		move.w	#$C,($FFFFF762).w ; restore Sonic's acceleration
-		move.w	#$80,($FFFFF764).w ; restore Sonic's deceleration
+		lea	($FFFFF760).w,a2	; Load Sonic_top_speed into a2
+		bsr.w	ApplySpeedSettings
 
 Obj01_ShoesOver:
-		move.b	#0,($FFFFFE2E).w ; cancel speed	shoes
+		clr.b	($FFFFFE2E).w ; cancel speed	shoes
 		move.w	#$E3,d0
 		jmp	(PlaySound).l	; run music at normal speed
 ; ===========================================================================
@@ -24581,19 +24210,8 @@ Obj01_InWater:
 		bsr.w	ResumeMusic
 		move.b	#$A,($FFFFD340).w ; load bubbles object	from Sonic's mouth
 		move.b	#$81,($FFFFD368).w
-		cmpi.b  #$00, ($FFFFFFF9).w ; are we snorc
-		bne.b	Obj01_InWaterDefault 	; if not, become snorc
-Obj01_InWaterSos
-		move.w	#$10,($FFFFF760).w ; change Sonic's top speed
-		move.w	#10,($FFFFF762).w ; change Sonic's acceleration
-		move.w	#$40,($FFFFF764).w ; change Sonic's deceleration
-		jmp Obj01_InWaterEnd
-Obj01_InWaterDefault:
-		move.w	#$300,($FFFFF760).w ; change Sonic's top speed
-		move.w	#6,($FFFFF762).w ; change Sonic's acceleration
-		move.w	#$40,($FFFFF764).w ; change Sonic's deceleration
-		
-Obj01_InWaterEnd
+		lea	($FFFFF760).w,a2	; Load Sonic_top_speed into a2
+		bsr.w	ApplySpeedSettings	; Fetch Speed settings
 		asr	$10(a0)
 		asr	$12(a0)
 		asr	$12(a0)
@@ -24607,20 +24225,10 @@ Obj01_OutWater:
 		bclr	#6,$22(a0)
 		beq.s	rts_stfu
 		bsr.w	ResumeMusic
-		cmpi.b  #$00, ($FFFFFFF9).w ; are we snorc
-		bne.b	Obj01_OutWaterDefault ; if not, become snorc
-Obj01_OutWaterSos
-		move.w	#$FFF,($FFFFF760).w ; Sonic's top speed
-		move.w	#$FF,($FFFFF762).w ; Sonic's acceleration
-		move.w	#$0,($FFFFF764).w ; Sonic's deceleration
-		jmp Obj01_OutWaterEnd
-Obj01_OutWaterDefault
-		move.w	#$600,($FFFFF760).w ; restore Sonic's speed
-		move.w	#$C,($FFFFF762).w ; restore Sonic's acceleration
-		move.w	#$80,($FFFFF764).w ; restore Sonic's deceleration
-		
-Obj01_OutWaterEnd:
+		lea	($FFFFF760).w,a2	; Load Sonic_top_speed into a2
+		bsr.w	ApplySpeedSettings	; Fetch Speed settings
 		asl	$12(a0)
+		tst.w   $12(a0)
 		beq.w	rts_stfu
 		move.b	#8,($FFFFD300).w ; load	splash object
 		cmpi.w	#-$1000,$12(a0)
@@ -24659,9 +24267,16 @@ Obj01_MdJump:				; XREF: Obj01_Modes
 		bsr.w	Sonic_JumpHeight
 		bsr.w	Sonic_ChgJumpDir
 		bsr.w	Sonic_LevelBound
+		; (Taken from Sonic CD disassembly)
+		cmpi.w	#$1000-$38,$12(a0)		; Are we falling down too fast?
+		; (branch condition was changed)
+		ble.s	@NoDownVelCap			; If not, branch
+		move.w	#$1000,$12(a0)		; Cap the fall speed
+
+@NoDownVelCap:			
 		jsr	ObjectFall
 		btst	#6,$22(a0)
-		beq.s	loc_12E5C
+		beq.s	loc_12E5C	
 		subi.w	#$28,$12(a0)
 
 loc_12E5C:
@@ -24687,6 +24302,13 @@ Obj01_MdJump2:				; XREF: Obj01_Modes
 		bsr.w	Sonic_JumpHeight
 		bsr.w	Sonic_ChgJumpDir
 		bsr.w	Sonic_LevelBound
+		; (Taken from Sonic CD disassembly)
+		cmpi.w	#$1000-$38,$12(a0)		; Are we falling down too fast?
+		; (branch condition was changed)
+		ble.s	@NoDownVelCap			; If not, branch
+		move.w	#$1000,$12(a0)		; Cap the fall speed
+
+@NoDownVelCap:		
 		jsr	ObjectFall
 		btst	#6,$22(a0)
 		beq.s	loc_12EA6
@@ -24938,9 +24560,7 @@ loc_130BA:
 		move.b	#$D,$1C(a0)	; use "stopping" animation
 		bclr	#0,$22(a0)
 		move.w	#$A4,d0
-		jsr	(PlaySound_Special).l ;	play stopping sound
-        moveq    #$FFFFFF8F,d0
-        jsr    PlaySample			
+		jmp	(PlaySound_Special).l ;	play stopping sound			
 
 locret_130E8:
 		rts	
@@ -24989,9 +24609,7 @@ loc_13120:
 		move.b	#$D,$1C(a0)	; use "stopping" animation
 		bset	#0,$22(a0)
 		move.w	#$A4,d0
-		jsr	(PlaySound_Special).l ;	play stopping sound
-        moveq    #$FFFFFF8F,d0
-        jsr    PlaySample		
+		jmp	(PlaySound_Special).l ;	play stopping sound		
 
 locret_1314E:
 		rts	
@@ -25007,8 +24625,7 @@ locret_1314E:
 Sonic_RollSpeed:			; XREF: Obj01_MdRoll
 		move.w	($FFFFF760).w,d6
 		asl.w	#1,d6
-		move.w	($FFFFF762).w,d5
-		asr.w	#1,d5
+		moveq	#6,d5
 		move.w	($FFFFF764).w,d4
 		asr.w	#2,d4
 		tst.b	($FFFFF7CA).w
@@ -25373,8 +24990,8 @@ loc_1341C:
 		clr.b	$38(a0)
 		move.w	#$A0,d0
 		jsr	(PlaySound_Special).l ;	play jumping sound
-        moveq    #$FFFFFF90,d0
-        jsr    PlaySample		
+		move.b	#$90,d0
+		jsr	PlaySample		
 		move.b	#$13,$16(a0)
 		move.b	#9,$17(a0)
 		btst	#2,$22(a0)
@@ -25383,12 +25000,12 @@ loc_1341C:
 		move.b	#7,$17(a0)
 		
 Result_Check:
-        tst.b   ($FFFFF601).w ; Has the victory animation flag been set?
-        beq.s   NormalJump ; If not, branch
-        move.b  #$13,$1C(a0) ; Play the victory animation
-        bra.s   cont ; Continue
+		tst.b	($FFFFF601).w	; Has the victory animation flag been set?
+		beq.s	NormalJump	; If not, branch
+		move.b	#$13,$1C(a0)	; Play the victory animation
+		bra.s	cont		; Continue
 NormalJump:
-        move.b  #2,$1C(a0)    ; use "jumping"    animation
+		move.b	#2,$1C(a0)	; use "jumping"    animation
 cont:
 		bset	#2,$22(a0)
 		addq.w	#5,$C(a0)
@@ -25571,8 +25188,8 @@ Sonic_DoubleJump:
 		bne.s	DJ_End	; if yes, branch
 		move.b	#1,($FFFFFFEB).w; if not, set doublejump flag
 		move.b	#$10,$1C(a0)    		; use anim 2
-	    moveq    #$FFFFFF92,d0
-        jsr    PlaySample
+		move.b	#$92,d0
+		jsr	PlaySample
 		bclr	#4,$22(a0); clear double jump flag
 		move.w	#-$720,$12(a0); set normal double jump speed
 		btst	#6,$22(a0); is Sonic underwater?
@@ -25938,13 +25555,6 @@ locret_1379E:
 
 Sonic_ResetOnFloor:			; XREF: PlatformObject; et al
 		clr.b ($FFFFFFEB).w; clear doublejump flag
-		btst	#4,$22(a0)
-		beq.s	loc_137AE
-		nop	
-		nop	
-		nop	
-
-loc_137AE:
 		bclr	#5,$22(a0)
 		bclr	#1,$22(a0)
 		bclr	#4,$22(a0)
@@ -25978,6 +25588,7 @@ loc_1380C:
 		bsr.w	Sonic_HurtStop
 		bsr.w	Sonic_LevelBound
 		bsr.w	Sonic_RecordPos
+		bsr.w	Sonic_Water	; <--
 		bsr.w	Sonic_Animate
 		bsr.w	LoadSonicDynPLC
 		jmp	DisplaySprite
@@ -26016,6 +25627,13 @@ locret_13860:
 
 Obj01_Death:				; XREF: Obj01_Index
 		bsr.w	GameOver
+		; (Taken from Sonic CD disassembly)
+		cmpi.w	#$1000-$38,$12(a0)		; Are we falling down too fast?
+		; (branch condition was changed)
+		ble.s	@NoDownVelCap			; If not, branch
+		move.w	#$1000,$12(a0)		; Cap the fall speed
+
+@NoDownVelCap:					
 		jsr	ObjectFall
 		bsr.w	Sonic_RecordPos
 		bsr.w	Sonic_Animate
@@ -26026,17 +25644,18 @@ Obj01_Death:				; XREF: Obj01_Index
 
 
 GameOver:				; XREF: Obj01_Death
-		move.w	($FFFFF72E).w,d0
+		move.w	($FFFFF704).w,d0
 		addi.w	#$100,d0
 		cmp.w	$C(a0),d0
-		bcc.w	locret_13900
+		bpl.w	locret_13900
 		move.w	#-$38,$12(a0)
 		addq.b	#2,$24(a0)
+
 		clr.b	($FFFFFE1E).w	; stop time counter
 		addq.b	#1,($FFFFFE1C).w ; update lives	counter
 		subq.b	#1,($FFFFFE12).w ; subtract 1 from number of lives
 		bne.s	loc_138D4
-		move.w	#0,$3A(a0)
+		move.w	#0,$3A(a0)		
 		move.b	#$39,($FFFFD080).w ; load GAME object
 		move.b	#$39,($FFFFD0C0).w ; load OVER object
 		move.b	#1,($FFFFD0DA).w ; set OVER object to correct frame
@@ -26417,7 +26036,55 @@ DPLC_ReadEntry:
  
 DPLC_End:
         rts         ; return
-        rts         ; return
+
+; ===========================================================================
+; ---------------------------------------------------------------------------
+; Code from 'SCHG How-to: Fix bugs relating to Super Sonic'
+;
+; Subroutine to collect the right speed setting for a character
+; a0 must be character
+; a1 will be the result and have the correct speed settings
+; a2 is characters' speed
+; ---------------------------------------------------------------------------
+
+; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+
+ApplySpeedSettings:
+	moveq	#0,d0				; Quickly clear d0
+	tst.w	($FFFFD034).w			; Does character have speedshoes?
+	beq.s	@noshoes			; If not, branch
+	addq.b	#6,d0				; Quickly add 6 to d0
+@noshoes:
+	btst	#6,$22(a0)			; Is the character underwater?
+	beq.s	@nowater			; If not, branch
+	addi.b	#12,d0				; Add 12 to d0
+@nowater:
+	cmpi.b	#$00,(Current_Character).w	; Is the character not Sos?
+	bne.s	@notSos				; If not, branch
+	addi.b	#24,d0				; Add 24 to d0
+@notSos:
+	lea	Speedsettings(pc,d0.w),a1	; Load correct speed settings into a1
+	move.l	(a1)+,(a2)+			; Set character's new top speed and acceleration
+	move.w	(a1),(a2)			; Set character's deceleration
+	rts					; Finish subroutine
+; ===========================================================================
+; ----------------------------------------------------------------------------
+; Speed Settings Array
+;
+; This array defines what speeds the character should be set to
+; ----------------------------------------------------------------------------
+;		top_speed	acceleration	deceleration	; #	; Comment
+Speedsettings:
+	dc.w	$600,		$C,		$80		; $00	; Normal
+	dc.w	$C00,		$18,		$80		; $08	; Normal Speedshoes
+	dc.w	$300,		$6,		$40		; $16	; Normal Underwater
+	dc.w	$600,		$C,		$40		; $24	; Normal Underwater Speedshoes
+	dc.w	$FFF,		$FF,		$0		; $32	; Sos
+	dc.w	$C00,		$18,		$80		; $40	; Sos Speedshoes
+	dc.w	$FFF,		$FF,		$0		; $48	; Sos Underwater
+	dc.w	$FFF,		$FF,		$0		; $56	; Sos Underwater Speedshoes
+	even
+; ===========================================================================
 
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
@@ -26625,6 +26292,8 @@ Obj0A_ReduceAir:
 		move.b	#$A,$34(a0)
 		move.w	#1,$36(a0)
 		move.w	#$78,$2C(a0)
+		move.b	#$93,d0
+		jsr	(PlaySample).l ;	play drowning sound
 		move.l	a0,-(sp)
 		lea	($FFFFD000).w,a0
 		bsr.w	Sonic_ResetOnFloor
@@ -27750,103 +27419,6 @@ loc_14C3C:
 		not.w	d1
 		rts	
 ; End of function FindWall2
-
-; ---------------------------------------------------------------------------
-; Unused floor/wall subroutine - logs something	to do with collision
-; ---------------------------------------------------------------------------
-
-; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
-
-
-FloorLog_Unk:				; XREF: Level
-		rts	
-
-		lea	(CollArray1).l,a1
-		lea	(CollArray1).l,a2
-		move.w	#$FF,d3
-
-loc_14C5E:
-		moveq	#$10,d5
-		move.w	#$F,d2
-
-loc_14C64:
-		moveq	#0,d4
-		move.w	#$F,d1
-
-loc_14C6A:
-		move.w	(a1)+,d0
-		lsr.l	d5,d0
-		addx.w	d4,d4
-		dbf	d1,loc_14C6A
-
-		move.w	d4,(a2)+
-		suba.w	#$20,a1
-		subq.w	#1,d5
-		dbf	d2,loc_14C64
-
-		adda.w	#$20,a1
-		dbf	d3,loc_14C5E
-
-		lea	(CollArray1).l,a1
-		lea	(CollArray2).l,a2
-		bsr.s	FloorLog_Unk2
-		lea	(CollArray1).l,a1
-		lea	(CollArray1).l,a2
-
-; End of function FloorLog_Unk
-
-; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
-
-
-FloorLog_Unk2:				; XREF: FloorLog_Unk
-		move.w	#$FFF,d3
-
-loc_14CA6:
-		moveq	#0,d2
-		move.w	#$F,d1
-		move.w	(a1)+,d0
-		beq.s	loc_14CD4
-		bmi.s	loc_14CBE
-
-loc_14CB2:
-		lsr.w	#1,d0
-		bcc.s	loc_14CB8
-		addq.b	#1,d2
-
-loc_14CB8:
-		dbf	d1,loc_14CB2
-
-		bra.s	loc_14CD6
-; ===========================================================================
-
-loc_14CBE:
-		cmpi.w	#-1,d0
-		beq.s	loc_14CD0
-
-loc_14CC4:
-		lsl.w	#1,d0
-		bcc.s	loc_14CCA
-		subq.b	#1,d2
-
-loc_14CCA:
-		dbf	d1,loc_14CC4
-
-		bra.s	loc_14CD6
-; ===========================================================================
-
-loc_14CD0:
-		move.w	#$10,d0
-
-loc_14CD4:
-		move.w	d0,d2
-
-loc_14CD6:
-		move.b	d2,(a2)+
-		dbf	d3,loc_14CA6
-
-		rts	
-
-; End of function FloorLog_Unk2
 
 
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
@@ -31010,6 +30582,7 @@ BossDefeated:
 		lsr.w	#8,d0
 		lsr.b	#3,d0
 		add.w	d0,$C(a1)
+		clr.b	($FFFFFE1E).w	; stop time counter
 
 locret_178A2:
 		rts	
@@ -31150,7 +30723,7 @@ loc_179DA:
 
 loc_179E0:
 		clr.w	$12(a0)
-		move.w	#$81,d0
+		move.w	($FFFFFF90).w,d0
 		jsr	(PlaySound).l	; play GHZ music
 
 loc_179EE:
@@ -31720,7 +31293,7 @@ loc_180F6:				; XREF: Obj77_ShipIndex
 		move.b	#$32,$3C(a0)
 
 loc_18112:
-		move.w	#$82,d0
+		move.w	($FFFFFF90).w,d0
 		jsr	(PlaySound).l	; play LZ music
 		bset	#0,$22(a0)
 		addq.b	#2,$25(a0)
@@ -32150,7 +31723,7 @@ loc_18566:
 
 loc_1856C:
 		clr.w	$12(a0)
-		move.w	#$83,d0
+		move.w	($FFFFFF90).w,d0
 		jsr	(PlaySound).l	; play MZ music
 
 loc_1857A:
@@ -32798,7 +32371,7 @@ loc_18BAE:
 
 loc_18BB4:
 		clr.w	$12(a0)
-		move.w	#$84,d0
+		move.w	($FFFFFF90).w,d0
 		jsr	(PlaySound).l	; play SLZ music
 
 loc_18BC2:
@@ -33693,7 +33266,7 @@ loc_194DA:
 
 loc_194E0:
 		clr.w	$12(a0)
-		move.w	#$85,d0
+		move.w	($FFFFFF90).w,d0
 		jsr	(PlaySound).l	; play SYZ music
 
 loc_194EE:
@@ -35912,6 +35485,8 @@ Hurt_ChkSpikes:
 
 Hurt_Sound:
 		jsr	(PlaySound_Special).l
+		move.b	#$96,d0
+		jsr	(PlaySample).l
 		moveq	#-1,d0
 		rts	
 ; ===========================================================================
@@ -35948,8 +35523,8 @@ KillSonic:
 
 Kill_Sound:
 		jsr	(PlaySound_Special).l
-        moveq    #$FFFFFF8D,d0
-        jsr    PlaySample		
+		move.b	#$8D,d0
+		jsr	PlaySample		
 
 Kill_NoDeath:
 		moveq	#-1,d0
@@ -37352,8 +36927,8 @@ Obj10:					; XREF: Obj_Index
 
 
 AniArt_Load:				; XREF: Demo_Time; loc_F54
-		tst.w	($FFFFF63A).w	; is the game paused?
-		bne.s	AniArt_Pause	; if yes, branch
+		;tst.b	($FFFFF63A).w	; is the game paused?
+		;bne.s	AniArt_Pause	; if yes, branch
 		lea	($C00000).l,a6
 		bsr.w	AniArt_GiantRing
 		moveq	#0,d0
@@ -37985,7 +37560,7 @@ loc_1C6E4:
 Hud_ChkTime:
 		tst.b	($FFFFFE1E).w	; does the time	need updating?
 		beq.s	Hud_ChkLives	; if not, branch
-		tst.w	($FFFFF63A).w	; is the game paused?
+		tst.b	($FFFFF63A).w	; is the game paused?
 		bne.s	Hud_ChkLives	; if yes, branch
 		lea	($FFFFFE22).w,a1
 		cmpi.l	#$93B3B,(a1)+	; is the time 9.59?
@@ -38844,82 +38419,52 @@ Eni_JapNames:	incbin	mapeni\japcreds.bin	; Japanese credits (mappings)
 Nem_JapNames:	incbin	artnem\japcreds.bin	; Japanese credits
 		even
 ; ---------------------------------------------------------------------------
-; Sprite mappings - Sonic
+; All the players
+; Uncompressed graphics, sprite mappings, and uncompressed graphics loading array
 ; ---------------------------------------------------------------------------
-Map_Sonic:
-	include "_maps\Sonic.asm"
-Map_SonicS3:
-	include "_maps\SonicS3.asm"
-; ---------------------------------------------------------------------------
-; Uncompressed graphics	loading	array for Sonic
-; ---------------------------------------------------------------------------
-SonicDynPLC:
-	include "_inc\Sonic dynamic pattern load cues.asm"
-
-; ---------------------------------------------------------------------------
-; Sprite mappings - Snorc
-; ---------------------------------------------------------------------------
-Map_Snorc:
-	include "_maps\Snorc.asm"
-
-; ---------------------------------------------------------------------------
-; Uncompressed graphics	loading	array for Snorc
-; ---------------------------------------------------------------------------
-SnorcDynPLC:
-	include "_inc\Snorc dynamic pattern load cues.asm"
-	
-; ---------------------------------------------------------------------------
-; Sprite mappings - Sphere
-; ---------------------------------------------------------------------------
-Map_Sphere:
-	include "_maps\Sphere.asm"
-
-; ---------------------------------------------------------------------------
-; Uncompressed graphics	loading	array for Sphere
-; ---------------------------------------------------------------------------
-SphereDynPLC:
-	include "_inc\Sphere dynamic pattern load cues.asm"
-	
-; ---------------------------------------------------------------------------
-; Sprite mappings - DG
-; ---------------------------------------------------------------------------
-Map_DG:
-	include "_maps\DG.asm"
-
-; ---------------------------------------------------------------------------
-; Uncompressed graphics	loading	array for DG
-; ---------------------------------------------------------------------------
-DGDynPLC:
-	include "_inc\DG dynamic pattern load cues.asm"
-
-S3DynPLC:
-	include "_inc\SonicS3 dynamic pattern load cues.asm"
-; ---------------------------------------------------------------------------
-; Uncompressed graphics	- Sonic
-; ---------------------------------------------------------------------------
+		align	$8000
 Art_Sonic:	incbin	artunc\sonic.bin	; Sonic
 		even
-; ---------------------------------------------------------------------------
-; Uncompressed graphics	- S3sonic
-; ---------------------------------------------------------------------------
+Map_Sonic:
+		include	"_maps\Sonic.asm"
+SonicDynPLC:
+		include	"_inc\Sonic dynamic pattern load cues.asm"
+		even
+
+		align	$8000
 Art_SonicS3:	incbin	artunc\sonics3.bin	; Sonic
-		even		
-; ---------------------------------------------------------------------------
-; Uncompressed graphics	- Snorc
-; ---------------------------------------------------------------------------
+		even	
+Map_SonicS3:
+		include	"_maps\SonicS3.asm"	
+S3DynPLC:
+		include	"_inc\SonicS3 dynamic pattern load cues.asm"
+		even
+
+		align	$8000
 Art_Snorc:	incbin	artunc\snorc.bin	; Snorc
 		even
-		
-; ---------------------------------------------------------------------------
-; Uncompressed graphics	- Sphere
-; ---------------------------------------------------------------------------
-Art_Sphere:	incbin	artunc\sphere.bin	; Snorc
+Map_Snorc:
+		include	"_maps\Snorc.asm"
+SnorcDynPLC:
+		include	"_inc\Snorc dynamic pattern load cues.asm"		
 		even
-		
-; ---------------------------------------------------------------------------
-; Uncompressed graphics	- DG
-; ---------------------------------------------------------------------------
-Art_DG:	incbin	artunc\dg.bin	; Snorc
+
+		align	$8000
+Art_Sphere:	incbin	artunc\sphere.bin	; Sphere
+		even
+Map_Sphere:
+		include	"_maps\Sphere.asm"
+SphereDynPLC:
+		include	"_inc\Sphere dynamic pattern load cues.asm"
+		even
+
+		align	$8000
+Art_DG:		incbin	artunc\dg.bin		; dg
+		even
+Map_DG:
+		include	"_maps\DG.asm"
+DGDynPLC:
+		include	"_inc\DG dynamic pattern load cues.asm"		
 		even
 ; ---------------------------------------------------------------------------
 ; Compressed graphics - various
@@ -39648,15 +39193,6 @@ SoundTypes:	dc.b $90, $90, $90, $90, $90, $90, $90,	$90, $90, $90, $90, $90, $90
 
 
 sub_71B4C:				; XREF: loc_B10; PalToCRAM
-		move.w	#$100,($A11100).l ; stop the Z80
-		nop	
-		nop	
-		nop	
-
-loc_71B5A:
-		btst	#0,($A11100).l
-		bne.s	loc_71B5A
-
 		lea	($FFF000).l,a6
 		clr.b	$E(a6)
 		tst.b	3(a6)		; is music paused?
@@ -39750,11 +39286,6 @@ loc_71C38:
 		jsr	sub_72850(pc)
 
 loc_71C44:
-        move.b    ($A04000).l,d2
-        btst    #7,d2
-        bne.s    loc_71C44
-        move.b    #$2A,($A04000).l
-		move.w	#0,($A11100).l	; start	the Z80
 		rts	
 ; End of function sub_71B4C
 
@@ -39799,22 +39330,13 @@ loc_71C88:
 		move.b	$10(a5),d0
 		cmpi.b	#$80,d0
 		beq.s	locret_71CAA
+		stopZ80
 		move.b	d0,($A01FFF).l
+		startZ80
 
 locret_71CAA:
 		rts	
-; ===========================================================================
 
-loc_71CAC:
-		subi.b	#$88,d0
-		move.b	byte_71CC4(pc,d0.w),d0
-		move.b	d0,($A000EA).l
-		move.b	#$83,($A01FFF).l
-		rts	
-; End of function sub_71C4E
-
-; ===========================================================================
-byte_71CC4:	dc.b $12, $15, $1C, $1D, $FF, $FF
 
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
@@ -39876,7 +39398,7 @@ sub_71D22:				; XREF: sub_71CEC
 		beq.s	loc_71D58
 		add.b	8(a5),d5
 		andi.w	#$7F,d5
-		lsl.w	#1,d5
+		add.w	d5,d5
 		lea	word_72790(pc),a0
 		move.w	(a0,d5.w),d6
 		move.w	d6,$10(a5)
@@ -40064,7 +39586,9 @@ loc_71E7C:
 		dbf	d3,loc_71E7C
 
 		jsr	sub_729B6(pc)
+		stopZ80
 		move.b    #$7F,($A01FFF).l; pause DAC
+		startZ80
 		bra.w	loc_71C44
 ; ===========================================================================
 
@@ -40113,7 +39637,9 @@ loc_71EDC:
         jsr    sub_72722(pc)
  
 @UnpauseDAC:
+	stopZ80
         move.b    #0,($A01FFF).l    ; unpause DAC
+	startZ80
 
 loc_71EFE:
 		bra.w	loc_71C44
@@ -40218,6 +39744,7 @@ Sound_ExIndex:
 ; ---------------------------------------------------------------------------
 
 Sound_E1:				  
+	stopZ80
 		lea	(SegaPCM).l,a2			; Load the SEGA PCM sample into a2. It's important that we use a2 since a0 and a1 are going to be used up ahead when reading the joypad ports 
 		move.l	#(SegaPCM_End-SegaPCM),d3			; Load the size of the SEGA PCM sample into d3 
 		move.b	#$2A,($A04000).l		; $A04000 = $2A -> Write to DAC channel	  
@@ -40234,6 +39761,7 @@ PlayPCM_Loop:
 		bne.s	return_PlayPCM			; If start is pressed, stop playing, leave this loop, and unfreeze the 68K 
 		bra.s	PlayPCM_Loop			; Otherwise, continue playing PCM sample 
 return_PlayPCM: 
+	startZ80
 		addq.w	#4,sp 
 		rts
 ; ===========================================================================
@@ -40304,7 +39832,8 @@ CheckSounds00to80:
 		movea.l	(Go_MusicIndex00).l,a4		
 NormalIndexLoad:
 		clr.w   ($FFFFFFFC).w
-		lsl.w	#2,d7
+		add.w	d7,d7
+		add.w	d7,d7
 		movea.l	(a4,d7.w),a4
 		moveq	#0,d0
 		move.w	(a4),d0
@@ -40489,7 +40018,8 @@ Sound_notB5:
 Sound_notA7:
 		movea.l	(Go_SoundIndex).l,a0
 		subi.b	#$A0,d7
-		lsl.w	#2,d7
+		add.w	d7,d7
+		add.w	d7,d7
 		movea.l	(a0,d7.w),a3
 		movea.l	a3,a1
 		moveq	#0,d1
@@ -40506,7 +40036,8 @@ loc_72228:
 		move.b	d3,d4
 		bmi.s	loc_72244
 		subq.w	#2,d3
-		lsl.w	#2,d3
+		add.w	d3,d3
+		add.w	d3,d3
 		lea	dword_722CC(pc),a5
 		movea.l	(a5,d3.w),a5
 		bset	#2,(a5)
@@ -40599,7 +40130,8 @@ Sound_D0toDF:				; XREF: Sound_ChkValue
 		bne.w	locret_723C6
 		movea.l	(Go_SoundD0).l,a0
 		subi.b	#$D0,d7
-		lsl.w	#2,d7
+		add.w	d7,d7
+		add.w	d7,d7
 		movea.l	(a0,d7.w),a3
 		movea.l	a3,a1
 		moveq	#0,d0
@@ -40906,7 +40438,9 @@ loc_725B6:
 
 		move.b	#$80,9(a6)	; set music to $80 (silence)
 		jsr	sub_7256A(pc)
+		stopZ80
 		move.b    #$80,($A01FFF).l ; stop DAC playback
+		startZ80
 		bra.w	sub_729B6
 
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
@@ -41105,21 +40639,15 @@ sub_72722:				; XREF: sub_71E18; sub_72C4E; sub_72CB4
 
 
 sub_7272E:				; XREF: loc_71E6A
-		move.b	($A04000).l,d2
-		btst	#7,d2
-		bne.s	sub_7272E
-		move.b	d0,($A04000).l
-		nop	
-		nop	
-		nop	
-
-loc_72746:
-		move.b	($A04000).l,d2
-		btst	#7,d2
-		bne.s	loc_72746
-
-		move.b	d1,($A04001).l
-		rts	
+        stopZ80
+        waitYM
+        move.b    d0,($A04000).l
+        waitYM
+        move.b    d1,($A04001).l
+        waitYM
+        move.b    #$2A,($A04000).l
+        startZ80
+        rts
 ; End of function sub_7272E
 
 ; ===========================================================================
@@ -41133,21 +40661,15 @@ loc_7275A:				; XREF: sub_72722
 
 
 sub_72764:				; XREF: loc_71E6A; Sound_ChkValue; sub_7256A; sub_72764
-		move.b	($A04000).l,d2
-		btst	#7,d2
-		bne.s	sub_72764
-		move.b	d0,($A04002).l
-		nop	
-		nop	
-		nop	
-
-loc_7277C:
-		move.b	($A04000).l,d2
-		btst	#7,d2
-		bne.s	loc_7277C
-
-		move.b	d1,($A04003).l
-		rts	
+        stopZ80
+        waitYM
+        move.b    d0,($A04002).l
+        waitYM
+        move.b    d1,($A04003).l
+        waitYM
+        move.b    #$2A,($A04000).l
+        startZ80
+        rts
 ; End of function sub_72764
 
 ; ===========================================================================
@@ -41226,7 +40748,7 @@ sub_728AC:				; XREF: sub_72878
 		bcs.s	loc_728CA
 		add.b	8(a5),d5
 		andi.w	#$7F,d5
-		lsl.w	#1,d5
+		add.w	d5,d5
 		lea	word_729CE(pc),a0
 		move.w	(a0,d5.w),$10(a5)
 		bra.w	sub_71D60
@@ -41298,7 +40820,8 @@ loc_7292E:				; XREF: sub_72850
 		beq.s	sub_7296A
 		movea.l	(Go_PSGIndex).l,a0
 		subq.w	#1,d0
-		lsl.w	#2,d0
+		add.w	d0,d0
+		add.w	d0,d0
 		movea.l	(a0,d0.w),a0
 		move.b	$C(a5),d0
 		move.b	(a0,d0.w),d0
@@ -42083,15 +41606,16 @@ SoundD0:	incbin	sound\soundD0.bin
 		even
 SegaPCM:	incbin	sound\segapcm.bin
 SegaPCM_end:	even
-	include	"s2_menu.asm"	; Sonic 2 level select
-    SHC2021:    incbin "SHC21_lite_Sonic12.bin"
+		include	"s2_menu.asm"	; Sonic 2 level select
+
+SHC2021:	incbin "SHC21_lite_Sonic12.bin"
                 even
 ; ==============================================================
 ; --------------------------------------------------------------
 ; Debugging modules
 ; --------------------------------------------------------------
 
-   include   "ErrorHandler.asm"
+		include	"ErrorHandler.asm"
 
 ; end of 'ROM'
 EndOfRom:
