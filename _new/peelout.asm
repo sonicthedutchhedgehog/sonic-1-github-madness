@@ -5,6 +5,8 @@
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 ;SCDPeelout:
+		cmpi.b	#$10,(Current_Character).w
+		beq.s	@return
 		btst	#1,$39(a0)
 		bne.s	SCDPeelout_Launch
 		cmpi.b	#7,$1C(a0) ;check to see if your looking up
@@ -14,10 +16,9 @@
 		beq.w	@return
 		move.b	#1,$1C(a0)
 		move.w	#0,$3A(a0)
+		move.b	#2,($FFFFD1DC).w
 		move.w	#$BE,d0
-                move.b	#2,($FFFFD1DC).w
-		jsr		(PlaySound_Special).l 	; Play peelout charge sound
-	       ;sfx 	sfx_PeeloutCharge 		; These are if you use AMPS
+		jsr	(PlaySound_Special).l 	; Play peelout charge sound
 		addq.l	#4,sp
 		bset	#1,$39(a0)
 		
@@ -53,8 +54,7 @@ SCDPeelout_Launch:
 @dontflip:
 		bclr	#7,$22(a0)
 		move.w	#$BC,d0
-		jsr		(PlaySound_Special).l
-		; sfx 	sfx_PeeloutRelease
+		jsr	(PlaySound_Special).l
 		bra.w	SCDPeelout_ResetScr
 ; ---------------------------------------------------------------------------
  
@@ -82,8 +82,7 @@ SCDPeelout_Charge:				; If still charging the dash...
 		
 SCDPeelout_Stop_Sound:
 		move.w	#$BC,d0
-		jsr		(PlaySound_Special).l
-		; sfx 	sfx_PeeloutStop
+		jsr	(PlaySound_Special).l
 		clr.w	$14(a0)
 
 SCDPeelout_ResetScr:
@@ -98,6 +97,5 @@ SCDPeelout_ResetScr:
  
 	@finish:
 		bsr.w	Sonic_LevelBound
-		bsr.w	Sonic_AnglePos
-		rts
+		bra.w	Sonic_AnglePos
 		

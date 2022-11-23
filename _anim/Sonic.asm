@@ -32,7 +32,7 @@
 		dc.w SonAni_Blank-SonicAniData
 		dc.w SonAni_Float3-SonicAniData
 		dc.w SonAni_Float4-SonicAniData
-		dc.w SonAni_SpinDash-SonicAniData ;1F
+		dc.w SonAni_Spindash-SonicAniData ;1F
 SonAni_Walk:	dc.b $FF, 8, 9,	$A, $B,	6, 7, $FF
 SonAni_Run:	dc.b $FF, $1E, $1F, $20, $21, $FF, $FF,	$FF
 SonAni_Roll:	dc.b $FE, $2E, $2F, $30, $31, $32, $FF,	$FF

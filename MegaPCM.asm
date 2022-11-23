@@ -81,6 +81,7 @@ MegaPCM:
 	DAC_Entry	$0A, sm64_mario_lets_go, dpcm+pri+panLR		; $98
 	DAC_Entry	$0A, sm64_mario_whoa, dpcm+pri+panLR		; $99
 	DAC_Entry	$0A, sm64_mario_burned, dpcm+pri+panLR		; $9A
+	DAC_Entry	$0A, vineboom, dpcm+pri+panLR			; $9B	- v i n e  b o o m
 
 MegaPCM_End:
 
@@ -109,5 +110,6 @@ MegaPCM_End:
 	IncludeDAC	sm64_mario_burned, bin
 	IncludeDAC	sm64_mario_whoa, bin
 	IncludeDAC	MamaF_er, bin
+	IncludeDAC	vineboom, bin
 	even
 
