@@ -33,7 +33,7 @@ DAC_Entry macro Pitch,Offset,Flags
 	z80word	(\Offset)|$8000		; 04h	- Start Offset (in Start bank)
 	z80word	(\Offset\_End-1)|$8000	; 06h	- End Offset (in End bank)
 	endm
-	
+
 IncludeDAC macro Name,Extension
 \Name:
 	if strcmp('\extension','wav')
@@ -58,25 +58,29 @@ MegaPCM:
 	DAC_Entry	$07, Kick, pcm					; $81	- Kick
 	DAC_Entry	$0A, Snare, pcm					; $82	- Snare
 	DAC_Entry	$1B, Timpani, dpcm				; $83	- Timpani
-	DAC_Entry	$04, whoosh, pcm				; $84	- Amogus Whoosh SFX
-	DAC_Entry	$03, crack, pcm					; $85	- Amogus Crack SFX
-	DAC_Entry	$03, menuscreenmusic, dpcm+pri+loop+panLR	; $86	- Menu
+	DAC_Entry	$04, whoosh, dpcm				; $84	- Amogus Whoosh SFX
+	DAC_Entry	$03, crack, dpcm				; $85	- Amogus Crack SFX
+	DAC_Entry	$06, menuscreenmusic, dpcm+pri+loop+panLR	; $86	- Menu
 	dc.l	0,0							; $87	- <Free>
 	DAC_Entry	$12, Timpani, dpcm				; $88	- Hi-Timpani
 	DAC_Entry	$15, Timpani, dpcm				; $89	- Mid-Timpani
 	DAC_Entry	$1B, Timpani, dpcm				; $8A	- Mid-Low-Timpani
 	DAC_Entry	$1D, Timpani, dpcm				; $8B	- Low-Timpani
-	DAC_Entry	$03, sm64_mario_boing, dpcm+pri+panLR		; $8C	- Sonic's voice (definitely by Roger Craig Smith and not Charles Martinet)  
-	DAC_Entry	$03, sm64_mario_falling, dpcm+pri+panLR		; $8D   
-	DAC_Entry	$03, sm64_mario_hoo, dpcm+pri+panLR		; $8E    
+	DAC_Entry	$03, sm64_mario_boing, dpcm+pri+panLR		; $8C	- Sonic's voice (definitely by Roger Craig Smith and not Charles Martinet)
+	DAC_Entry	$03, sm64_mario_falling, dpcm+pri+panLR		; $8D
+	DAC_Entry	$03, sm64_mario_hoo, dpcm+pri+panLR		; $8E
 	DAC_Entry	$03, sm64_mario_oof, dpcm+pri+panLR		; $8F
-	DAC_Entry	$03, sm64_mario_wah, dpcm+pri+panLR		; $90 
-	DAC_Entry	$03, MamaF_er, dpcm+pri+panLR			; $91 	
-	DAC_Entry	$03, sm64_mario_hoohoo, dpcm+pri+panLR		; $92    	
-	DAC_Entry	$08, sm64_mario_drowning, dpcm+pri+panLR	; $93
-	DAC_Entry	$08, sm64_mario_game_over, dpcm+pri+panLR	; $94
-	DAC_Entry	$08, sm64_mario_here_we_go, dpcm+pri+panLR	; $95
-	DAC_Entry	$08, sm64_mario_hurt, dpcm+pri+panLR		; $96
+	DAC_Entry	$03, sm64_mario_wah, dpcm+pri+panLR		; $90
+	DAC_Entry	$03, MamaF_er, dpcm+pri+panLR			; $91
+	DAC_Entry	$03, sm64_mario_hoohoo, dpcm+pri+panLR		; $92
+	DAC_Entry	$0A, sm64_mario_drowning, dpcm+pri+panLR	; $93
+	DAC_Entry	$0A, sm64_mario_game_over, dpcm+pri+panLR	; $94
+	DAC_Entry	$0A, sm64_mario_here_we_go, dpcm+pri+panLR	; $95
+	DAC_Entry	$0A, sm64_mario_hurt, dpcm+pri+panLR		; $96
+	DAC_Entry	$0A, sm64_mario_thank_you, dpcm+pri+panLR	; $97
+	DAC_Entry	$0A, sm64_mario_lets_go, dpcm+pri+panLR		; $98
+	DAC_Entry	$0A, sm64_mario_whoa, dpcm+pri+panLR		; $99
+	DAC_Entry	$0A, sm64_mario_burned, dpcm+pri+panLR		; $9A
 
 MegaPCM_End:
 
@@ -87,19 +91,23 @@ MegaPCM_End:
 	IncludeDAC	Kick, wav
 	IncludeDAC	Snare, wav
 	IncludeDAC	Timpani, bin
-	IncludeDAC	whoosh, wav
-	IncludeDAC 	crack, wav
-	IncludeDAC	menuscreenmusic, bin	
+	IncludeDAC	whoosh, bin
+	IncludeDAC 	crack, bin
+	IncludeDAC	menuscreenmusic, bin
 	IncludeDAC	sm64_mario_boing, bin
 	IncludeDAC 	sm64_mario_falling, bin
 	IncludeDAC	sm64_mario_hoo, bin
 	IncludeDAC	sm64_mario_oof, bin
 	IncludeDAC 	sm64_mario_wah, bin
+	IncludeDAC	sm64_mario_thank_you, bin
 	IncludeDAC	sm64_mario_hoohoo, bin
 	IncludeDAC	sm64_mario_drowning, bin
 	IncludeDAC	sm64_mario_game_over, bin
 	IncludeDAC	sm64_mario_here_we_go, bin
+	IncludeDAC	sm64_mario_lets_go, bin
 	IncludeDAC	sm64_mario_hurt, bin
+	IncludeDAC	sm64_mario_burned, bin
+	IncludeDAC	sm64_mario_whoa, bin
 	IncludeDAC	MamaF_er, bin
 	even
 

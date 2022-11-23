@@ -4,28 +4,28 @@
 ;
 ; O c�digo deste menu foi desenvolvido para funcionar com
 ; o disassembly do Sonic 1 feito por -> drx (www.hacking-cult.org)
-; 
-; Se estiver usando um disassembly diferente modifique os jumps no final do 
+;
+; Se estiver usando um disassembly diferente modifique os jumps no final do
 ; c�digo para que aponte para as rotinas equivalentes.
-; 
-; Para pode utilizar este menu basta fazer a seguinte modifica��o no c�digo 
+;
+; Para pode utilizar este menu basta fazer a seguinte modifica��o no c�digo
 ; original:
 ; Localize o label  -> loc_3242 adicione -> jmp     Level_Select_Menu
 ; O c�digo deve ficar como abaixo
 ;               ......................
 ; loc_3242:
 ;		tst.b	($FFFFFFE0).w
-;		beq.w	PlayLevel	
-;		btst	#6,($FFFFF604).w 
-;		beq.w	PlayLevel	  		
-;		jmp     Level_Select_Menu ; <- Carrega o Menu do Sonic 2	
-;		moveq	#2,d0		
-;		bsr.w	PalLoad		 
+;		beq.w	PlayLevel
+;		btst	#6,($FFFFF604).w
+;		beq.w	PlayLevel
+;		jmp     Level_Select_Menu ; <- Carrega o Menu do Sonic 2
+;		moveq	#2,d0
+;		bsr.w	PalLoad
 ;               ...............
 ;
 ; N�o esque�a de incluir este asm em seu c�digo com a diretiva include:
 ;               include 's2_menu.asm'
-;===============================================================================  
+;===============================================================================
 Slow_Motion_Flag      equ $FFFFFFE1
 Debug_Mode_Flag       equ $FFFFFFE2
 
@@ -72,8 +72,8 @@ Offset_0x026ADA:
 			move.l  #$52000000, ($00C00004)
 			lea     (Level_Icons), A0
 			jsr     Menu_NemesisDec
-;-------------------------------------------------------------------------------                
-; Carrega o Mapeamento do Fundo Sonic/Miles               
+;-------------------------------------------------------------------------------
+; Carrega o Mapeamento do Fundo Sonic/Miles
 ;-------------------------------------------------------------------------------
 			lea     ($FFFF0000), A1
 			lea     (Menu_Mappings), A0
@@ -84,8 +84,8 @@ Offset_0x026ADA:
 			moveq   #$27, D1
 			moveq   #$1B, D2
 			bsr     Menu_ShowVDPGraphics
-;-------------------------------------------------------------------------------                
-; Carrega o Texto do Menu de Sele??o de Fases               
+;-------------------------------------------------------------------------------
+; Carrega o Texto do Menu de Sele??o de Fases
 ;-------------------------------------------------------------------------------
 		lea		($FFFF0000),a3
 		move.w	#$045F,d1
@@ -137,7 +137,7 @@ Menu_Clear_Act_x:						; Limpa os n?meros dos acts n?o usados e carrega o "*" do
 ;		move.w  #$001A, (a2)          ; Load "*"
 ;-------------------------------------------------------------------------------
 ; Carrega o Mapeamento das Asas onde s�o mostrados os �cones
-;------------------------------------------------------------------------------- 
+;-------------------------------------------------------------------------------
 			lea     (Wings_Mappings), A0
 			lea     ($FFFF0670), A1
 			move     #$06, D1
@@ -148,9 +148,9 @@ Menu_Loop_Load_Wings:
 			dbra     D0, Menu_Loop_Load_Wings
 			add.w    #$3C, A1
 			dbra     D1, Menu_Loop_Next_Line
-;-------------------------------------------------------------------------------                
-; Carrega o Mapeamento dos �cones               
-;-------------------------------------------------------------------------------                                    
+;-------------------------------------------------------------------------------
+; Carrega o Mapeamento dos �cones
+;-------------------------------------------------------------------------------
 			lea     ($FFFF08C0), A1
 			lea     (Icons_Mappings), A0
 			move.w  #$0090, D0
@@ -160,14 +160,14 @@ Menu_Loop_Load_Wings:
 			moveq   #$27, D1
 			moveq   #$1B, D2
 			bsr     Menu_ShowVDPGraphics
-;-------------------------------------------------------------------------------                
+;-------------------------------------------------------------------------------
 			moveq   #$00, D3
 			bsr     Offset_0x027040
 			clr.w   ($FFFFFF70).w
 			clr.w   ($FFFFFE40).w
 			clr.b   ($FFFFF711).w
 			clr.w   ($FFFFF7F0).w
-;------------------------------------------------------------------------------- 
+;-------------------------------------------------------------------------------
 			jsr     Dynamic_Menu           ; Chama a rotina de anima��o
 ;-------------------------------------------------------------------------------
 
@@ -253,11 +253,11 @@ Menu_Ending_Sequence:
 Menu_Level_Select_Array:
 			dc.w    $0000, $0001, $0002	;GHZ
 			dc.w    $0200, $0201, $0202	;MZ
-			dc.w    $0400, $0401, $0402	;SYZ				
+			dc.w    $0400, $0401, $0402	;SYZ
 			dc.w    $0100, $0101, $0102 ;LZ
 			dc.w    $0300, $0301, $0302	;SLZ
 			dc.w    $0500, $0501, $0103	;SBZ
-			dc.w    $0502, $4000, $0600	
+			dc.w    $0502, $4000, $0600
 			dc.w    $FFFF
 Menu_Load_Level:
 			andi.w  #$3FFF, D0
@@ -275,7 +275,7 @@ Menu_Load_Level:
 			move.l  #$00001388, ($FFFFFFC0).w
 			move.l  #$00001388, ($FFFFFFC4).w
 			move.b  #Volume_Down, D0
-			bsr     Menu_Play_Music     
+			bsr     Menu_Play_Music
 			moveq   #$00, D0
 			move.w  D0, ($FFFFFF8A).w
 			move.w  D0, ($FFFFFFDC).w
@@ -308,7 +308,7 @@ Offset_0x026E2C:
 			move.w  D0, ($FFFFFF82).w
 			rts
 Offset_0x026E32:
-			cmpi.w  #$0015, ($FFFFFF82).w ; se o item for igual muda as fun��es de esquerda e direita 
+			cmpi.w  #$0015, ($FFFFFF82).w ; se o item for igual muda as fun��es de esquerda e direita
 			bne.s   Offset_0x026E9C
 			move.w  ($FFFFFF84).w, D0
 			move.b  ($FFFFF605).w, D1
@@ -335,12 +335,12 @@ Offset_0x026E6C:
 			beq.s   Offset_0x026E9A
 			move.w  ($FFFFFF84).w, D0
 			addi.w  #$0080, D0
-			bsr     Menu_Play_Music 
-			lea     (Code_Debug_Mode), A0   
-			lea     (Code_All_Emeralds), A2 
+			bsr     Menu_Play_Music
+			lea     (Code_Debug_Mode), A0
+			lea     (Code_All_Emeralds), A2
 			lea     ($FFFFFF0A).w, A1
 			moveq   #$01, D2
-			bsr     Menu_Code_Test 
+			bsr     Menu_Code_Test
 Offset_0x026E9A:
 			rts
 Offset_0x026E9C:
@@ -352,7 +352,7 @@ Offset_0x026E9C:
 			move.w  D0, ($FFFFFF82).w
 Offset_0x026EB2:
 			rts
-Menu_Left_Right_Select:                   
+Menu_Left_Right_Select:
 			dc.b    $0F, $10, $11, $12, $12, $12, $13, $13, $13, $14, $14, $14, $15, $15, $15
 			dc.b    $00, $01, $02, $03, $06, $09, $0C
 Offset_0x026ED8:
@@ -381,7 +381,7 @@ Offset_0x026ED8:
 			swap.w  D1
 			move.l  D1, $0004(A6)
 			moveq   #$0E, D2    ; Quantidade de letras a selecionar (Highlight)
-Offset_0x026F28:                
+Offset_0x026F28:
 			move.w  (A1)+, D0
 			add.w   D3, D0
 			move.w  D0, (A6)
@@ -431,8 +431,8 @@ Offset_0x026F9E:
 			add.w   D3, D0
 			move.w  D0, (A6)
 			rts
-;-------------------------------------------------------------------------------                
-Menu_Code_Test: 
+;-------------------------------------------------------------------------------
+Menu_Code_Test:
 			move.w  ($FFFFFF0C).w, D0
 			adda.w  D0, A0
 			move.w  ($FFFFFF84).w, D0
@@ -440,43 +440,43 @@ Menu_Code_Test:
 			bne.s   Menu_Reset_Debug_Mode_Code_Counter
 			addq.w  #$01, ($FFFFFF0C).w
 			tst.b   $0001(A0)
-			bpl.s   Menu_All_Emeralds_Code_Test 
+			bpl.s   Menu_All_Emeralds_Code_Test
 			move.w  #$0101, (A1)
-			bra     Menu_Set_Debug_Flag 
-Menu_Reset_Debug_Mode_Code_Counter: 
+			bra     Menu_Set_Debug_Flag
+Menu_Reset_Debug_Mode_Code_Counter:
 			move.w  #$0000, ($FFFFFF0C).w
-Menu_All_Emeralds_Code_Test: 
+Menu_All_Emeralds_Code_Test:
 			move.w  ($FFFFFF0E).w, D0
 			adda.w  D0, A2
 			move.w  ($FFFFFF84).w, D0
 			cmp.b   (A2), D0
-			bne.s   Menu_Reset_All_Emerald_Code_Counter 
+			bne.s   Menu_Reset_All_Emerald_Code_Counter
 			addq.w  #$01, ($FFFFFF0E).w
 			tst.b   $0001(A2)
-			bpl.s   Menu_Code_Not_0xFF 
+			bpl.s   Menu_Code_Not_0xFF
 			tst.w   D2
-			bne.s   Menu_Set_All_Emeralds 
-Menu_Set_Debug_Flag: 
+			bne.s   Menu_Set_All_Emeralds
+Menu_Set_Debug_Flag:
 			move.b  #$01, (Slow_Motion_Flag).w
 			move.b  #$01, (Debug_Mode_Flag).w
 			move.b  #Ring_Snd, D0
-			bsr     Menu_Play_Music 
-			bra.s   Menu_Reset_All_Emerald_Code_Counter 
-Menu_Set_All_Emeralds: 
+			bsr     Menu_Play_Music
+			bra.s   Menu_Reset_All_Emerald_Code_Counter
+Menu_Set_All_Emeralds:
 			move.w  #$0006, ($FFFFFE56).w
 			move.b  #Emerald_Snd, D0
-			bsr     Menu_Play_Music 
-Menu_Reset_All_Emerald_Code_Counter: 
+			bsr     Menu_Play_Music
+Menu_Reset_All_Emerald_Code_Counter:
 			move.w  #$0000, ($FFFFFF0E).w
-Menu_Code_Not_0xFF: 
-			rts               
-Code_Debug_Mode: 
+Menu_Code_Not_0xFF:
+			rts
+Code_Debug_Mode:
 			dc.b    $02, $00, $01, $08, $FF ; Among Us release year
 			even
-Code_All_Emeralds: 
+Code_All_Emeralds:
 			dc.b    $06, $09, $04, $02, $00, $FF ; Haha funni numbers
 			even
-;-------------------------------------------------------------------------------                 
+;-------------------------------------------------------------------------------
 Offset_0x027040:
 			bsr     Offset_0x026F7A
 			bra     Offset_0x027050
@@ -498,20 +498,20 @@ Offset_0x027050:
 			move.l  #$4B360003, D0        ; Posi��o Horizontal dos �cones
 			moveq   #$03, D1
 			moveq   #$02, D2
-			bsr     Menu_ShowVDPGraphics 
-			lea     (Icon_Palettes), A1  
+			bsr     Menu_ShowVDPGraphics
+			lea     (Icon_Palettes), A1
 			moveq   #$00, D0
 			move.b  (A3), D0
 			lsl.w   #$05, D0
 			lea     $00(A1, D0), A1
 			lea     ($FFFFFB40).w, A2
 			moveq   #$07, D1
-Offset_0x027098:                
+Offset_0x027098:
 			move.l  (A1)+, (A2)+
 			dbra    D1, Offset_0x027098
 			rts
-;-------------------------------------------------------------------------------                            
-Dynamic_Menu:                           
+;-------------------------------------------------------------------------------
+Dynamic_Menu:
 			subq.b  #$01, ($FFFFF7B9).w          ; Decrementa em 1 o Tempo
 			bpl.s   Exit_Dinamic_Menu            ; Se for maior ou igual a 0 sai da fun��o
 			move.b  #$07, ($FFFFF7B9).w          ; Inicializa o tempo de dura��o de cada frame
@@ -525,32 +525,32 @@ Dynamic_Menu:
 			move.l  #$40200000, $0004(A6)
 			lea     (Sonic_Miles_Spr), A1
 			lea     $00(A1, D0), A1
-			move.w  #$0009, D0                   ; Tiles-1 a serem carregados por vez 
+			move.w  #$0009, D0                   ; Tiles-1 a serem carregados por vez
 Menu_Loop_Load_Tiles:
 			move.l  (A1)+, (A6)
-			move.l  (A1)+, (A6)     
-			move.l  (A1)+, (A6)     
-			move.l  (A1)+, (A6)     
-			move.l  (A1)+, (A6)     
+			move.l  (A1)+, (A6)
+			move.l  (A1)+, (A6)
+			move.l  (A1)+, (A6)
+			move.l  (A1)+, (A6)
 			move.l  (A1)+, (A6)
 			move.l  (A1)+, (A6)
 			move.l  (A1)+, (A6)
 			dbra    D0, Menu_Loop_Load_Tiles
-Exit_Dinamic_Menu:                
-			rts              
-Sonic_Miles_Frame_Select:     
+Exit_Dinamic_Menu:
+			rts
+Sonic_Miles_Frame_Select:
 			dc.b    $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 			dc.b    $05, $0A
 			dc.b    $0F, $0F, $0F, $0F, $0F, $0F, $0F, $0F, $0F, $0F, $0F, $0F, $0F, $0F
-			dc.b    $0A, $05   
+			dc.b    $0A, $05
 			; 0 = 0000000000  ; 1 = 0101000000  ; 2 = 1010000000 ; 3 = 1111000000
-;------------------------------------------------------------------------------                  
+;------------------------------------------------------------------------------
 __ = $00
 _A = $1E
 _B = $1F
 _C = $20
 _D = $21
-_E = $22    
+_E = $22
 _F = $23
 _G = $24
 _H = $25
@@ -573,8 +573,8 @@ _X = $35
 _Y = $36
 _Z = $37
 _st = $1A
-;-------------------------------------------------------------------------------  
-Icon_Palettes: 
+;-------------------------------------------------------------------------------
+Icon_Palettes:
 			dc.w    $0000, $0000, $0048, $006A, $008E, $00CE, $0EEE, $00E0
 			dc.w    $00A4, $0082, $0062, $0000, $0E86, $0026, $0E42, $0C00
 			dc.w    $0000, $0000, $0420, $0820, $0C00, $0E60, $0A00, $0000
@@ -613,38 +613,38 @@ Icon_Palettes:
 			dc.w    $0888, $0444, $08AE, $046A, $000E, $0000, $00EE, $0000
 			dc.w    $0000, $0000, $0A22, $0C42, $0000, $0E66, $0EEE, $0AAA
 			dc.w    $0888, $0444, $08AE, $046A, $000E, $0000, $00EE, $0000
-;-------------------------------------------------------------------------------  
-Menu_Icon_List: 
+;-------------------------------------------------------------------------------
+Menu_Icon_List:
 			dc.b    $00, $00, $00, $0E, $0E, $0E, $06, $06, $06, $0B, $0B, $0B, $0D, $0D, $0D, $09
 			dc.b    $09, $09, $04, $10, $0F, $11
-;-------------------------------------------------------------------------------                 
-Menu_Text_Highlight:                  
+;-------------------------------------------------------------------------------
+Menu_Text_Highlight:
 			dc.w    $0306, $0324, $0306, $0424, $0306, $0524, $0706, $0724
 			dc.w    $0706, $0824, $0706, $0924, $0B06, $0B24, $0B06, $0C24
 			dc.w    $0B06, $0D24, $0F06, $0F24, $0F06, $1024, $0F06, $1124
 			dc.w    $1306, $1324, $1306, $1424, $1306, $1524, $032C, $034A
 			dc.w    $032C, $044A, $032C, $054A, $072C, $0000, $0B2C, $0000
 			dc.w    $0F2C, $0000, $132C, $134A
-;-------------------------------------------------------------------------------                
-Menu_Text_Positions:                   
+;-------------------------------------------------------------------------------
+Menu_Text_Positions:
 			dc.w    $00F6, $0236, $0376, $04B6, $05F6, $011C, $025C, $039C
 			dc.w    $04DC, $061C
-;-------------------------------------------------------------------------------                          
-Menu_Level_Select_Text: 
+;-------------------------------------------------------------------------------
+Menu_Level_Select_Text:
 			dc.b    $0E, _T, _U, _R, _D, __, __, _H, _I, _L, _L, __, __, __, __, __
 			dc.b    $0E, _B, _L, _U, _E, __, __, _H, _I, _L, _L, __, __, __, __, __
 			dc.b    $0E, _S, _U, _S, __, _Y, _A, _R, _D, __, _L, _O, _L, __, _X, _D
 			dc.b    $0E, _B, _L, _U, _E, __, __, _O, _C, _E, _A, _N, __, __, __, __
 			dc.b    $0E, _R, _O, _C, _K, _Y, __, _M, _O, _U, _N, _T, _I, _A, _N, __
 			dc.b    $0E, _S, _C, _R, _A, _P, __, _B, _R, _A, _I, _N, __, __, __, __
-			dc.b    $0E, _L, _A, _S, _T, __, __, __, __, __, __, __, __, __, __, __   
+			dc.b    $0E, _L, _A, _S, _T, __, __, __, __, __, __, __, __, __, __, __
 			dc.b    $0E, _S, _P, _E, _C, _I, _A, _L, __, _S, _T, _A, _G, _E, __, __
 			dc.b    $0E, _E, _N, _D, _I, _N, _G, __, _S, _E, _Q, _U, _E, _N, _C, _E
-			dc.b    $0E, _S, _O, _U, _N, _D, __, _T, _E, _S, _T, __, __, _st,__, __                
+			dc.b    $0E, _S, _O, _U, _N, _D, __, _T, _E, _S, _T, __, __, _st,__, __
 ;-------------------------------------------------------------------------------
-Wings_Mappings: 
-			dc.w    $6000, $6000, $6000, $604D, $604E, $684E, $684D, $6000, $6000, $6000   
-;Wings_Line_1:                 
+Wings_Mappings:
+			dc.w    $6000, $6000, $6000, $604D, $604E, $684E, $684D, $6000, $6000, $6000
+;Wings_Line_1:
 			dc.w    $604F, $6050, $6051, $6052, $6053, $6853, $6852, $6851, $6850, $684F
 ;Wings_Line_2:
 			dc.w    $6054, $6055, $6056, $6057, $6057, $6057, $6057, $6856, $6855, $6854
@@ -655,43 +655,43 @@ Wings_Mappings:
 ;Wings_Line_5:
 			dc.w    $6000, $605E, $605F, $6060, $6061, $6062, $6063, $6064, $685E, $6000
 ;Wings_Line_6:
-			dc.w    $6000, $6000, $6065, $6066, $6067, $6867, $6866, $6865, $6000, $6000 
-;-------------------------------------------------------------------------------    
+			dc.w    $6000, $6000, $6065, $6066, $6067, $6867, $6866, $6865, $6000, $6000
+;-------------------------------------------------------------------------------
 Menu_Palette:
-			incbin  'data\menu\menu.pal'            
+			incbin  'data\menu\menu.pal'
 Menu_ClearScreen:
 			jmp     ClearScreen
-Menu_ShowVDPGraphics:                
-			jmp     ShowVDPGraphics                
-Menu_NemesisDec: 
-			jmp     NemDec  
-Menu_LoadPLC2:      
+Menu_ShowVDPGraphics:
+			jmp     ShowVDPGraphics
+Menu_NemesisDec:
+			jmp     NemDec
+Menu_LoadPLC2:
 			jmp     LoadPLC2
-Menu_RunPLC:                    
-			jmp     RunPLC_RAM                           
+Menu_RunPLC:
+			jmp     RunPLC_RAM
 Menu_EnigmaDec
 			jmp     EniDec
 Menu_Pal_FadeTo:
 			jmp     Pal_FadeTo
 Menu_Pal_FadeFrom:
-			jmp     Pal_FadeFrom     
+			jmp     Pal_FadeFrom
 Menu_Play_Music:
-			jmp     PlaySound  
+			jmp     PlaySound
 Menu_PalLoad1:
 			jmp     PalLoad1
 Menu_DelayProgram:
 			jmp     DelayProgram
 ;-------------------------------------------------------------------------------
 Menu_Font:
-			incbin  'data\menu\menufont.nem' 
+			incbin  'data\menu\menufont.nem'
 Level_Icons:
-			incbin  'data\menu\levelico.nem'   
+			incbin  'data\menu\levelico.nem'
 Menu_Mappings:
 			incbin  'data\menu\menubg.eni'
 Icons_Mappings:
 			incbin  'data\menu\iconsmap.eni'
-Sonic_Miles_Spr:                                         
-			incbin  'data\menu\soncmils.dat'   
+Sonic_Miles_Spr:
+			incbin  'data\menu\soncmils.dat'
 ;===============================================================================
 ; Menu do Sonic 2 No Sonic 1 reprogramado por Esrael L. G. Neto
 ; [ Fim ]
