@@ -1,6 +1,7 @@
 *.log
 Sonic 1 - Text Code Generator.exe
 SonLVL/*
+Sonic 1 2005 INIs/dllcache/*
 s1built.bin
 sonic1.lst
 s1built.sym
