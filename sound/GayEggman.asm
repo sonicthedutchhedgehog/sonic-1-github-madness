@@ -2,17 +2,17 @@ GayCircus_Header:
 smpsHeaderStartSong = 3
 	smpsHeaderVoice     GayCircus_Voices
 	smpsHeaderChan      $06, $03
-	smpsHeaderTempo     $01, $20
+	smpsHeaderTempo     $01, $04
 
 	smpsHeaderDAC       GayCircus_DAC
-	smpsHeaderFM        GayCircus_FM1,	$0D, $09
-	smpsHeaderFM        GayCircus_FM2,	$0D, $19
-	smpsHeaderFM        GayCircus_FM3,	$0D, $19
-	smpsHeaderFM        GayCircus_FM4,	$0D, $0C
-	smpsHeaderFM        GayCircus_FM5,	$0D, $0C
-	smpsHeaderPSG       GayCircus_PSG1,	$F4, $03, $00, $00
-	smpsHeaderPSG       GayCircus_PSG2,	$E8, $03, $00, $00
-	smpsHeaderPSG       GayCircus_PSG3,	$23, $00, $00, $00
+	smpsHeaderFM        GayCircus_FM1,	$01, $09
+	smpsHeaderFM        GayCircus_FM2,	$01, $19
+	smpsHeaderFM        GayCircus_FM3,	$01, $19
+	smpsHeaderFM        GayCircus_FM4,	$01, $0C
+	smpsHeaderFM        GayCircus_FM5,	$01, $0C
+	smpsHeaderPSG       GayCircus_PSG1,	$F5, $03, $00, $00
+	smpsHeaderPSG       GayCircus_PSG2,	$E9, $03, $00, $00
+	smpsHeaderPSG       GayCircus_PSG3,	$00, $00, $00, $00
 
 ; FM1 Data
 GayCircus_FM1:
@@ -223,7 +223,7 @@ GayCircus_Jump02:
 
 ; PSG2 Data
 GayCircus_PSG2:
-	smpsPSGvoice        $00
+	smpsPSGvoice        $04
 	smpsAlterPitch      $0C
 	smpsPSGAlterVol     $FF
 	dc.b	nRst, $12, nEb3, $04, nRst, $02, nAb3, $04, nRst, $08, nEb3, $04
@@ -286,62 +286,62 @@ GayCircus_Jump01:
 ; PSG3 Data
 GayCircus_PSG3:
 	smpsPSGform         $E7
-	smpsPSGvoice        $00
-	dc.b	(nMaxPSG2-$23)&$FF, $30
-	smpsPSGvoice        $00
-	dc.b	(nMaxPSG2-$23)&$FF
-	smpsPSGvoice        $00
-	dc.b	(nMaxPSG2-$23)&$FF, $18, $48
+	smpsPSGvoice        $04
+	dc.b	nMaxPSG, $30
+	smpsPSGvoice        $04
+	dc.b	nMaxPSG
+	smpsPSGvoice        $04
+	dc.b	nMaxPSG, $18, $48
 
 GayCircus_Jump00:
-	smpsPSGvoice        $00
-	dc.b	(nMaxPSG2-$23)&$FF, $30
+	smpsPSGvoice        $04
+	dc.b	nMaxPSG, $30
 	smpsPSGvoice        $02
-	dc.b	(nMaxPSG2-$23)&$FF
+	dc.b	nMaxPSG
 	smpsPSGvoice        $02
-	dc.b	(nMaxPSG2-$23)&$FF
+	dc.b	nMaxPSG
 	smpsPSGvoice        $02
-	dc.b	(nMaxPSG2-$23)&$FF
-	smpsPSGvoice        $00
-	dc.b	(nMaxPSG2-$23)&$FF
+	dc.b	nMaxPSG
+	smpsPSGvoice        $04
+	dc.b	nMaxPSG
 	smpsPSGvoice        $02
-	dc.b	(nMaxPSG2-$23)&$FF
+	dc.b	nMaxPSG
 	smpsPSGvoice        $02
-	dc.b	(nMaxPSG2-$23)&$FF
+	dc.b	nMaxPSG
 	smpsPSGvoice        $02
-	dc.b	(nMaxPSG2-$23)&$FF
-	smpsPSGvoice        $00
-	dc.b	(nMaxPSG2-$23)&$FF
-	smpsPSGvoice        $00
-	dc.b	(nMaxPSG2-$23)&$FF
-	smpsPSGvoice        $00
-	dc.b	(nMaxPSG2-$23)&$FF
-	smpsPSGvoice        $00
-	dc.b	(nMaxPSG2-$23)&$FF
-	smpsPSGvoice        $00
-	dc.b	(nMaxPSG2-$23)&$FF
+	dc.b	nMaxPSG
+	smpsPSGvoice        $04
+	dc.b	nMaxPSG
+	smpsPSGvoice        $04
+	dc.b	nMaxPSG
+	smpsPSGvoice        $04
+	dc.b	nMaxPSG
+	smpsPSGvoice        $04
+	dc.b	nMaxPSG
+	smpsPSGvoice        $04
+	dc.b	nMaxPSG
 	smpsPSGvoice        $02
-	dc.b	(nMaxPSG2-$23)&$FF
-	smpsPSGvoice        $00
-	dc.b	(nMaxPSG2-$23)&$FF
-	smpsPSGvoice        $00
-	dc.b	(nMaxPSG2-$23)&$FF
-	smpsPSGvoice        $00
-	dc.b	(nMaxPSG2-$23)&$FF
+	dc.b	nMaxPSG
+	smpsPSGvoice        $04
+	dc.b	nMaxPSG
+	smpsPSGvoice        $04
+	dc.b	nMaxPSG
+	smpsPSGvoice        $04
+	dc.b	nMaxPSG
 	smpsPSGvoice        $02
-	dc.b	(nMaxPSG2-$23)&$FF
+	dc.b	nMaxPSG
 	smpsPSGvoice        $02
-	dc.b	(nMaxPSG2-$23)&$FF
+	dc.b	nMaxPSG
 	smpsPSGvoice        $02
-	dc.b	(nMaxPSG2-$23)&$FF
-	smpsPSGvoice        $00
-	dc.b	(nMaxPSG2-$23)&$FF
-	smpsPSGvoice        $00
-	dc.b	(nMaxPSG2-$23)&$FF
-	smpsPSGvoice        $00
-	dc.b	(nMaxPSG2-$23)&$FF
-	smpsPSGvoice        $00
-	dc.b	(nMaxPSG2-$23)&$FF
+	dc.b	nMaxPSG
+	smpsPSGvoice        $04
+	dc.b	nMaxPSG
+	smpsPSGvoice        $04
+	dc.b	nMaxPSG
+	smpsPSGvoice        $04
+	dc.b	nMaxPSG
+	smpsPSGvoice        $04
+	dc.b	nMaxPSG
 	smpsJump            GayCircus_Jump00
 
 ; DAC Data
