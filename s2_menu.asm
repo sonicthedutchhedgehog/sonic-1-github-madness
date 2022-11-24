@@ -133,8 +133,8 @@ Menu_Clear_Act_x:						; Limpa os n?meros dos acts n?o usados e carrega o "*" do
 		move.w	#$0000,(a2)				; Load " "
 		lea		$0050(a2),a2
 		dbra	d1,Menu_Clear_Act_x
-;		lea     $FF10(a2), a2
-;		move.w  #$001A, (a2)          ; Load "*"
+;		lea	$FF10(a2), a2
+;		move.w	#$001A, (a2)          ; Load "*"
 ;-------------------------------------------------------------------------------
 ; Carrega o Mapeamento das Asas onde s�o mostrados os �cones
 ;-------------------------------------------------------------------------------
