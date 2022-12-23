@@ -12,4 +12,6 @@ also this is the hivebrain disasm
 floof was here
 cyanmonitor wasn't here, who he is btw? I only heard of Monitor
 min3r can't be here
-dg would be here but I'm just so fucking irredeemable to you motherfuckers apparently. 
+dg would be here but he couldn't make it, so here's his replacement
+
+![](https://media.discordapp.net/attachments/743958840655085573/1055671926560935946/image.png)
