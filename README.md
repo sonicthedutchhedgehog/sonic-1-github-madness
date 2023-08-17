@@ -1,3 +1,5 @@
+NOTE: if you want to use anything from this repository please contact the person who made said thing before using it. 
+
 this project is a puplic disassemply of sonic 1 that can be modified without any rules so you can change levels, palletes, grapics, coding and everything else.
 
 the only rule is: once it is not builtibe it will be recoverd.
